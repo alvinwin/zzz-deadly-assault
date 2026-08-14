@@ -1,0 +1,11 @@
+const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const list = values => values?.length ? values.map(esc).join(' · ') : (data.cycle.publishable ? 'none' : 'pending verification');
+const buffs = values => values?.length ? values.map(buff => `<span title="${esc(buff.description)}">${esc(buff.name)}</span>`).join(' · ') : 'pending verification';
+const data = await fetch('data/current.json').then(response => response.json());
+const { cycle, encounters } = data;
+const sourceById = new Map(data.sources.map(source => [source.id, source]));
+const sourceLinks = ids => ids.map(id => { const source = sourceById.get(id); return `<a href="${esc(source?.url || '#')}">${esc(source?.label || id)}</a>`; }).join(' · ');
+document.querySelector('#buff-list').innerHTML = data.buffs.map(buff => `<article><strong>${esc(buff.name)}</strong><p>${esc(buff.description)}</p><small>${sourceLinks(cycle.provenance.buffs)}</small></article>`).join('');
+document.querySelector('#status').innerHTML = cycle.publishable ? '<strong>verified brief</strong><span>ready for the current cycle</span>' : '<strong>fixture / do not publish</strong><span>HP, affinities, buffs, and sources still need verification</span>';
+document.querySelector('#freshness').textContent = `checked ${new Date(cycle.checkedAt).toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'})} · ends ${new Date(cycle.endsAt).toLocaleDateString(undefined, {month:'short', day:'numeric'})}`;
+document.querySelector('#cards').innerHTML = encounters.map((encounter, index) => `<article class="card ${encounter.category === 'adversity' ? 'adversity' : ''}"><div class="card-top"><span class="index">${String(index + 1).padStart(2, '0')}</span><span class="tag">${esc(encounter.category)}</span></div><h3>${esc(encounter.name)}</h3><div class="hp"><span>HP</span><strong>${encounter.hp == null ? '—' : encounter.hp.toLocaleString()}</strong></div><dl><div><dt>Weaknesses</dt><dd>${list(encounter.weaknesses)}</dd></div><div><dt>Resistances</dt><dd>${list(encounter.resistances)}</dd></div></dl><p class="provenance">${sourceLinks(encounter.sourceRefs)} · ${esc(cycle.id)}</p></article>`).join('');

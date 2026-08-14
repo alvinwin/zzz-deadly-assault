@@ -1,0 +1,19 @@
+{
+  "name": "zzz-deadly-assault",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-data.mjs",
+    "update:data": "node scripts/update-data.mjs",
+    "test": "node --test tests/validator.test.mjs",
+    "test:e2e": "playwright test",
+    "build": "node scripts/validate-data.mjs && node scripts/build.mjs",
+    "build:fixture": "node scripts/validate-data.mjs --allow-fixture && node scripts/build.mjs",
+    "check": "npm test && npm run build:fixture"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

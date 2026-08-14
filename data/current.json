@@ -1,0 +1,182 @@
+{
+  "cycle": {
+    "id": "3.1.2",
+    "label": "3.1 Phase 2",
+    "startsAt": "2026-08-14T00:00:00.000Z",
+    "endsAt": "2026-08-28T00:00:00.000Z",
+    "checkedAt": "2026-08-14T23:46:10.496Z",
+    "hasAdversity": true,
+    "publishable": true,
+    "formula": "floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)",
+    "provenance": {
+      "rotation": [
+        "rotation"
+      ],
+      "formula": [
+        "formula"
+      ],
+      "buffs": [
+        "buff"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "rotation",
+      "label": "Rotation data",
+      "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da-versions.json",
+      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
+    },
+    {
+      "id": "enemy",
+      "label": "Enemy data",
+      "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/enemies.json",
+      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
+    },
+    {
+      "id": "buff",
+      "label": "Buff data",
+      "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/buffs.json",
+      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
+    },
+    {
+      "id": "formula",
+      "label": "HP formula",
+      "url": "https://github.com/spiritfxxxx/buhflipexplode/blob/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da.js",
+      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
+    }
+  ],
+  "buffs": [
+    {
+      "id": "69000066",
+      "name": "United Strength",
+      "description": "If there are 2/3 Agents in the squad with Anomaly specialty, the whole squad's Anomaly Proficiency increases by 30/70 respectively, and Attribute Anomaly DMG dealt increases by 10%/25% respectively.\nAfter inflicting an Attribute Anomaly on an enemy, the enemy's All-Attribute RES is reduced by 15% for 10s. Repeated triggers reset the duration."
+    },
+    {
+      "id": "69000068",
+      "name": "Frost Reins",
+      "description": "For Agents with Attack specialty, their ATK increases by 25%. When their Basic Attack, EX Special Attack, or Chain Attack hits an enemy, it ignores 30% of the target's Ice RES and Ether RES.\nWhen an Agent hits a Stunned enemy, the target's Stun DMG Multiplier increases by 40% for 5s. Repeated triggers reset the duration."
+    },
+    {
+      "id": "69000055",
+      "name": "Breakthrough",
+      "description": "Rupture specialty Agent Sheer DMG increases by 15%, and reduces Miasma Shield 30% faster.\nWhile in Ether Veil, Agent Ether DMG increases by 25%, and hitting an enemy makes its Stun DMG Multiplier increase by 25% for 10s. Repeated triggers reset the duration."
+    }
+  ],
+  "encounters": [
+    {
+      "id": "31300",
+      "name": "Girtablullu: Stagnant Aberrant",
+      "category": "standard",
+      "hp": 197200218,
+      "weaknesses": [],
+      "resistances": [],
+      "sourceRefs": [
+        "rotation",
+        "enemy",
+        "formula"
+      ],
+      "provenance": {
+        "rotation": [
+          "rotation"
+        ],
+        "enemy": [
+          "enemy"
+        ],
+        "formula": [
+          "formula"
+        ]
+      }
+    },
+    {
+      "id": "24300",
+      "name": "Ye Shiyuan the Thrall",
+      "category": "standard",
+      "hp": 210855875,
+      "weaknesses": [
+        "ice",
+        "physical",
+        "wind"
+      ],
+      "resistances": [
+        "electric"
+      ],
+      "sourceRefs": [
+        "rotation",
+        "enemy",
+        "formula"
+      ],
+      "provenance": {
+        "rotation": [
+          "rotation"
+        ],
+        "enemy": [
+          "enemy"
+        ],
+        "formula": [
+          "formula"
+        ]
+      }
+    },
+    {
+      "id": "20300",
+      "name": "Miasma Priest",
+      "category": "standard",
+      "hp": 182741441,
+      "weaknesses": [
+        "ether"
+      ],
+      "resistances": [
+        "ice"
+      ],
+      "sourceRefs": [
+        "rotation",
+        "enemy",
+        "formula"
+      ],
+      "provenance": {
+        "rotation": [
+          "rotation"
+        ],
+        "enemy": [
+          "enemy"
+        ],
+        "formula": [
+          "formula"
+        ]
+      }
+    },
+    {
+      "id": "28400",
+      "name": "Rewritten: Sanguine Sweeper",
+      "category": "adversity",
+      "hp": 729925961,
+      "weaknesses": [
+        "ice"
+      ],
+      "resistances": [
+        "physical"
+      ],
+      "sourceRefs": [
+        "rotation",
+        "enemy",
+        "formula"
+      ],
+      "provenance": {
+        "rotation": [
+          "rotation"
+        ],
+        "enemy": [
+          "enemy"
+        ],
+        "formula": [
+          "formula"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+name: update-validate-and-deploy
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_id: ${{ steps.artifact.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - name: update from pinned upstream commit
+        run: npm run update:data
+      - run: npm test
+      - run: npm run validate
+      - run: npm run build
+      - id: artifact
+        uses: actions/upload-pages-artifact@v3
+        with: {path: dist}
+  deploy:
+    needs: build
+    if: needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/download-artifact@v4
+        with: {artifact-ids: ${{ needs.build.outputs.artifact_id }}, path: dist}
+      - id: deployment
+        uses: actions/deploy-pages@v4
