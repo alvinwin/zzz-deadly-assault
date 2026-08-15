@@ -3,7 +3,9 @@ import path from 'node:path';
 
 const isIso = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
 const isPlaceholder = value => value == null || (typeof value === 'string' && /pending|tbd|placeholder|example\.invalid/i.test(value));
-const segmentKinds = new Set(['v', 'e', 'd', 'm']);
+const segmentKinds = new Set(['v', 'e', 'd', 'm', 'a', 't', 'r', 's', 'u', 'f']);
+const specialties = new Set(['Attack', 'Stun', 'Anomaly', 'Support', 'Defense', 'Rupture']);
+const elements = new Set(['ice', 'fire', 'electric', 'ether', 'physical', 'wind']);
 
 export function validateData(data, { allowFixture = false, now = Date.now() } = {}) {
   const errors = [];
@@ -43,8 +45,22 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
     if (!encounter.id || !encounter.name) errors.push(`${id} is missing id or name`);
     if (!['standard', 'adversity'].includes(encounter.category)) errors.push(`${id} has invalid category`);
     if (!Number.isFinite(encounter.hp) || encounter.hp <= 0) errors.push(`${id} has invalid/nonpositive HP`);
-    if (!Array.isArray(encounter.weaknesses) || encounter.weaknesses.some(isPlaceholder)) errors.push(`${id} is missing weaknesses`);
-    if (!Array.isArray(encounter.resistances) || encounter.resistances.some(isPlaceholder)) errors.push(`${id} is missing resistances`);
+    if (!Number.isInteger(encounter.type) || encounter.type < 0) errors.push(id + ' has invalid enemy type');
+    if (!Array.isArray(encounter.history) || encounter.history.length === 0 || encounter.history.length > 8 || encounter.history.some(point => !Array.isArray(point) || point.length !== 2 || typeof point[0] !== 'string' || !Number.isFinite(point[1]) || point[1] <= 0)) errors.push(id + ' has invalid HP history');
+    if (encounter.specialty !== null && !specialties.has(encounter.specialty)) errors.push(id + ' has invalid specialty');
+    if (typeof encounter.mechanic !== 'string' || !encounter.mechanic || /<\/?[a-z][^>]*>/i.test(encounter.mechanic)) errors.push(id + ' is missing or unsafe mechanic');
+    if (!['reviewed', 'fallback'].includes(encounter.mechanicReview)) errors.push(id + ' has invalid mechanic review flag');
+    if (!Array.isArray(encounter.mechanicSegments)) errors.push(id + ' is missing mechanic emphasis segments');
+    let mechanicCursor = 0;
+    if (Array.isArray(encounter.mechanicSegments) && encounter.mechanicSegments.some(segment => {
+      if (!Array.isArray(segment) || segment.length !== 3) return true;
+      const [start, end, kind] = segment;
+      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= encounter.mechanic.length && start >= mechanicCursor && segmentKinds.has(kind);
+      mechanicCursor = valid ? end : mechanicCursor;
+      return !valid;
+    })) errors.push(id + ' has invalid mechanic emphasis segments');
+    if (!Array.isArray(encounter.weaknesses) || encounter.weaknesses.some(value => isPlaceholder(value) || !elements.has(value))) errors.push(`${id} is missing weaknesses`);
+    if (!Array.isArray(encounter.resistances) || encounter.resistances.some(value => isPlaceholder(value) || !elements.has(value))) errors.push(`${id} is missing resistances`);
     if (!Array.isArray(encounter.sourceRefs) || encounter.sourceRefs.length === 0 || encounter.sourceRefs.some(ref => !sourceIds.has(ref))) errors.push(`${id} has broken source references`);
     const provenance = encounter.provenance || {};
     for (const field of ['rotation', 'enemy', 'formula']) if (!sourceListValid(provenance[field])) errors.push(`${id} has invalid ${field} provenance source IDs`);

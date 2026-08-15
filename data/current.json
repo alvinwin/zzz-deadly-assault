@@ -4,7 +4,7 @@
     "label": "3.1 Phase 2",
     "startsAt": "2026-08-14T00:00:00.000Z",
     "endsAt": "2026-08-28T00:00:00.000Z",
-    "checkedAt": "2026-08-15T00:45:19.026Z",
+    "checkedAt": "2026-08-15T01:53:54.968Z",
     "hasAdversity": true,
     "publishable": true,
     "formula": "floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)",
@@ -25,28 +25,28 @@
       "id": "rotation",
       "label": "Rotation data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da-versions.json",
-      "retrievedAt": "2026-08-15T00:45:19.026Z",
+      "retrievedAt": "2026-08-15T01:53:54.968Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "enemy",
       "label": "Enemy data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/enemies.json",
-      "retrievedAt": "2026-08-15T00:45:19.026Z",
+      "retrievedAt": "2026-08-15T01:53:54.968Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "buff",
       "label": "Buff data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/buffs.json",
-      "retrievedAt": "2026-08-15T00:45:19.026Z",
+      "retrievedAt": "2026-08-15T01:53:54.968Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "formula",
       "label": "HP formula",
       "url": "https://github.com/spiritfxxxx/buhflipexplode/blob/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da.js",
-      "retrievedAt": "2026-08-15T00:45:19.026Z",
+      "retrievedAt": "2026-08-15T01:53:54.968Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     }
   ],
@@ -64,7 +64,7 @@
         [
           42,
           59,
-          "m"
+          "a"
         ],
         [
           79,
@@ -75,11 +75,6 @@
           112,
           117,
           "v"
-        ],
-        [
-          118,
-          121,
-          "d"
         ],
         [
           136,
@@ -95,11 +90,6 @@
           181,
           184,
           "v"
-        ],
-        [
-          185,
-          188,
-          "d"
         ],
         [
           219,
@@ -125,11 +115,6 @@
           307,
           324,
           "m"
-        ],
-        [
-          325,
-          328,
-          "d"
         ]
       ]
     },
@@ -141,7 +126,7 @@
         [
           16,
           32,
-          "m"
+          "t"
         ],
         [
           40,
@@ -172,11 +157,6 @@
           122,
           135,
           "m"
-        ],
-        [
-          144,
-          147,
-          "d"
         ],
         [
           148,
@@ -217,11 +197,6 @@
           285,
           302,
           "m"
-        ],
-        [
-          303,
-          306,
-          "d"
         ]
       ]
     },
@@ -233,7 +208,7 @@
         [
           0,
           17,
-          "m"
+          "r"
         ],
         [
           24,
@@ -289,11 +264,6 @@
           221,
           238,
           "m"
-        ],
-        [
-          239,
-          242,
-          "d"
         ]
       ]
     }
@@ -301,9 +271,50 @@
   "encounters": [
     {
       "id": "31300",
+      "type": 0,
       "name": "Girtablullu: Stagnant Aberrant",
       "category": "standard",
       "hp": 197200218,
+      "history": [
+        [
+          "3.1.1",
+          197200218
+        ],
+        [
+          "3.1.2",
+          197200218
+        ]
+      ],
+      "specialty": "Anomaly",
+      "mechanic": "Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds. Each mark increases Attribute Anomaly DMG taken by 8%.",
+      "mechanicReview": "reviewed",
+      "mechanicSegments": [
+        [
+          9,
+          26,
+          "m"
+        ],
+        [
+          34,
+          35,
+          "v"
+        ],
+        [
+          52,
+          54,
+          "v"
+        ],
+        [
+          84,
+          105,
+          "d"
+        ],
+        [
+          115,
+          117,
+          "v"
+        ]
+      ],
       "weaknesses": [],
       "resistances": [],
       "sourceRefs": [
@@ -325,9 +336,39 @@
     },
     {
       "id": "24300",
+      "type": 1,
       "name": "Ye Shiyuan the Thrall",
       "category": "standard",
       "hp": 210855875,
+      "history": [
+        [
+          "2.6.3",
+          161506628
+        ],
+        [
+          "2.7.2",
+          179451809
+        ],
+        [
+          "3.1.2",
+          210855875
+        ]
+      ],
+      "specialty": "Stun",
+      "mechanic": "The Thrall gets Contract and Self-Sacrifice when it changes turns with Sobek. Stun the Thrall to increase CRIT DMG taken by 50%.",
+      "mechanicReview": "reviewed",
+      "mechanicSegments": [
+        [
+          111,
+          114,
+          "d"
+        ],
+        [
+          124,
+          127,
+          "v"
+        ]
+      ],
       "weaknesses": [
         "ice",
         "physical",
@@ -355,9 +396,64 @@
     },
     {
       "id": "20300",
+      "type": 0,
       "name": "Miasma Priest",
       "category": "standard",
       "hp": 182741441,
+      "history": [
+        [
+          "2.2.1",
+          109644864
+        ],
+        [
+          "2.2.3",
+          109644864
+        ],
+        [
+          "2.3.1",
+          114213400
+        ],
+        [
+          "2.3.3",
+          114213400
+        ],
+        [
+          "2.5.2",
+          127919008
+        ],
+        [
+          "2.6.1",
+          144365738
+        ],
+        [
+          "2.7.1",
+          146193152
+        ],
+        [
+          "3.1.2",
+          182741441
+        ]
+      ],
+      "specialty": "Rupture",
+      "mechanic": "Each phase change increases Anomaly Buildup RES by 10% and CRIT DMG taken by 30%. Break Miasmic Shield to remove the stacks.",
+      "mechanicReview": "reviewed",
+      "mechanicSegments": [
+        [
+          51,
+          54,
+          "v"
+        ],
+        [
+          64,
+          67,
+          "d"
+        ],
+        [
+          77,
+          80,
+          "v"
+        ]
+      ],
       "weaknesses": [
         "ether"
       ],
@@ -383,9 +479,71 @@
     },
     {
       "id": "28400",
+      "type": 0,
       "name": "Rewritten: Sanguine Sweeper",
       "category": "adversity",
       "hp": 729925961,
+      "history": [
+        [
+          "3.1.2",
+          729925961
+        ]
+      ],
+      "specialty": null,
+      "mechanic": "Trigger SHUTDOWN to decrease enemy All-Attribute RES by 10%. Agents with the Attack specialty then get 20% ATK, 25% PEN Ratio, and 60% Ice and Ether CRIT DMG.",
+      "mechanicReview": "reviewed",
+      "mechanicSegments": [
+        [
+          35,
+          52,
+          "d"
+        ],
+        [
+          56,
+          59,
+          "v"
+        ],
+        [
+          77,
+          93,
+          "t"
+        ],
+        [
+          103,
+          106,
+          "v"
+        ],
+        [
+          107,
+          110,
+          "d"
+        ],
+        [
+          112,
+          115,
+          "v"
+        ],
+        [
+          131,
+          134,
+          "v"
+        ],
+        [
+          135,
+          138,
+          "e"
+        ],
+        [
+          143,
+          148,
+          "e"
+        ],
+        [
+          154,
+          157,
+          "d"
+        ]
+      ],
       "weaknesses": [
         "ice"
       ],
