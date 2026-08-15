@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 const feedbackUrl = 'https://github.com/alvinwin/zzz-deadly-assault/issues/new?template=feedback.yml';
+const contentHash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
 
 const overlaps = (first, second) => first.left < second.right && first.right > second.left && first.top < second.bottom && first.bottom > second.top;
 const compactPayload = data => ({ cycle: (({ id, startsAt, endsAt, publishable }) => ({ id, startsAt, endsAt, publishable }))(data.cycle), sources: data.sources.map(({ id, label, url }) => ({ id, label, url })), buffs: data.buffs, encounters: data.encounters.map(({ id, type, name, category, hp, history, specialty, mechanic, mechanicReview, mechanicSegments, weaknesses, resistances, sourceRefs }) => ({ i: id, t: type, n: name, c: category, p: hp, h: history, s: specialty, m: mechanic, mr: mechanicReview, ms: mechanicSegments, w: weaknesses, x: resistances, q: sourceRefs })) });
@@ -33,6 +36,31 @@ const expectNoActionOverlap = async (page, feedbackRect) => {
   }));
   expect(contentRects.some(rect => overlaps(feedbackRect, rect))).toBe(false);
 };
+
+test('built deployment has deterministic cache-coherent asset references', async ({ page }) => {
+  const index = fs.readFileSync('dist/index.html', 'utf8');
+  const stylesMatch = index.match(/href="styles\.css\?v=([0-9a-f]{12})"/g);
+  const appMatch = index.match(/src="app\.js\?v=([0-9a-f]{12})"/g);
+  expect(stylesMatch).toHaveLength(1);
+  expect(appMatch).toHaveLength(1);
+  const cssHash = stylesMatch[0].match(/v=([0-9a-f]{12})/)[1];
+  const appHash = appMatch[0].match(/v=([0-9a-f]{12})/)[1];
+  const css = fs.readFileSync('dist/styles.css', 'utf8');
+  const app = fs.readFileSync('dist/app.js', 'utf8');
+  const data = fs.readFileSync('dist/data/current.json', 'utf8');
+  expect(cssHash).toBe(contentHash(css));
+  expect(appHash).toBe(contentHash(app));
+  const dataMatch = app.match(/fetch\('data\/current\.json\?v=([0-9a-f]{12})'\)/g);
+  expect(dataMatch).toHaveLength(1);
+  const dataHash = dataMatch[0].match(/v=([0-9a-f]{12})/)[1];
+  expect(dataHash).toBe(contentHash(data));
+  expect(contentHash(css + '\n')).not.toBe(cssHash);
+  expect(contentHash(app + '\n')).not.toBe(appHash);
+  expect(contentHash(data + '\n')).not.toBe(dataHash);
+  await page.goto('/');
+  await expect(page.locator('#status span')).toHaveText('cycle data for 08/14 - 08/28');
+  await expect(page.locator('#freshness')).toHaveCount(0);
+});
 
 test('desktop shows current cards, semantic chips, escaped content, sources, and floating feedback link', async ({ page }) => { await page.goto('/'); await expect(page.locator('.card')).toHaveCount(4); expect(await page.locator('#cards').evaluate(element => element.compareDocumentPosition(document.querySelector('#global-buffs')) & Node.DOCUMENT_POSITION_FOLLOWING)).toBeTruthy(); await expect(page.locator('.mechanic-callout')).toHaveCount(4); await expect(page.locator('.mechanic-callout').first()).toContainText('Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds.'); await expect(page.locator('.specialty-chip')).toHaveCount(3); await expect(page.locator('.specialty-anomaly')).toContainText('Suitable: Anomaly'); await expect(page.locator('.specialty-stun')).toContainText('Suitable: Stun'); await expect(page.locator('.specialty-rupture')).toContainText('Suitable: Rupture'); await expect(page.locator('.trend-up').first()).toBeVisible(); await expect(page.locator('.trend-flat').first()).toContainText('→ +0.0%'); await expect(page.locator('.trend-down')).toHaveCount(0); await expect(page.locator('.sparkline').first()).toHaveAttribute('role', 'img'); await expect(page.getByRole('img', {name:/3\.1\.1 HP 197200218.*3\.1\.2 HP 197200218/}).first()).toBeVisible(); await expect(page.locator('.card').nth(3)).toContainText('first appearance'); await expect(page.locator('.card').nth(3).locator('.sparkline')).toHaveCount(0); await expect(page.locator('.card').nth(0).locator('h3')).toHaveText('Girtablullu: Stagnant Aberrant'); await expect(page.locator('.card').nth(0).locator('h3 br')).toHaveCount(1); await expect(page.locator('.card').nth(3).locator('h3')).toHaveText('Rewritten: Sanguine Sweeper'); await expect(page.locator('.card').nth(3).locator('h3 br')).toHaveCount(1); await expect(page.locator('.card').nth(1).locator('h3 br')).toHaveCount(0); await expect(page.locator('.card').nth(2).locator('h3 br')).toHaveCount(0); await expect(page.locator('#status strong')).toHaveText('verified brief'); await expect(page.locator('#status span')).toHaveText('cycle data for 08/14 - 08/28'); await expect(page.locator('#freshness')).toHaveCount(0); await expect(page.locator('.section-head')).not.toContainText('cycle data for'); await expect(page.locator('dt').filter({hasText:'Weaknesses'}).first()).toBeVisible(); await expect(page.locator('.card').first()).toContainText('none'); await expect(page.locator('.card').nth(1).locator('.element-chip')).toHaveText(['Ice', 'Physical', 'Wind', 'Electric']); await expect(page.locator('.card').nth(1).locator('.element-chip').first()).toHaveClass(/element-ice/); await expect(page.locator('#global-buffs')).toContainText('GLOBAL BUFFS'); await expect(page.locator('#buff-list article')).toHaveCount(3); await expect(page.locator('#buff-list a')).toHaveCount(3); await expect(page.locator('#buff-list .emphasis-value').first()).toBeVisible(); await expect(page.locator('#buff-list .emphasis-damage').first()).toBeVisible(); await expect(page.locator('#buff-list .emphasis-mechanic').first()).toBeVisible(); await expect(page.locator('#buff-list .emphasis-specialty-anomaly')).toContainText('Anomaly specialty'); await expect(page.locator('#buff-list .emphasis-specialty-attack')).toContainText('Attack specialty'); await expect(page.locator('#buff-list .emphasis-specialty-rupture')).toContainText('Rupture specialty'); await expect(page.locator('.provenance').first().locator('a')).toHaveCount(3); await expect(page.locator('.provenance a').first()).toHaveAttribute('href', /620a7546b4d2934c58d55cdf7a435056576bb1fc/); expect(await page.locator('#buff-list').evaluate(element => element.innerHTML)).not.toMatch(/<\/?(?:li|b)>/i); expect(await page.locator('#global-buffs').evaluate(element => getComputedStyle(element).contentVisibility)).toBe('auto'); await expect(page.locator('body')).not.toContainText('<script>'); let rect = await expectFeedbackLink(page); await expectNoActionOverlap(page, rect); await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); rect = await expectFeedbackLink(page); await expectNoActionOverlap(page, rect); await page.screenshot({path:'test-results/desktop.png', fullPage:true}); });
 test('mechanic emphasis stays inline with adjacent prose and punctuation', async ({ page }) => { await page.goto('/'); const mechanics = await page.locator('.mechanic-callout p').evaluateAll(paragraphs => paragraphs.map(paragraph => ({ text: paragraph.textContent, emphasis: [...paragraph.querySelectorAll('.emphasis')].map(element => ({ tag: element.tagName, display: getComputedStyle(element).display, parent: element.parentElement === paragraph })), blockDescendants: [...paragraph.querySelectorAll('*')].filter(element => getComputedStyle(element).display === 'block').length }))); expect(mechanics.some(({ text }) => text.includes('30 seconds. Each mark'))).toBe(true); expect(mechanics.flatMap(({ emphasis }) => emphasis)).toEqual(expect.arrayContaining([expect.objectContaining({ tag: 'STRONG', display: 'inline', parent: true }), expect.objectContaining({ tag: 'SPAN', display: 'inline', parent: true })])); expect(mechanics.every(({ blockDescendants }) => blockDescendants === 0)).toBe(true); });

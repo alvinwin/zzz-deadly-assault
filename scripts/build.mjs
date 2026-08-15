@@ -1,7 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 const root = process.cwd();
 const dist = path.join(root, 'dist');
+const contentHash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
+const replaceAssetReference = (source, reference, replacement, label) => {
+  const matches = source.split(reference).length - 1;
+  if (matches !== 1) throw new Error(`expected exactly one ${label} reference (${reference}), found ${matches}`);
+  return source.replace(reference, replacement);
+};
 const compactJs = source => {
   let output = ''; let quote = null; let escaped = false; let whitespace = false;
   const punctuation = /[{}()[\],;:?=+\-*%<>]/;
@@ -17,9 +24,6 @@ const compactJs = source => {
 const compactCss = source => source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,>])\s*/g, '$1').replace(/;}/g, '}').trim();
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(path.join(dist, 'data'), { recursive: true });
-fs.writeFileSync(path.join(dist, 'index.html'), fs.readFileSync(path.join(root, 'index.html'), 'utf8').trim());
-fs.writeFileSync(path.join(dist, 'styles.css'), compactCss(fs.readFileSync(path.join(root, 'styles.css'), 'utf8')));
-fs.writeFileSync(path.join(dist, 'app.js'), compactJs(fs.readFileSync(path.join(root, 'app.js'), 'utf8')));
 const currentData = JSON.parse(fs.readFileSync(path.join(root, 'data/current.json'), 'utf8'));
 const compactData = {
   cycle: (({ id, startsAt, endsAt, publishable }) => ({ id, startsAt, endsAt, publishable }))(currentData.cycle),
@@ -27,5 +31,17 @@ const compactData = {
   buffs: currentData.buffs,
   encounters: currentData.encounters.map(({ id, type, name, category, hp, history, specialty, mechanic, mechanicReview, mechanicSegments, weaknesses, resistances, sourceRefs }) => ({ i: id, t: type, n: name, c: category, p: hp, h: history, s: specialty, m: mechanic, mr: mechanicReview, ms: mechanicSegments, w: weaknesses, x: resistances, q: sourceRefs }))
 };
-fs.writeFileSync(path.join(dist, 'data/current.json'), JSON.stringify(compactData));
+const emittedData = JSON.stringify(compactData);
+const dataHash = contentHash(emittedData);
+fs.writeFileSync(path.join(dist, 'data/current.json'), emittedData);
+const emittedJs = replaceAssetReference(compactJs(fs.readFileSync(path.join(root, 'app.js'), 'utf8')), "fetch('data/current.json')", `fetch('data/current.json?v=${dataHash}')`, 'data');
+const appHash = contentHash(emittedJs);
+fs.writeFileSync(path.join(dist, 'app.js'), emittedJs);
+const emittedCss = compactCss(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'));
+const cssHash = contentHash(emittedCss);
+fs.writeFileSync(path.join(dist, 'styles.css'), emittedCss);
+let emittedIndex = fs.readFileSync(path.join(root, 'index.html'), 'utf8').trim();
+emittedIndex = replaceAssetReference(emittedIndex, 'href="styles.css"', `href="styles.css?v=${cssHash}"`, 'stylesheet');
+emittedIndex = replaceAssetReference(emittedIndex, 'src="app.js"', `src="app.js?v=${appHash}"`, 'script');
+fs.writeFileSync(path.join(dist, 'index.html'), emittedIndex);
 console.log('✓ built clean dist/ (index.html, styles.css, app.js, data/current.json)');
