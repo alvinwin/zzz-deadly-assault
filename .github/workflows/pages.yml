@@ -12,23 +12,53 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      publication_due: ${{ steps.publication_gate.outputs.publication_due }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with: {node-version: 22, cache: npm}
-      - run: npm ci
-      - name: update from pinned upstream commit
+      - name: check publication boundary
+        id: publication_gate
+        shell: bash
+        env:
+          DEPLOYED_DATA_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data/current.json"
+          EVENT_NAME: ${{ github.event_name }}
+          CACHE_BUSTER: "${{ github.run_id }}-${{ github.run_attempt }}"
+        run: |
+          publication_due=true
+          if [[ "$EVENT_NAME" == "schedule" ]]; then
+            probe_url="${DEPLOYED_DATA_URL}?probe=${CACHE_BUSTER}"
+            if ! due="$(node scripts/check-update-due.mjs "$probe_url")"; then
+              echo "::warning::Unable to read deployed cycle; failing open and running the publication lifecycle."
+            elif [[ "$due" == "true" || "$due" == "false" ]]; then
+              publication_due="$due"
+            else
+              echo "::warning::Deployed-cycle probe returned an invalid result; failing open and running the publication lifecycle."
+            fi
+          fi
+          echo "publication_due=$publication_due" >> "$GITHUB_OUTPUT"
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm ci
+      - name: update from upstream data
+        if: steps.publication_gate.outputs.publication_due == 'true'
         run: npm run update:data
-      - run: npm test
-      - run: npm run validate
-      - run: npm run build
-      - run: npm run check:budget
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm test
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm run validate
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm run build
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm run check:budget
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        uses: actions/configure-pages@v6
+      - if: steps.publication_gate.outputs.publication_due == 'true'
+        uses: actions/upload-pages-artifact@v5
         with: {path: dist}
   deploy:
     needs: build
-    if: needs.build.result == 'success'
+    if: needs.build.result == 'success' && needs.build.outputs.publication_due == 'true'
     runs-on: ubuntu-latest
     environment: github-pages
     steps:

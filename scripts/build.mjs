@@ -26,7 +26,7 @@ fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(path.join(dist, 'data'), { recursive: true });
 const currentData = JSON.parse(fs.readFileSync(path.join(root, 'data/current.json'), 'utf8'));
 const compactData = {
-  cycle: (({ id, startsAt, endsAt, publishable }) => ({ id, startsAt, endsAt, publishable }))(currentData.cycle),
+  cycle: (({ id, startsAt, endsAt, checkedAt, publishable }) => ({ id, startsAt, endsAt, checkedAt, publishable }))(currentData.cycle),
   sources: currentData.sources.map(({ id, label, url }) => ({ id, label, url })),
   buffs: currentData.buffs,
   encounters: currentData.encounters.map(({ id, type, name, category, hp, history, specialty, mechanic, mechanicReview, mechanicSegments, weaknesses, resistances, sourceRefs }) => ({ i: id, t: type, n: name, c: category, p: hp, h: history, s: specialty, m: mechanic, mr: mechanicReview, ms: mechanicSegments, w: weaknesses, x: resistances, q: sourceRefs }))
