@@ -19,6 +19,12 @@ test('buff emphasis segmentation is deterministic, bounded, and plain text only'
   assert.equal(segmentDescription(description).map(([start, end]) => description.slice(start, end)).join(' '), '30% ATK 10s Ice DMG Stunned');
   assert.ok(segmentDescription(description).every(([, , kind]) => ['v', 'e', 'd', 'm', 'a', 't', 'r'].includes(kind)));
 });
+test('compound combat terms receive one complete damage segment', () => {
+  const description = 'CRIT DMG, PEN Ratio, and All-Attribute RES are complete combat terms.';
+  assert.deepEqual(segmentDescription(description).map(([start, end, kind]) => [description.slice(start, end), kind]), [
+    ['CRIT DMG', 'd'], ['PEN Ratio', 'd'], ['All-Attribute RES', 'd']
+  ]);
+});
 test('specialty phrases receive separate semantic kind codes', () => {
   const description = 'Anomaly specialty, Attack specialty, Rupture specialty.';
   assert.deepEqual(segmentDescription(description).map(([start, end, kind]) => [description.slice(start, end), kind]), [

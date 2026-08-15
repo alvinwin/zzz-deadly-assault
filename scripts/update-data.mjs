@@ -6,7 +6,7 @@ const base = `https://raw.githubusercontent.com/${owner}/${repo}`;
 export const parseRange = value => { const matches = [...String(value).matchAll(/(\d{2})\/(\d{2})\/(\d{4})/g)]; if (matches.length !== 2) return null; const toDate = match => { const day = +match[1]; const month = +match[2]; const year = +match[3]; const date = new Date(Date.UTC(year, month - 1, day)); return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day ? date : null; }; const startsAt = toDate(matches[0]); const endsAt = toDate(matches[1]); return startsAt && endsAt && endsAt > startsAt ? { startsAt, endsAt } : null; };
 export const stripHtml = html => String(html ?? '').replace(/<li>/gi, '').replace(/<\/li>/gi, '\n').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/\s+\n/g, '\n').trim();
 const emphasisTerms = [
-  ['damage', 'Stun DMG Multiplier'], ['damage', 'Attribute Anomaly DMG'], ['damage', 'All-Attribute RES'],
+  ['damage', 'Stun DMG Multiplier'], ['damage', 'Attribute Anomaly DMG'], ['damage', 'All-Attribute RES'], ['damage', 'CRIT DMG'], ['damage', 'PEN Ratio'],
   ['damage', 'Anomaly Proficiency'], ['damage', 'Miasma Shield'], ['damage', 'Ether DMG'], ['damage', 'Ice DMG'], ['damage', 'Ice RES'],
   ['damage', 'Ether RES'], ['damage', 'Sheer DMG'], ['damage', 'DMG'], ['damage', 'ATK'],
   ['specialty-anomaly', 'Anomaly specialty'], ['specialty-attack', 'Attack specialty'], ['specialty-stun', 'Stun specialty'],

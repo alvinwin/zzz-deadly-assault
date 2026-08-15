@@ -4,7 +4,7 @@
     "label": "3.1 Phase 2",
     "startsAt": "2026-08-14T00:00:00.000Z",
     "endsAt": "2026-08-28T00:00:00.000Z",
-    "checkedAt": "2026-08-15T01:53:54.968Z",
+    "checkedAt": "2026-08-15T02:52:48.616Z",
     "hasAdversity": true,
     "publishable": true,
     "formula": "floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)",
@@ -25,28 +25,28 @@
       "id": "rotation",
       "label": "Rotation data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da-versions.json",
-      "retrievedAt": "2026-08-15T01:53:54.968Z",
+      "retrievedAt": "2026-08-15T02:52:48.616Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "enemy",
       "label": "Enemy data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/enemies.json",
-      "retrievedAt": "2026-08-15T01:53:54.968Z",
+      "retrievedAt": "2026-08-15T02:52:48.616Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "buff",
       "label": "Buff data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/buffs.json",
-      "retrievedAt": "2026-08-15T01:53:54.968Z",
+      "retrievedAt": "2026-08-15T02:52:48.616Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "formula",
       "label": "HP formula",
       "url": "https://github.com/spiritfxxxx/buhflipexplode/blob/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da.js",
-      "retrievedAt": "2026-08-15T01:53:54.968Z",
+      "retrievedAt": "2026-08-15T02:52:48.616Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     }
   ],
@@ -359,7 +359,7 @@
       "mechanicReview": "reviewed",
       "mechanicSegments": [
         [
-          111,
+          106,
           114,
           "d"
         ],
@@ -444,7 +444,7 @@
           "v"
         ],
         [
-          64,
+          59,
           67,
           "d"
         ],
@@ -524,6 +524,11 @@
           "v"
         ],
         [
+          116,
+          125,
+          "d"
+        ],
+        [
           131,
           134,
           "v"
@@ -539,7 +544,7 @@
           "e"
         ],
         [
-          154,
+          149,
           157,
           "d"
         ]
