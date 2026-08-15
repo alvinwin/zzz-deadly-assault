@@ -19,8 +19,10 @@ repository contains the related source and the complete license text in
 `Inter-Knot Brief` is the planned parent entrypoint. `Deadly Assault` and
 `Shiyu Defense` are separate mode surfaces beneath it. This repository currently
 owns only the Deadly Assault surface. Do not merge mode-specific data, schema,
-or update logic merely to create the shared entrypoint. Building Shiyu Defense
-is deferred until its own source trace and requirements exist.
+or update logic merely to create the shared entrypoint. The separate Shiyu
+Defense surface is live at
+https://alvinwin.github.io/zzz-shiyu-defense/ and links back here; the two
+surfaces remain independently sourced and updated.
 
 ## update data
 
