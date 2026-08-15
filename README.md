@@ -6,9 +6,13 @@ This static site publishes the current Deadly Assault rotation.
 
 It uses source from the GPLv3 project [spiritfxxxx/buhflipexplode](https://github.com/spiritfxxxx/buhflipexplode).
 
-This is a modified version of the upstream work. Modifications are copyright
-2026 Alvin Nguyen. This modified work is licensed under GPLv3. The repository
-contains the related source and the complete license text in [LICENSE](LICENSE).
+This is a modified version of the upstream work. Copyright 2026 Alvin Nguyen is
+claimed only for his original human-authored modifications and original
+selection, coordination, and arrangement. Upstream-derived material keeps its
+original copyright and GPLv3 license. This notice makes no copyright claim for
+purely AI-generated material. This modified work is licensed under GPLv3. The
+repository contains the related source and the complete license text in
+[LICENSE](LICENSE).
 
 ## update data
 
