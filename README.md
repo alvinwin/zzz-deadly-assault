@@ -1,10 +1,32 @@
 # zzz deadly assault cycle brief
 
-This static site publishes the current Deadly Assault rotation from the GPLv3 project [spiritfxxxx/buhflipexplode](https://github.com/spiritfxxxx/buhflipexplode). The updater resolves upstream `main` to an immutable commit SHA, fetches the four source files at that SHA, calculates HP, maps elemental multipliers, and strips HTML from buff descriptions before atomically writing `data/current.json`.
+## purpose
 
-This project is a modified version of the upstream work. Modifications copyright 2026 Alvin Nguyen and are licensed under GPLv3. The repository contains the corresponding source and the complete license text in [LICENSE](LICENSE).
+This static site publishes the current Deadly Assault rotation.
+
+It uses source from the GPLv3 project [spiritfxxxx/buhflipexplode](https://github.com/spiritfxxxx/buhflipexplode).
+
+This is a modified version of the upstream work. Modifications are copyright
+2026 Alvin Nguyen. This modified work is licensed under GPLv3. The repository
+contains the related source and the complete license text in [LICENSE](LICENSE).
+
+## update data
+
+Run `npm run update:data` to update `data/current.json`.
+
+The updater resolves upstream `main` to an immutable commit SHA. A commit SHA
+is a fixed identifier for one source version. The updater then fetches three
+data files at that version. It uses the documented upstream formula to
+calculate HP. It maps elemental multipliers and removes HTML from buff
+descriptions. It writes the result to a temporary file and then atomically
+replaces `data/current.json`.
+
+The command fails on a network error, an upstream schema error, a missing ID, or
+an unavailable current cycle.
 
 ## local checks
+
+Run these commands in this order:
 
 ```sh
 npm install
@@ -16,10 +38,36 @@ npm run check:budget
 npm run test:e2e
 ```
 
-`npm run update:data` fails explicitly on network, upstream schema, missing IDs, or an unavailable current cycle. The Pages workflow runs it before strict validation on push, schedule, and manual dispatch; any failure blocks deployment. Only a strictly validated `dist/` directory is uploaded.
+## continuous integration
 
-`npm run check:budget` keeps the complete uncompressed `dist/` output, including current data, under 16 KiB. The current site is intentionally well below that limit so a small feedback link cannot turn into unnoticed page weight.
+The GitHub Pages workflow runs in three cases:
 
-The four HP values are calculated with `floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)`. Each encounter carries rotation, enemy, and formula provenance; the three selectable buffs are modeled once at cycle level with buff provenance. Sources use immutable GitHub URLs and the resolved commit SHA.
+- A push to `main` starts the workflow.
+- A schedule starts it at minute 17 of every six-hour period.
+- A manual dispatch starts it on request.
 
-The design uses original typography, color, and layout primitives and includes no copied game artwork. Zenless Zone Zero and related names are property of their respective owners. This fan project is not affiliated with or endorsed by HoYoverse.
+The workflow runs `npm run update:data` before strict validation. It runs the
+tests, validation, build, and budget check. Any failed step blocks deployment.
+Only a strictly validated `dist/` directory is uploaded. The deploy job runs
+only after the build job succeeds.
+
+## size limit and provenance
+
+`npm run check:budget` keeps the complete uncompressed `dist/` output, including
+current data, under 16 KiB. The site is well below this limit.
+
+The four HP values use this exact formula:
+
+`floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)`
+
+Each encounter includes rotation, enemy, and formula provenance. The three
+selectable buffs are modeled once at cycle level and include buff provenance.
+The sources use immutable GitHub URLs and the resolved commit SHA.
+
+## design and ownership
+
+The design uses original typography, colors, and layout primitives. It includes
+no copied game artwork.
+
+Zenless Zone Zero and related names belong to their respective owners. This fan
+project is not affiliated with or endorsed by HoYoverse.
