@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const isIso = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
 const isPlaceholder = value => value == null || (typeof value === 'string' && /pending|tbd|placeholder|example\.invalid/i.test(value));
+const segmentKinds = new Set(['v', 'e', 'd', 'm']);
 
 export function validateData(data, { allowFixture = false, now = Date.now() } = {}) {
   const errors = [];
@@ -21,6 +22,19 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
   if (cycle?.hasAdversity === false && adversity.length !== 0) errors.push(`cycle hasAdversity=false requires 0 adversity encounters, found ${adversity.length}`);
   if (![true, false].includes(cycle?.hasAdversity)) errors.push('cycle.hasAdversity must be boolean');
   if (!Array.isArray(buffs) || buffs.length !== 3 || buffs.some(buff => !buff?.id || !buff?.name || !buff?.description || isPlaceholder(buff.name) || isPlaceholder(buff.description))) errors.push('cycle must contain exactly 3 valid buffs');
+  for (const buff of buffs || []) {
+    const segments = buff?.segments;
+    const description = typeof buff?.description === 'string' ? buff.description : '';
+    let cursor = 0;
+    const invalidSegments = !Array.isArray(segments) || segments.some(segment => {
+      if (!Array.isArray(segment) || segment.length !== 3) return true;
+      const [start, end, kind] = segment;
+      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= description.length && start >= cursor && segmentKinds.has(kind);
+      cursor = valid ? end : cursor;
+      return !valid;
+    });
+    if (invalidSegments) errors.push(String(buff?.id || 'buff') + ' has invalid emphasis segments');
+  }
   if (!cycle?.provenance || !sourceListValid(cycle.provenance.rotation) || !sourceListValid(cycle.provenance.formula) || !sourceListValid(cycle.provenance.buffs)) errors.push('cycle has invalid field provenance');
   const ids = (encounters || []).map(e => e?.id).filter(Boolean);
   if (new Set(ids).size !== ids.length) errors.push('encounter IDs must be unique');

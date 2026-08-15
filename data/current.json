@@ -4,7 +4,7 @@
     "label": "3.1 Phase 2",
     "startsAt": "2026-08-14T00:00:00.000Z",
     "endsAt": "2026-08-28T00:00:00.000Z",
-    "checkedAt": "2026-08-14T23:46:10.496Z",
+    "checkedAt": "2026-08-15T00:45:19.026Z",
     "hasAdversity": true,
     "publishable": true,
     "formula": "floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)",
@@ -25,28 +25,28 @@
       "id": "rotation",
       "label": "Rotation data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da-versions.json",
-      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "retrievedAt": "2026-08-15T00:45:19.026Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "enemy",
       "label": "Enemy data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/enemies.json",
-      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "retrievedAt": "2026-08-15T00:45:19.026Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "buff",
       "label": "Buff data",
       "url": "https://raw.githubusercontent.com/spiritfxxxx/buhflipexplode/620a7546b4d2934c58d55cdf7a435056576bb1fc/assets/zzz/buffs.json",
-      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "retrievedAt": "2026-08-15T00:45:19.026Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     },
     {
       "id": "formula",
       "label": "HP formula",
       "url": "https://github.com/spiritfxxxx/buhflipexplode/blob/620a7546b4d2934c58d55cdf7a435056576bb1fc/zzz/da/da.js",
-      "retrievedAt": "2026-08-14T23:46:10.496Z",
+      "retrievedAt": "2026-08-15T00:45:19.026Z",
       "commit": "620a7546b4d2934c58d55cdf7a435056576bb1fc"
     }
   ],
@@ -54,17 +54,248 @@
     {
       "id": "69000066",
       "name": "United Strength",
-      "description": "If there are 2/3 Agents in the squad with Anomaly specialty, the whole squad's Anomaly Proficiency increases by 30/70 respectively, and Attribute Anomaly DMG dealt increases by 10%/25% respectively.\nAfter inflicting an Attribute Anomaly on an enemy, the enemy's All-Attribute RES is reduced by 15% for 10s. Repeated triggers reset the duration."
+      "description": "If there are 2/3 Agents in the squad with Anomaly specialty, the whole squad's Anomaly Proficiency increases by 30/70 respectively, and Attribute Anomaly DMG dealt increases by 10%/25% respectively.\nAfter inflicting an Attribute Anomaly on an enemy, the enemy's All-Attribute RES is reduced by 15% for 10s. Repeated triggers reset the duration.",
+      "segments": [
+        [
+          13,
+          16,
+          "v"
+        ],
+        [
+          42,
+          59,
+          "m"
+        ],
+        [
+          79,
+          98,
+          "d"
+        ],
+        [
+          112,
+          117,
+          "v"
+        ],
+        [
+          118,
+          121,
+          "d"
+        ],
+        [
+          136,
+          157,
+          "d"
+        ],
+        [
+          177,
+          180,
+          "v"
+        ],
+        [
+          181,
+          184,
+          "v"
+        ],
+        [
+          185,
+          188,
+          "d"
+        ],
+        [
+          219,
+          236,
+          "m"
+        ],
+        [
+          262,
+          279,
+          "d"
+        ],
+        [
+          294,
+          297,
+          "v"
+        ],
+        [
+          302,
+          305,
+          "v"
+        ],
+        [
+          307,
+          324,
+          "m"
+        ],
+        [
+          325,
+          328,
+          "d"
+        ]
+      ]
     },
     {
       "id": "69000068",
       "name": "Frost Reins",
-      "description": "For Agents with Attack specialty, their ATK increases by 25%. When their Basic Attack, EX Special Attack, or Chain Attack hits an enemy, it ignores 30% of the target's Ice RES and Ether RES.\nWhen an Agent hits a Stunned enemy, the target's Stun DMG Multiplier increases by 40% for 5s. Repeated triggers reset the duration."
+      "description": "For Agents with Attack specialty, their ATK increases by 25%. When their Basic Attack, EX Special Attack, or Chain Attack hits an enemy, it ignores 30% of the target's Ice RES and Ether RES.\nWhen an Agent hits a Stunned enemy, the target's Stun DMG Multiplier increases by 40% for 5s. Repeated triggers reset the duration.",
+      "segments": [
+        [
+          16,
+          32,
+          "m"
+        ],
+        [
+          40,
+          43,
+          "d"
+        ],
+        [
+          57,
+          60,
+          "v"
+        ],
+        [
+          73,
+          85,
+          "m"
+        ],
+        [
+          87,
+          104,
+          "m"
+        ],
+        [
+          109,
+          121,
+          "m"
+        ],
+        [
+          122,
+          135,
+          "m"
+        ],
+        [
+          144,
+          147,
+          "d"
+        ],
+        [
+          148,
+          151,
+          "v"
+        ],
+        [
+          168,
+          175,
+          "d"
+        ],
+        [
+          180,
+          189,
+          "d"
+        ],
+        [
+          212,
+          219,
+          "m"
+        ],
+        [
+          240,
+          259,
+          "d"
+        ],
+        [
+          273,
+          276,
+          "v"
+        ],
+        [
+          281,
+          283,
+          "v"
+        ],
+        [
+          285,
+          302,
+          "m"
+        ],
+        [
+          303,
+          306,
+          "d"
+        ]
+      ]
     },
     {
       "id": "69000055",
       "name": "Breakthrough",
-      "description": "Rupture specialty Agent Sheer DMG increases by 15%, and reduces Miasma Shield 30% faster.\nWhile in Ether Veil, Agent Ether DMG increases by 25%, and hitting an enemy makes its Stun DMG Multiplier increase by 25% for 10s. Repeated triggers reset the duration."
+      "description": "Rupture specialty Agent Sheer DMG increases by 15%, and reduces Miasma Shield 30% faster.\nWhile in Ether Veil, Agent Ether DMG increases by 25%, and hitting an enemy makes its Stun DMG Multiplier increase by 25% for 10s. Repeated triggers reset the duration.",
+      "segments": [
+        [
+          0,
+          17,
+          "m"
+        ],
+        [
+          24,
+          33,
+          "d"
+        ],
+        [
+          47,
+          50,
+          "v"
+        ],
+        [
+          64,
+          77,
+          "d"
+        ],
+        [
+          78,
+          81,
+          "v"
+        ],
+        [
+          99,
+          109,
+          "m"
+        ],
+        [
+          117,
+          126,
+          "d"
+        ],
+        [
+          140,
+          143,
+          "v"
+        ],
+        [
+          176,
+          195,
+          "d"
+        ],
+        [
+          208,
+          211,
+          "v"
+        ],
+        [
+          216,
+          219,
+          "v"
+        ],
+        [
+          221,
+          238,
+          "m"
+        ],
+        [
+          239,
+          242,
+          "d"
+        ]
+      ]
     }
   ],
   "encounters": [
