@@ -14,6 +14,14 @@ purely AI-generated material. This modified work is licensed under GPLv3. The
 repository contains the related source and the complete license text in
 [LICENSE](LICENSE).
 
+## product hierarchy
+
+`Inter-Knot Brief` is the planned parent entrypoint. `Deadly Assault` and
+`Shiyu Defense` are separate mode surfaces beneath it. This repository currently
+owns only the Deadly Assault surface. Do not merge mode-specific data, schema,
+or update logic merely to create the shared entrypoint. Building Shiyu Defense
+is deferred until its own source trace and requirements exist.
+
 ## update data
 
 Run `npm run update:data` to update `data/current.json`.
