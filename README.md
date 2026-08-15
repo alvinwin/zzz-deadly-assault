@@ -10,10 +10,13 @@ npm run update:data
 npm test
 npm run validate
 npm run build
+npm run check:budget
 npm run test:e2e
 ```
 
 `npm run update:data` fails explicitly on network, upstream schema, missing IDs, or an unavailable current cycle. The Pages workflow runs it before strict validation on push, schedule, and manual dispatch; any failure blocks deployment. Only a strictly validated `dist/` directory is uploaded.
+
+`npm run check:budget` keeps the complete uncompressed `dist/` output, including current data, under 16 KiB. The current site is intentionally well below that limit so a small feedback link cannot turn into unnoticed page weight.
 
 The four HP values are calculated with `floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)`. Each encounter carries rotation, enemy, and formula provenance; the three selectable buffs are modeled once at cycle level with buff provenance. Sources use immutable GitHub URLs and the resolved commit SHA.
 

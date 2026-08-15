@@ -1,0 +1,29 @@
+name: Send feedback
+description: Report something that happened or share an idea for the cycle brief
+title: "[Feedback] "
+labels: [feedback]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened or what idea do you have?
+      description: Tell us what you noticed or what would make the page more useful.
+      placeholder: I noticed... / It would be helpful if...
+    validations:
+      required: true
+  - type: textarea
+    id: page-context
+    attributes:
+      label: Page and device context
+      description: Include the page, browser, device, and any steps that help us reproduce it. Do not include passwords, private messages, or other sensitive information.
+      placeholder: Page or section; browser and version; device; steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Optional contact
+      description: Leave blank if you prefer. Do not share sensitive information.
+      placeholder: GitHub username or another comfortable way to follow up
+    validations:
+      required: false

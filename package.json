@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "build": "node scripts/validate-data.mjs && node scripts/build.mjs",
     "build:fixture": "node scripts/validate-data.mjs --allow-fixture && node scripts/build.mjs",
-    "check": "npm test && npm run build:fixture"
+    "check:budget": "node scripts/check-budget.mjs",
+    "check": "npm test && npm run build:fixture && npm run check:budget"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0"
