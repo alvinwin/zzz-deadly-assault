@@ -1,0 +1,2667 @@
+{
+  "schemaVersion": "1.0",
+  "cohortLabel": "Observed submitted/public-profile clears",
+  "methodology": {
+    "inclusion": "Observed submitted/public-profile clears only; descriptive aggregate, no recommendations.",
+    "exclusions": [
+      "Incomplete three-character teams (rows without all three character fields) are excluded."
+    ],
+    "suppressionThreshold": 10
+  },
+  "bosses": [
+    {
+      "canonicalId": "31300",
+      "displayName": "Girtablullu: Stagnant Aberrant",
+      "currentSourceName": "Girtablullu - Stagnant Aberrant",
+      "status": "live",
+      "comparison": {
+        "kind": "previous-observed-appearance",
+        "priorVersion": "3.1",
+        "priorPhase": "Phase 1",
+        "currentVersion": "3.1",
+        "currentPhase": "Phase 2"
+      },
+      "phases": [
+        {
+          "version": "3.1",
+          "phase": "Phase 1",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "c1fe5df7489b9f379361dc28f53286eeb9a5f9301db26d0aa94ec4dc9ac2396e",
+            "sourceFile": "3.1.1_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.1_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 19351,
+          "excludedRows": 14,
+          "sampleSize": 19337,
+          "characters": [
+            {
+              "name": "Velina",
+              "clearCount": 14675,
+              "appearanceRate": 0.7589077933495372,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Remielle",
+              "clearCount": 13831,
+              "appearanceRate": 0.715260898795056,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Jane",
+              "clearCount": 6686,
+              "appearanceRate": 0.345762010653152,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Aria",
+              "clearCount": 3262,
+              "appearanceRate": 0.16869214459326679,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 2863,
+              "appearanceRate": 0.14805812690696593,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 2793,
+              "appearanceRate": 0.14443812380410612,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 2571,
+              "appearanceRate": 0.13295754253503647,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Alice",
+              "clearCount": 1797,
+              "appearanceRate": 0.09293065108341521,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 1554,
+              "appearanceRate": 0.08036406888348761,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 1036,
+              "appearanceRate": 0.05357604592232507,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 909,
+              "appearanceRate": 0.04700832600713658,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 907,
+              "appearanceRate": 0.04690489734705487,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 835,
+              "appearanceRate": 0.04318146558411336,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 623,
+              "appearanceRate": 0.03221802761545224,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 535,
+              "appearanceRate": 0.02766716657185706,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 480,
+              "appearanceRate": 0.024822878419610075,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 425,
+              "appearanceRate": 0.021978590267363086,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 317,
+              "appearanceRate": 0.01639344262295082,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Piper",
+              "clearCount": 311,
+              "appearanceRate": 0.016083156642705695,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Grace",
+              "clearCount": 200,
+              "appearanceRate": 0.010342866008170864,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 164,
+              "appearanceRate": 0.008481150126700109,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Norma",
+              "clearCount": 161,
+              "appearanceRate": 0.008326007136577546,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 148,
+              "appearanceRate": 0.00765372084604644,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 95,
+              "appearanceRate": 0.004912861353881161,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 84,
+              "appearanceRate": 0.004344003723431763,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 72,
+              "appearanceRate": 0.003723431762941511,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Rina",
+              "clearCount": 56,
+              "appearanceRate": 0.002896002482287842,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 48,
+              "appearanceRate": 0.0024822878419610075,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 45,
+              "appearanceRate": 0.0023271448518384446,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 45,
+              "appearanceRate": 0.0023271448518384446,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 43,
+              "appearanceRate": 0.0022237161917567356,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 42,
+              "appearanceRate": 0.0021720018617158816,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 39,
+              "appearanceRate": 0.0020168588715933186,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 38,
+              "appearanceRate": 0.001965144541552464,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 38,
+              "appearanceRate": 0.001965144541552464,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 37,
+              "appearanceRate": 0.00191343021151161,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seed",
+              "clearCount": 34,
+              "appearanceRate": 0.001758287221389047,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 33,
+              "appearanceRate": 0.0017065728913481927,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 33,
+              "appearanceRate": 0.0017065728913481927,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 24,
+              "appearanceRate": 0.0012411439209805038,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 24,
+              "appearanceRate": 0.0012411439209805038,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 18,
+              "appearanceRate": 0.0009308579407353777,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 14,
+              "appearanceRate": 0.0007240006205719605,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 13,
+              "appearanceRate": 0.0006722862905311061,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 11,
+              "appearanceRate": 0.0005688576304493975,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seth",
+              "clearCount": 10,
+              "appearanceRate": 0.0005171433004085432,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 7,
+              "appearanceRate": 0.00036200031028598025,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 7,
+              "appearanceRate": 0.00036200031028598025,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 6,
+              "appearanceRate": 0.00031028598024512594,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Corin",
+              "clearCount": 3,
+              "appearanceRate": 0.00015514299012256297,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anby",
+              "clearCount": 2,
+              "appearanceRate": 0.00010342866008170864,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 2,
+              "appearanceRate": 0.00010342866008170864,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Manato",
+              "clearCount": 2,
+              "appearanceRate": 0.00010342866008170864,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 2,
+              "appearanceRate": 0.00010342866008170864,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ben",
+              "clearCount": 1,
+              "appearanceRate": 0.00005171433004085432,
+              "priorAppearanceChange": null
+            }
+          ]
+        },
+        {
+          "version": "3.1",
+          "phase": "Phase 2",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "b609528356d29950c148961ebc6cbed9d09d1d8fdae3ab357fa92ecc66937803",
+            "sourceFile": "3.1.2_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.2_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 16044,
+          "excludedRows": 7,
+          "sampleSize": 16037,
+          "characters": [
+            {
+              "name": "Remielle",
+              "clearCount": 14010,
+              "appearanceRate": 0.8736047889256096,
+              "priorAppearanceChange": 0.1583438901305535
+            },
+            {
+              "name": "Velina",
+              "clearCount": 12678,
+              "appearanceRate": 0.7905468603853588,
+              "priorAppearanceChange": 0.031639067035821644
+            },
+            {
+              "name": "Jane",
+              "clearCount": 5199,
+              "appearanceRate": 0.32418781567624866,
+              "priorAppearanceChange": -0.021574194976903327
+            },
+            {
+              "name": "Aria",
+              "clearCount": 3409,
+              "appearanceRate": 0.2125709297250109,
+              "priorAppearanceChange": 0.04387878513174412
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 2506,
+              "appearanceRate": 0.15626364033173287,
+              "priorAppearanceChange": 0.0233060977966964
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 2055,
+              "appearanceRate": 0.12814117353619756,
+              "priorAppearanceChange": -0.01629695026790856
+            },
+            {
+              "name": "Alice",
+              "clearCount": 1638,
+              "appearanceRate": 0.10213880401571367,
+              "priorAppearanceChange": 0.009208152932298458
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 1489,
+              "appearanceRate": 0.09284778948681174,
+              "priorAppearanceChange": -0.05521033742015419
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 1394,
+              "appearanceRate": 0.08692398827710919,
+              "priorAppearanceChange": 0.006559919393621577
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 1331,
+              "appearanceRate": 0.08299557273804327,
+              "priorAppearanceChange": 0.03598724673090669
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 571,
+              "appearanceRate": 0.03560516306042277,
+              "priorAppearanceChange": 0.003387135444970532
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 380,
+              "appearanceRate": 0.02369520483881025,
+              "priorAppearanceChange": 0.0017166145714471656
+            },
+            {
+              "name": "Piper",
+              "clearCount": 246,
+              "appearanceRate": 0.015339527343019268,
+              "priorAppearanceChange": -0.0007436292996864276
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 225,
+              "appearanceRate": 0.014030055496663965,
+              "priorAppearanceChange": -0.03954599042566111
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 165,
+              "appearanceRate": 0.01028870736422024,
+              "priorAppearanceChange": -0.017378459207636823
+            },
+            {
+              "name": "Grace",
+              "clearCount": 141,
+              "appearanceRate": 0.00879216811124275,
+              "priorAppearanceChange": -0.0015506978969281136
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 68,
+              "appearanceRate": 0.004240194550102887,
+              "priorAppearanceChange": -0.03894127103401047
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 62,
+              "appearanceRate": 0.0038660597368585146,
+              "priorAppearanceChange": -0.00047794398657324865
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 56,
+              "appearanceRate": 0.003491924923614142,
+              "priorAppearanceChange": -0.04341297242344073
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 40,
+              "appearanceRate": 0.002494232088295816,
+              "priorAppearanceChange": 0.0004773732167024972
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 38,
+              "appearanceRate": 0.002369520483881025,
+              "priorAppearanceChange": 0.0006629475925328324
+            },
+            {
+              "name": "Norma",
+              "clearCount": 38,
+              "appearanceRate": 0.002369520483881025,
+              "priorAppearanceChange": -0.0059564866526965205
+            },
+            {
+              "name": "Seed",
+              "clearCount": 37,
+              "appearanceRate": 0.00230716468167363,
+              "priorAppearanceChange": 0.0005488774602845829
+            },
+            {
+              "name": "Rina",
+              "clearCount": 32,
+              "appearanceRate": 0.0019953856706366527,
+              "priorAppearanceChange": -0.0009006168116511893
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 32,
+              "appearanceRate": 0.0019953856706366527,
+              "priorAppearanceChange": -0.00022833052112008296
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 31,
+              "appearanceRate": 0.0019330298684292573,
+              "priorAppearanceChange": -0.022889848551180817
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 30,
+              "appearanceRate": 0.0018706740662218619,
+              "priorAppearanceChange": -0.0004564707856165827
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 27,
+              "appearanceRate": 0.0016836066595996757,
+              "priorAppearanceChange": -0.0020398251033418354
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 26,
+              "appearanceRate": 0.0016212508573922803,
+              "priorAppearanceChange": -0.01477219176555854
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 20,
+              "appearanceRate": 0.001247116044147908,
+              "priorAppearanceChange": -0.007234034082552201
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 19,
+              "appearanceRate": 0.0011847602419405125,
+              "priorAppearanceChange": -0.0007286699695710974
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 16,
+              "appearanceRate": 0.0009976928353183263,
+              "priorAppearanceChange": -0.0014845950066426812
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 15,
+              "appearanceRate": 0.0009353370331109309,
+              "priorAppearanceChange": -0.0007712358582372617
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 10,
+              "appearanceRate": 0.000623558022073954,
+              "priorAppearanceChange": -0.00004872826845715218
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 9,
+              "appearanceRate": 0.0005612022198665586,
+              "priorAppearanceChange": -0.004351659134014602
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 8,
+              "appearanceRate": 0.0004988464176591632,
+              "priorAppearanceChange": -0.0016731554440567184
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 8,
+              "appearanceRate": 0.0004988464176591632,
+              "priorAppearanceChange": 0.00039541775757745456
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 8,
+              "appearanceRate": 0.0004988464176591632,
+              "priorAppearanceChange": -0.0018282984341792814
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 7,
+              "appearanceRate": 0.00043649061545176777,
+              "priorAppearanceChange": -0.000804653305528736
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 6,
+              "appearanceRate": 0.0003741348132443724,
+              "priorAppearanceChange": -0.007279586032802068
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 5,
+              "appearanceRate": 0.000311779011036977,
+              "priorAppearanceChange": -0.00005022129924900327
+            },
+            {
+              "name": "Seth",
+              "clearCount": 5,
+              "appearanceRate": 0.000311779011036977,
+              "priorAppearanceChange": -0.00020536428937156619
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 5,
+              "appearanceRate": 0.000311779011036977,
+              "priorAppearanceChange": -0.0009293649099435268
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 4,
+              "appearanceRate": 0.0002494232088295816,
+              "priorAppearanceChange": -0.0017157213327228826
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 4,
+              "appearanceRate": 0.0002494232088295816,
+              "priorAppearanceChange": -0.00006086277141554436
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 2,
+              "appearanceRate": 0.0001247116044147908,
+              "priorAppearanceChange": -0.0018404329371376734
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 2,
+              "appearanceRate": 0.0001247116044147908,
+              "priorAppearanceChange": -0.00044414602603460673
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 1,
+              "appearanceRate": 0.0000623558022073954,
+              "priorAppearanceChange": -0.0008685021385279823
+            },
+            {
+              "name": "Corin",
+              "clearCount": 1,
+              "appearanceRate": 0.0000623558022073954,
+              "priorAppearanceChange": -0.00009278718791516758
+            },
+            {
+              "name": "Manato",
+              "clearCount": 1,
+              "appearanceRate": 0.0000623558022073954,
+              "priorAppearanceChange": -0.00004107285787431324
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 1,
+              "appearanceRate": 0.0000623558022073954,
+              "priorAppearanceChange": -0.0006616448183645651
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "canonicalId": "24300",
+      "displayName": "Ye Shiyuan the Thrall",
+      "currentSourceName": "Ye Shiyuan the Thrall",
+      "status": "live",
+      "comparison": {
+        "kind": "previous-observed-appearance",
+        "priorVersion": "3.0",
+        "priorPhase": "Phase 2",
+        "currentVersion": "3.1",
+        "currentPhase": "Phase 2"
+      },
+      "phases": [
+        {
+          "version": "3.0",
+          "phase": "Phase 2",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "f270ad8c4f8a1591bc88a2b6be7b0e4dfcca8d23a693c8ce5233df8759759f15",
+            "sourceFile": "3.0.2_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.0.2_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 15528,
+          "excludedRows": 20,
+          "sampleSize": 15508,
+          "characters": [
+            {
+              "name": "Lucia",
+              "clearCount": 9636,
+              "appearanceRate": 0.6213567191127161,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 7037,
+              "appearanceRate": 0.45376579829765284,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 6633,
+              "appearanceRate": 0.4277147278823833,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 3894,
+              "appearanceRate": 0.25109620840856334,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 3248,
+              "appearanceRate": 0.20944028888315708,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 1917,
+              "appearanceRate": 0.1236136187774052,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 1623,
+              "appearanceRate": 0.10465566159401599,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 1242,
+              "appearanceRate": 0.08008769667268506,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 1130,
+              "appearanceRate": 0.07286561774567965,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 1104,
+              "appearanceRate": 0.0711890637090534,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 1099,
+              "appearanceRate": 0.07086664947124065,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 1051,
+              "appearanceRate": 0.06777147278823833,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 1010,
+              "appearanceRate": 0.06512767603817385,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 716,
+              "appearanceRate": 0.04616971885478463,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 674,
+              "appearanceRate": 0.0434614392571576,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 539,
+              "appearanceRate": 0.034756254836213564,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 529,
+              "appearanceRate": 0.03411142636058808,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 517,
+              "appearanceRate": 0.033337632189837506,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 504,
+              "appearanceRate": 0.03249935517152437,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 335,
+              "appearanceRate": 0.0216017539334537,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 292,
+              "appearanceRate": 0.018828991488264123,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 176,
+              "appearanceRate": 0.011348981171008512,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 173,
+              "appearanceRate": 0.011155532628320867,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 170,
+              "appearanceRate": 0.010962084085633221,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 146,
+              "appearanceRate": 0.009414495744132062,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 137,
+              "appearanceRate": 0.008834150116069125,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 131,
+              "appearanceRate": 0.008447253030693835,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 127,
+              "appearanceRate": 0.008189321640443642,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 119,
+              "appearanceRate": 0.007673458859943255,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 90,
+              "appearanceRate": 0.0058034562806293525,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 80,
+              "appearanceRate": 0.005158627805003869,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 73,
+              "appearanceRate": 0.004707247872066031,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 54,
+              "appearanceRate": 0.0034820737683776116,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 48,
+              "appearanceRate": 0.003095176683002321,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Manato",
+              "clearCount": 34,
+              "appearanceRate": 0.002192416817126644,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seed",
+              "clearCount": 30,
+              "appearanceRate": 0.001934485426876451,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 27,
+              "appearanceRate": 0.0017410368841888058,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 26,
+              "appearanceRate": 0.0016765540366262574,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 25,
+              "appearanceRate": 0.001612071189063709,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Corin",
+              "clearCount": 20,
+              "appearanceRate": 0.0012896569512509672,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Alice",
+              "clearCount": 18,
+              "appearanceRate": 0.0011606912561258704,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Aria",
+              "clearCount": 18,
+              "appearanceRate": 0.0011606912561258704,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Rina",
+              "clearCount": 15,
+              "appearanceRate": 0.0009672427134382255,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Velina",
+              "clearCount": 15,
+              "appearanceRate": 0.0009672427134382255,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 11,
+              "appearanceRate": 0.000709311323188032,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Billy",
+              "clearCount": 9,
+              "appearanceRate": 0.0005803456280629352,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 9,
+              "appearanceRate": 0.0005803456280629352,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Jane",
+              "clearCount": 6,
+              "appearanceRate": 0.00038689708537529015,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anby",
+              "clearCount": 5,
+              "appearanceRate": 0.0003224142378127418,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ben",
+              "clearCount": 1,
+              "appearanceRate": 0.00006448284756254837,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Piper",
+              "clearCount": 1,
+              "appearanceRate": 0.00006448284756254837,
+              "priorAppearanceChange": null
+            }
+          ]
+        },
+        {
+          "version": "3.1",
+          "phase": "Phase 2",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "b609528356d29950c148961ebc6cbed9d09d1d8fdae3ab357fa92ecc66937803",
+            "sourceFile": "3.1.2_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.2_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 15843,
+          "excludedRows": 16,
+          "sampleSize": 15827,
+          "characters": [
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 12126,
+              "appearanceRate": 0.7661590952170342,
+              "priorAppearanceChange": 0.7010314191788604
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 9799,
+              "appearanceRate": 0.6191318632716244,
+              "priorAppearanceChange": 0.551360390483386
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 9144,
+              "appearanceRate": 0.5777468882289758,
+              "priorAppearanceChange": 0.5342854489718182
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 5507,
+              "appearanceRate": 0.34794970619826876,
+              "priorAppearanceChange": -0.07976502168411453
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 2059,
+              "appearanceRate": 0.13009414292032603,
+              "priorAppearanceChange": -0.07934614596283104
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 1044,
+              "appearanceRate": 0.06596322739622165,
+              "priorAppearanceChange": -0.5553934917164944
+            },
+            {
+              "name": "Norma",
+              "clearCount": 750,
+              "appearanceRate": 0.04738737600303279,
+              "priorAppearanceChange": 0.04738737600303279
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 666,
+              "appearanceRate": 0.04207998989069312,
+              "priorAppearanceChange": -0.029109073818360275
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 607,
+              "appearanceRate": 0.03835218297845454,
+              "priorAppearanceChange": -0.06630347861556145
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 594,
+              "appearanceRate": 0.03753080179440197,
+              "priorAppearanceChange": -0.08608281698300324
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 509,
+              "appearanceRate": 0.03216023251405826,
+              "priorAppearanceChange": -0.03870641695718239
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 459,
+              "appearanceRate": 0.02900107411385607,
+              "priorAppearanceChange": -0.005110352246732012
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 433,
+              "appearanceRate": 0.027358311745750933,
+              "priorAppearanceChange": -0.005979320444086573
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 432,
+              "appearanceRate": 0.027295128577746887,
+              "priorAppearanceChange": -0.045570489167932764
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 426,
+              "appearanceRate": 0.026916029569722624,
+              "priorAppearanceChange": 0.005314275636268923
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 340,
+              "appearanceRate": 0.021482277121374866,
+              "priorAppearanceChange": -0.0586054195513102
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 326,
+              "appearanceRate": 0.020597712769318252,
+              "priorAppearanceChange": -0.01190164240220612
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 313,
+              "appearanceRate": 0.019776331585265684,
+              "priorAppearanceChange": 0.018035294701076877
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 296,
+              "appearanceRate": 0.018702217729196943,
+              "priorAppearanceChange": -0.2323939906793664
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 177,
+              "appearanceRate": 0.011183420736715738,
+              "priorAppearanceChange": 0.0029940990962720963
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 167,
+              "appearanceRate": 0.010551589056675302,
+              "priorAppearanceChange": -0.44321420924097754
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 161,
+              "appearanceRate": 0.010172490048651039,
+              "priorAppearanceChange": -0.024583764787562523
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 119,
+              "appearanceRate": 0.007518796992481203,
+              "priorAppearanceChange": -0.01131019449578292
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 108,
+              "appearanceRate": 0.006823782144436722,
+              "priorAppearanceChange": -0.00259071359969534
+            },
+            {
+              "name": "Rina",
+              "clearCount": 92,
+              "appearanceRate": 0.005812851456372023,
+              "priorAppearanceChange": 0.004845608742933797
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 79,
+              "appearanceRate": 0.004991470272319454,
+              "priorAppearanceChange": -0.0034557827583743808
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 58,
+              "appearanceRate": 0.003664623744234536,
+              "priorAppearanceChange": -0.007297460341398686
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 57,
+              "appearanceRate": 0.003601440576230492,
+              "priorAppearanceChange": -0.007554092052090375
+            },
+            {
+              "name": "Seed",
+              "clearCount": 56,
+              "appearanceRate": 0.0035382574082264487,
+              "priorAppearanceChange": 0.0016037719813499977
+            },
+            {
+              "name": "Remielle",
+              "clearCount": 52,
+              "appearanceRate": 0.0032855247362102735,
+              "priorAppearanceChange": 0.0032855247362102735
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 51,
+              "appearanceRate": 0.00322234156820623,
+              "priorAppearanceChange": -0.005611808547862895
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 49,
+              "appearanceRate": 0.0030959752321981426,
+              "priorAppearanceChange": -0.04307374362258649
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 49,
+              "appearanceRate": 0.0030959752321981426,
+              "priorAppearanceChange": -0.0020626525728057264
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 40,
+              "appearanceRate": 0.002527326720161749,
+              "priorAppearanceChange": -0.0005678499628405721
+            },
+            {
+              "name": "Velina",
+              "clearCount": 40,
+              "appearanceRate": 0.002527326720161749,
+              "priorAppearanceChange": 0.0015600840067235236
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 33,
+              "appearanceRate": 0.002085044544133443,
+              "priorAppearanceChange": -0.00926393662687507
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 33,
+              "appearanceRate": 0.002085044544133443,
+              "priorAppearanceChange": -0.0037184117364959094
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 32,
+              "appearanceRate": 0.002021861376129399,
+              "priorAppearanceChange": -0.005651597483813856
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 31,
+              "appearanceRate": 0.001958678208125355,
+              "priorAppearanceChange": -0.0015233955602522564
+            },
+            {
+              "name": "Corin",
+              "clearCount": 29,
+              "appearanceRate": 0.001832311872117268,
+              "priorAppearanceChange": 0.0005426549208663008
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 25,
+              "appearanceRate": 0.001579579200101093,
+              "priorAppearanceChange": -0.003127668671964938
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 21,
+              "appearanceRate": 0.0013268465280849183,
+              "priorAppearanceChange": -0.00028522466097879074
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 20,
+              "appearanceRate": 0.0012636633600808746,
+              "priorAppearanceChange": -0.0004128906765453828
+            },
+            {
+              "name": "Jane",
+              "clearCount": 16,
+              "appearanceRate": 0.0010109306880646996,
+              "priorAppearanceChange": 0.0006240336026894094
+            },
+            {
+              "name": "Alice",
+              "clearCount": 15,
+              "appearanceRate": 0.0009477475200606559,
+              "priorAppearanceChange": -0.00021294373606521458
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 9,
+              "appearanceRate": 0.0005686485120363935,
+              "priorAppearanceChange": -0.00014066281115163854
+            },
+            {
+              "name": "Manato",
+              "clearCount": 8,
+              "appearanceRate": 0.0005054653440323498,
+              "priorAppearanceChange": -0.0016869514730942943
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 8,
+              "appearanceRate": 0.0005054653440323498,
+              "priorAppearanceChange": -0.00007488028403058544
+            },
+            {
+              "name": "Billy",
+              "clearCount": 6,
+              "appearanceRate": 0.00037909900802426234,
+              "priorAppearanceChange": -0.0002012466200386729
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 5,
+              "appearanceRate": 0.00031591584002021864,
+              "priorAppearanceChange": 0.00031591584002021864
+            },
+            {
+              "name": "Piper",
+              "clearCount": 3,
+              "appearanceRate": 0.00018954950401213117,
+              "priorAppearanceChange": 0.0001250666564495828
+            },
+            {
+              "name": "Aria",
+              "clearCount": 1,
+              "appearanceRate": 0.00006318316800404372,
+              "priorAppearanceChange": -0.0010975080881218268
+            },
+            {
+              "name": "Grace",
+              "clearCount": 1,
+              "appearanceRate": 0.00006318316800404372,
+              "priorAppearanceChange": 0.00006318316800404372
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "canonicalId": "20300",
+      "displayName": "Miasma Priest",
+      "currentSourceName": "Miasma Priest",
+      "status": "live",
+      "comparison": {
+        "kind": "previous-observed-appearance",
+        "priorVersion": "2.7",
+        "priorPhase": "Phase 1",
+        "currentVersion": "3.1",
+        "currentPhase": "Phase 2"
+      },
+      "phases": [
+        {
+          "version": "2.7",
+          "phase": "Phase 1",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "e76bcdf9ccaff68937a4a18576315ff4b41cefb6493bf89a12d9dfac17966d36",
+            "sourceFile": "2.7.1_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/2.7.1_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 17909,
+          "excludedRows": 21,
+          "sampleSize": 17888,
+          "characters": [
+            {
+              "name": "Yixuan",
+              "clearCount": 13271,
+              "appearanceRate": 0.741894007155635,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 11599,
+              "appearanceRate": 0.6484235241502684,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 8419,
+              "appearanceRate": 0.47065071556350624,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 5174,
+              "appearanceRate": 0.28924418604651164,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 2892,
+              "appearanceRate": 0.1616726296958855,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 2646,
+              "appearanceRate": 0.14792039355992845,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 2082,
+              "appearanceRate": 0.11639087656529518,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 1767,
+              "appearanceRate": 0.09878130590339892,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 1047,
+              "appearanceRate": 0.05853085867620751,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 821,
+              "appearanceRate": 0.04589669051878354,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 409,
+              "appearanceRate": 0.02286449016100179,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 311,
+              "appearanceRate": 0.017385957066189624,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 257,
+              "appearanceRate": 0.014367173524150269,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 243,
+              "appearanceRate": 0.013584525939177102,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 237,
+              "appearanceRate": 0.013249105545617174,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 221,
+              "appearanceRate": 0.012354651162790697,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 218,
+              "appearanceRate": 0.012186940966010733,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 200,
+              "appearanceRate": 0.011180679785330949,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 194,
+              "appearanceRate": 0.01084525939177102,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 193,
+              "appearanceRate": 0.010789355992844364,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Manato",
+              "clearCount": 182,
+              "appearanceRate": 0.010174418604651164,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 145,
+              "appearanceRate": 0.008105992844364937,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 122,
+              "appearanceRate": 0.006820214669051878,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Alice",
+              "clearCount": 118,
+              "appearanceRate": 0.006596601073345259,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seed",
+              "clearCount": 117,
+              "appearanceRate": 0.006540697674418605,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 104,
+              "appearanceRate": 0.005813953488372093,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Aria",
+              "clearCount": 77,
+              "appearanceRate": 0.004304561717352415,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Jane",
+              "clearCount": 67,
+              "appearanceRate": 0.0037455277280858674,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 67,
+              "appearanceRate": 0.0037455277280858674,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 63,
+              "appearanceRate": 0.0035219141323792487,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 59,
+              "appearanceRate": 0.0032983005366726296,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 54,
+              "appearanceRate": 0.003018783542039356,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 52,
+              "appearanceRate": 0.0029069767441860465,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 38,
+              "appearanceRate": 0.00212432915921288,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 37,
+              "appearanceRate": 0.0020684257602862255,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 28,
+              "appearanceRate": 0.0015652951699463328,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Corin",
+              "clearCount": 25,
+              "appearanceRate": 0.0013975849731663686,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Piper",
+              "clearCount": 19,
+              "appearanceRate": 0.00106216457960644,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 15,
+              "appearanceRate": 0.0008385509838998211,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 13,
+              "appearanceRate": 0.0007267441860465116,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Billy",
+              "clearCount": 11,
+              "appearanceRate": 0.0006149373881932022,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ben",
+              "clearCount": 10,
+              "appearanceRate": 0.0005590339892665474,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anby",
+              "clearCount": 9,
+              "appearanceRate": 0.0005031305903398927,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 8,
+              "appearanceRate": 0.0004472271914132379,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 8,
+              "appearanceRate": 0.0004472271914132379,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Rina",
+              "clearCount": 8,
+              "appearanceRate": 0.0004472271914132379,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Grace",
+              "clearCount": 3,
+              "appearanceRate": 0.0001677101967799642,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anton",
+              "clearCount": 2,
+              "appearanceRate": 0.00011180679785330948,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 2,
+              "appearanceRate": 0.00011180679785330948,
+              "priorAppearanceChange": null
+            }
+          ]
+        },
+        {
+          "version": "3.1",
+          "phase": "Phase 2",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "b609528356d29950c148961ebc6cbed9d09d1d8fdae3ab357fa92ecc66937803",
+            "sourceFile": "3.1.2_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.2_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 15665,
+          "excludedRows": 13,
+          "sampleSize": 15652,
+          "characters": [
+            {
+              "name": "Lucia",
+              "clearCount": 12024,
+              "appearanceRate": 0.7682085356503962,
+              "priorAppearanceChange": 0.11978501150012777
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 11753,
+              "appearanceRate": 0.7508944543828264,
+              "priorAppearanceChange": 0.0090004472271914
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 5261,
+              "appearanceRate": 0.33612317914643497,
+              "priorAppearanceChange": -0.13452753641707127
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 4290,
+              "appearanceRate": 0.27408637873754155,
+              "priorAppearanceChange": -0.015157807308970095
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 1759,
+              "appearanceRate": 0.11238180424226936,
+              "priorAppearanceChange": 0.013600498338870434
+            },
+            {
+              "name": "Norma",
+              "clearCount": 1646,
+              "appearanceRate": 0.10516227958088423,
+              "priorAppearanceChange": 0.10516227958088423
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 1275,
+              "appearanceRate": 0.08145923843598263,
+              "priorAppearanceChange": 0.08145923843598263
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 1202,
+              "appearanceRate": 0.07679529772553029,
+              "priorAppearanceChange": 0.030898607206746746
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 865,
+              "appearanceRate": 0.055264502938921545,
+              "priorAppearanceChange": -0.06112637362637363
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 851,
+              "appearanceRate": 0.05437004855609507,
+              "priorAppearanceChange": -0.004160810120112442
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 537,
+              "appearanceRate": 0.034308714541272683,
+              "priorAppearanceChange": 0.030786800408893436
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 477,
+              "appearanceRate": 0.030475338614873497,
+              "priorAppearanceChange": -0.11744505494505494
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 468,
+              "appearanceRate": 0.029900332225913623,
+              "priorAppearanceChange": -0.13177229746997188
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 431,
+              "appearanceRate": 0.027536417071300792,
+              "priorAppearanceChange": 0.027536417071300792
+            },
+            {
+              "name": "Aria",
+              "clearCount": 416,
+              "appearanceRate": 0.026578073089700997,
+              "priorAppearanceChange": 0.022273511372348582
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 343,
+              "appearanceRate": 0.02191413237924866,
+              "priorAppearanceChange": 0.01106887298747764
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 327,
+              "appearanceRate": 0.020891898798875545,
+              "priorAppearanceChange": 0.003505941732685921
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 247,
+              "appearanceRate": 0.015780730897009966,
+              "priorAppearanceChange": 0.0035937899309992326
+            },
+            {
+              "name": "Seed",
+              "clearCount": 214,
+              "appearanceRate": 0.013672374137490416,
+              "priorAppearanceChange": 0.007131676463071811
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 212,
+              "appearanceRate": 0.013544594939943777,
+              "priorAppearanceChange": -0.0008225785842064914
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 204,
+              "appearanceRate": 0.01303347814975722,
+              "priorAppearanceChange": 0.01303347814975722
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 199,
+              "appearanceRate": 0.012714030155890621,
+              "priorAppearanceChange": -0.0008704957832864815
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 190,
+              "appearanceRate": 0.012139023766930743,
+              "priorAppearanceChange": 0.0009583439815997949
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 157,
+              "appearanceRate": 0.010030667007411193,
+              "priorAppearanceChange": -0.012833823153590596
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 152,
+              "appearanceRate": 0.009711219013544594,
+              "priorAppearanceChange": 0.0016052261691796577
+            },
+            {
+              "name": "Remielle",
+              "clearCount": 137,
+              "appearanceRate": 0.0087528750319448,
+              "priorAppearanceChange": 0.0087528750319448
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 118,
+              "appearanceRate": 0.007538972655251725,
+              "priorAppearanceChange": -0.0032503833375926395
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 112,
+              "appearanceRate": 0.007155635062611807,
+              "priorAppearanceChange": -0.006093470483005367
+            },
+            {
+              "name": "Alice",
+              "clearCount": 107,
+              "appearanceRate": 0.006836187068745208,
+              "priorAppearanceChange": 0.00023958599539994872
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 104,
+              "appearanceRate": 0.006644518272425249,
+              "priorAppearanceChange": 0.005917774086378738
+            },
+            {
+              "name": "Velina",
+              "clearCount": 104,
+              "appearanceRate": 0.006644518272425249,
+              "priorAppearanceChange": 0.006644518272425249
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 99,
+              "appearanceRate": 0.0063250702785586504,
+              "priorAppearanceChange": -0.006029580884232047
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 81,
+              "appearanceRate": 0.005175057500638896,
+              "priorAppearanceChange": 0.0022680807564528496
+            },
+            {
+              "name": "Jane",
+              "clearCount": 77,
+              "appearanceRate": 0.004919499105545617,
+              "priorAppearanceChange": 0.0011739713774597499
+            },
+            {
+              "name": "Rina",
+              "clearCount": 73,
+              "appearanceRate": 0.0046639407104523386,
+              "priorAppearanceChange": 0.0042167135190391
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 59,
+              "appearanceRate": 0.0037694863276258625,
+              "priorAppearanceChange": -0.0030507283414260154
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 51,
+              "appearanceRate": 0.003258369537439305,
+              "priorAppearanceChange": 0.00023958599539994916
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 48,
+              "appearanceRate": 0.003066700741119346,
+              "priorAppearanceChange": -0.0002315997955532837
+            },
+            {
+              "name": "Manato",
+              "clearCount": 44,
+              "appearanceRate": 0.002811142346026067,
+              "priorAppearanceChange": -0.007363276258625096
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 39,
+              "appearanceRate": 0.0024916943521594683,
+              "priorAppearanceChange": 0.0003673651929465881
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 34,
+              "appearanceRate": 0.00217224635829287,
+              "priorAppearanceChange": -0.003641707130079223
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 32,
+              "appearanceRate": 0.0020444671607462305,
+              "priorAppearanceChange": 0.0012059161768464095
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 26,
+              "appearanceRate": 0.0016611295681063123,
+              "priorAppearanceChange": -0.0004072961921799132
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 22,
+              "appearanceRate": 0.0014055711730130336,
+              "priorAppearanceChange": -0.002339956555072834
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 19,
+              "appearanceRate": 0.0012139023766930743,
+              "priorAppearanceChange": -0.0003513927932532585
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 19,
+              "appearanceRate": 0.0012139023766930743,
+              "priorAppearanceChange": 0.0012139023766930743
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 18,
+              "appearanceRate": 0.0011500127779197546,
+              "priorAppearanceChange": 0.0007027855865065167
+            },
+            {
+              "name": "Anby",
+              "clearCount": 11,
+              "appearanceRate": 0.0007027855865065168,
+              "priorAppearanceChange": 0.00019965499616662408
+            },
+            {
+              "name": "Ben",
+              "clearCount": 5,
+              "appearanceRate": 0.0003194479938665985,
+              "priorAppearanceChange": -0.00023958599539994889
+            },
+            {
+              "name": "Piper",
+              "clearCount": 5,
+              "appearanceRate": 0.0003194479938665985,
+              "priorAppearanceChange": -0.0007427165857398416
+            },
+            {
+              "name": "Grace",
+              "clearCount": 4,
+              "appearanceRate": 0.0002555583950932788,
+              "priorAppearanceChange": 0.0000878481983133146
+            },
+            {
+              "name": "Anton",
+              "clearCount": 2,
+              "appearanceRate": 0.0001277791975466394,
+              "priorAppearanceChange": 0.000015972399693329922
+            },
+            {
+              "name": "Corin",
+              "clearCount": 2,
+              "appearanceRate": 0.0001277791975466394,
+              "priorAppearanceChange": -0.0012698057756197292
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 2,
+              "appearanceRate": 0.0001277791975466394,
+              "priorAppearanceChange": -0.00031944799386659855
+            },
+            {
+              "name": "Seth",
+              "clearCount": 1,
+              "appearanceRate": 0.0000638895987733197,
+              "priorAppearanceChange": 0.0000638895987733197
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 1,
+              "appearanceRate": 0.0000638895987733197,
+              "priorAppearanceChange": -0.00004791719907998978
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "canonicalId": "28400",
+      "displayName": "Rewritten: Sanguine Sweeper",
+      "currentSourceName": "Rewritten - Sanguine Sweeper",
+      "status": "live",
+      "comparison": {
+        "kind": "previous-observed-appearance",
+        "priorVersion": "2.7",
+        "priorPhase": "Phase 1",
+        "currentVersion": "3.1",
+        "currentPhase": "Phase 2"
+      },
+      "phases": [
+        {
+          "version": "2.7",
+          "phase": "Phase 1",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "e76bcdf9ccaff68937a4a18576315ff4b41cefb6493bf89a12d9dfac17966d36",
+            "sourceFile": "2.7.1_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/2.7.1_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 16866,
+          "excludedRows": 7,
+          "sampleSize": 16859,
+          "characters": [
+            {
+              "name": "Sunna",
+              "clearCount": 8075,
+              "appearanceRate": 0.4789726555548965,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 7848,
+              "appearanceRate": 0.46550803725013346,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Aria",
+              "clearCount": 7440,
+              "appearanceRate": 0.44130731360104397,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 7088,
+              "appearanceRate": 0.42042825790379024,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 2919,
+              "appearanceRate": 0.17314194198944183,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 2803,
+              "appearanceRate": 0.1662613440892105,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 2604,
+              "appearanceRate": 0.15445755976036538,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 1867,
+              "appearanceRate": 0.11074203689424046,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 1747,
+              "appearanceRate": 0.10362417699744943,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 1346,
+              "appearanceRate": 0.0798386618423394,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Alice",
+              "clearCount": 1245,
+              "appearanceRate": 0.07384779642920695,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 956,
+              "appearanceRate": 0.05670561717776855,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 889,
+              "appearanceRate": 0.05273147873539356,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 736,
+              "appearanceRate": 0.04365620736698499,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Jane",
+              "clearCount": 657,
+              "appearanceRate": 0.0389702829349309,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 460,
+              "appearanceRate": 0.027285129604365622,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 194,
+              "appearanceRate": 0.011507206833145501,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Grace",
+              "clearCount": 179,
+              "appearanceRate": 0.010617474346046622,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 159,
+              "appearanceRate": 0.009431164363248116,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seed",
+              "clearCount": 146,
+              "appearanceRate": 0.008660062874429088,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Qingyi",
+              "clearCount": 129,
+              "appearanceRate": 0.007651699389050359,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 125,
+              "appearanceRate": 0.0074144373924906574,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 124,
+              "appearanceRate": 0.007355121893350733,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 123,
+              "appearanceRate": 0.007295806394210807,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 122,
+              "appearanceRate": 0.007236490895070882,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 110,
+              "appearanceRate": 0.006524704905391779,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Piper",
+              "clearCount": 102,
+              "appearanceRate": 0.006050180912272377,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 73,
+              "appearanceRate": 0.004330031437214544,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 66,
+              "appearanceRate": 0.003914822943235067,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Rina",
+              "clearCount": 66,
+              "appearanceRate": 0.003914822943235067,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 28,
+              "appearanceRate": 0.0016608339759179073,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 20,
+              "appearanceRate": 0.0011863099827985053,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Seth",
+              "clearCount": 19,
+              "appearanceRate": 0.00112699448365858,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 16,
+              "appearanceRate": 0.0009490479862388042,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Koleda",
+              "clearCount": 15,
+              "appearanceRate": 0.000889732487098879,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 14,
+              "appearanceRate": 0.0008304169879589536,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 13,
+              "appearanceRate": 0.0007711014888190284,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 11,
+              "appearanceRate": 0.0006524704905391779,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Pulchra",
+              "clearCount": 10,
+              "appearanceRate": 0.0005931549913992527,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anby",
+              "clearCount": 9,
+              "appearanceRate": 0.0005338394922593274,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 6,
+              "appearanceRate": 0.00035589299483955157,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 6,
+              "appearanceRate": 0.00035589299483955157,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 3,
+              "appearanceRate": 0.00017794649741977579,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Ben",
+              "clearCount": 2,
+              "appearanceRate": 0.00011863099827985053,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Billy",
+              "clearCount": 2,
+              "appearanceRate": 0.00011863099827985053,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 2,
+              "appearanceRate": 0.00011863099827985053,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Anton",
+              "clearCount": 1,
+              "appearanceRate": 0.000059315499139925264,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Corin",
+              "clearCount": 1,
+              "appearanceRate": 0.000059315499139925264,
+              "priorAppearanceChange": null
+            },
+            {
+              "name": "Manato",
+              "clearCount": 1,
+              "appearanceRate": 0.000059315499139925264,
+              "priorAppearanceChange": null
+            }
+          ]
+        },
+        {
+          "version": "3.1",
+          "phase": "Phase 2",
+          "provenance": {
+            "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+            "sourceSha256": "b609528356d29950c148961ebc6cbed9d09d1d8fdae3ab357fa92ecc66937803",
+            "sourceFile": "3.1.2_da.csv",
+            "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.2_da.csv",
+            "retrievedAt": "2026-08-19T10:59:11Z"
+          },
+          "inputRows": 9527,
+          "excludedRows": 1,
+          "sampleSize": 9526,
+          "characters": [
+            {
+              "name": "Remielle",
+              "clearCount": 7673,
+              "appearanceRate": 0.8054797396598782,
+              "priorAppearanceChange": 0.8054797396598782
+            },
+            {
+              "name": "Velina",
+              "clearCount": 7116,
+              "appearanceRate": 0.7470081881167332,
+              "priorAppearanceChange": 0.7470081881167332
+            },
+            {
+              "name": "Promeia",
+              "clearCount": 2298,
+              "appearanceRate": 0.2412345160613059,
+              "priorAppearanceChange": 0.2412345160613059
+            },
+            {
+              "name": "Aria",
+              "clearCount": 2146,
+              "appearanceRate": 0.22527818601721605,
+              "priorAppearanceChange": -0.21602912758382792
+            },
+            {
+              "name": "Miyabi",
+              "clearCount": 1690,
+              "appearanceRate": 0.17740919588494647,
+              "priorAppearanceChange": 0.011147851795735964
+            },
+            {
+              "name": "Burnice",
+              "clearCount": 1372,
+              "appearanceRate": 0.14402687381902163,
+              "priorAppearanceChange": 0.13679038292395074
+            },
+            {
+              "name": "Nangong Yu",
+              "clearCount": 661,
+              "appearanceRate": 0.06938904052068025,
+              "priorAppearanceChange": -0.3961189967294532
+            },
+            {
+              "name": "Jane",
+              "clearCount": 630,
+              "appearanceRate": 0.06613478899853034,
+              "priorAppearanceChange": 0.027164506063599443
+            },
+            {
+              "name": "Yuzuha",
+              "clearCount": 626,
+              "appearanceRate": 0.06571488557631745,
+              "priorAppearanceChange": -0.3547133723274728
+            },
+            {
+              "name": "Vivian",
+              "clearCount": 570,
+              "appearanceRate": 0.05983623766533697,
+              "priorAppearanceChange": -0.11330570432410486
+            },
+            {
+              "name": "Sunna",
+              "clearCount": 498,
+              "appearanceRate": 0.05227797606550493,
+              "priorAppearanceChange": -0.42669467948939155
+            },
+            {
+              "name": "Astra Yao",
+              "clearCount": 378,
+              "appearanceRate": 0.0396808733991182,
+              "priorAppearanceChange": -0.040157788443221196
+            },
+            {
+              "name": "Pyrois",
+              "clearCount": 373,
+              "appearanceRate": 0.03915599412135209,
+              "priorAppearanceChange": 0.03915599412135209
+            },
+            {
+              "name": "Dialyn",
+              "clearCount": 358,
+              "appearanceRate": 0.03758135628805375,
+              "priorAppearanceChange": -0.0191242608897148
+            },
+            {
+              "name": "Norma",
+              "clearCount": 337,
+              "appearanceRate": 0.03537686332143607,
+              "priorAppearanceChange": 0.03537686332143607
+            },
+            {
+              "name": "Alice",
+              "clearCount": 230,
+              "appearanceRate": 0.024144446777241233,
+              "priorAppearanceChange": -0.049703349651965725
+            },
+            {
+              "name": "Ye Shunguang",
+              "clearCount": 200,
+              "appearanceRate": 0.020995171110644553,
+              "priorAppearanceChange": -0.0897468657835959
+            },
+            {
+              "name": "Zhao",
+              "clearCount": 159,
+              "appearanceRate": 0.016691161032962417,
+              "priorAppearanceChange": -0.086933015964487
+            },
+            {
+              "name": "Lighter",
+              "clearCount": 158,
+              "appearanceRate": 0.016586185177409195,
+              "priorAppearanceChange": 0.015399875194610689
+            },
+            {
+              "name": "Hugo",
+              "clearCount": 146,
+              "appearanceRate": 0.015326474910770523,
+              "priorAppearanceChange": 0.01449605792281157
+            },
+            {
+              "name": "Yanagi",
+              "clearCount": 139,
+              "appearanceRate": 0.014591643921897964,
+              "priorAppearanceChange": -0.13986591583846741
+            },
+            {
+              "name": "Trigger",
+              "clearCount": 123,
+              "appearanceRate": 0.0129120302330464,
+              "priorAppearanceChange": -0.03981944850234716
+            },
+            {
+              "name": "Ellen",
+              "clearCount": 111,
+              "appearanceRate": 0.011652319966407726,
+              "priorAppearanceChange": 0.010881218477588698
+            },
+            {
+              "name": "Lycaon",
+              "clearCount": 71,
+              "appearanceRate": 0.007453285744278816,
+              "priorAppearanceChange": -0.03620292162270618
+            },
+            {
+              "name": "Lucia",
+              "clearCount": 67,
+              "appearanceRate": 0.007033382322065925,
+              "priorAppearanceChange": 0.0005086774166741456
+            },
+            {
+              "name": "Cissia",
+              "clearCount": 54,
+              "appearanceRate": 0.005668696199874029,
+              "priorAppearanceChange": 0.005668696199874029
+            },
+            {
+              "name": "Yixuan",
+              "clearCount": 50,
+              "appearanceRate": 0.005248792777661138,
+              "priorAppearanceChange": -0.0021656446148295193
+            },
+            {
+              "name": "Seed",
+              "clearCount": 46,
+              "appearanceRate": 0.004828889355448247,
+              "priorAppearanceChange": -0.003831173518980841
+            },
+            {
+              "name": "Orphie & Magus",
+              "clearCount": 42,
+              "appearanceRate": 0.004408985933235356,
+              "priorAppearanceChange": -0.00502217843001276
+            },
+            {
+              "name": "Soldier 0 - Anby",
+              "clearCount": 41,
+              "appearanceRate": 0.004304010077682133,
+              "priorAppearanceChange": -0.02298111952668349
+            },
+            {
+              "name": "Ju Fufu",
+              "clearCount": 35,
+              "appearanceRate": 0.0036741549443627965,
+              "priorAppearanceChange": -0.00024066799887227089
+            },
+            {
+              "name": "Grace",
+              "clearCount": 28,
+              "appearanceRate": 0.002939323955490237,
+              "priorAppearanceChange": -0.007678150390556385
+            },
+            {
+              "name": "Evelyn",
+              "clearCount": 20,
+              "appearanceRate": 0.0020995171110644553,
+              "priorAppearanceChange": 0.0014470466205252774
+            },
+            {
+              "name": "Rina",
+              "clearCount": 20,
+              "appearanceRate": 0.0020995171110644553,
+              "priorAppearanceChange": -0.001815305832170612
+            },
+            {
+              "name": "Nicole",
+              "clearCount": 19,
+              "appearanceRate": 0.0019945412555112322,
+              "priorAppearanceChange": -0.009512665577634269
+            },
+            {
+              "name": "Harumasa",
+              "clearCount": 15,
+              "appearanceRate": 0.0015746378332983414,
+              "priorAppearanceChange": -0.005721168560912466
+            },
+            {
+              "name": "Soldier 11",
+              "clearCount": 14,
+              "appearanceRate": 0.0014696619777451185,
+              "priorAppearanceChange": 0.001351030979465268
+            },
+            {
+              "name": "Piper",
+              "clearCount": 12,
+              "appearanceRate": 0.0012597102666386732,
+              "priorAppearanceChange": -0.004790470645633704
+            },
+            {
+              "name": "Soukaku",
+              "clearCount": 12,
+              "appearanceRate": 0.0012597102666386732,
+              "priorAppearanceChange": -0.006095411626712059
+            },
+            {
+              "name": "Nekomata",
+              "clearCount": 9,
+              "appearanceRate": 0.0009447826999790048,
+              "priorAppearanceChange": 0.0005888897051394532
+            },
+            {
+              "name": "Caesar",
+              "clearCount": 8,
+              "appearanceRate": 0.000839806844425782,
+              "priorAppearanceChange": -0.0034902245927887618
+            },
+            {
+              "name": "Starlight - Billy",
+              "clearCount": 7,
+              "appearanceRate": 0.0007348309888725593,
+              "priorAppearanceChange": 0.0007348309888725593
+            },
+            {
+              "name": "Yidhari",
+              "clearCount": 7,
+              "appearanceRate": 0.0007348309888725593,
+              "priorAppearanceChange": 0.0005568844914527835
+            },
+            {
+              "name": "Banyue",
+              "clearCount": 3,
+              "appearanceRate": 0.0003149275666596683,
+              "priorAppearanceChange": 0.0003149275666596683
+            },
+            {
+              "name": "Zhu Yuan",
+              "clearCount": 3,
+              "appearanceRate": 0.0003149275666596683,
+              "priorAppearanceChange": -0.00004096542817988327
+            },
+            {
+              "name": "Lucy",
+              "clearCount": 2,
+              "appearanceRate": 0.0002099517111064455,
+              "priorAppearanceChange": -0.0014508822648114617
+            },
+            {
+              "name": "Pan Yinhu",
+              "clearCount": 1,
+              "appearanceRate": 0.00010497585555322275,
+              "priorAppearanceChange": -0.0008440721306855815
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
