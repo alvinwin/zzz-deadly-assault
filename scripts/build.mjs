@@ -40,8 +40,15 @@ fs.writeFileSync(path.join(dist, 'app.js'), emittedJs);
 const emittedCss = compactCss(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'));
 const cssHash = contentHash(emittedCss);
 fs.writeFileSync(path.join(dist, 'styles.css'), emittedCss);
-let emittedIndex = fs.readFileSync(path.join(root, 'index.html'), 'utf8').trim();
+const emittedOverrides = compactCss(fs.readFileSync(path.join(root, 'overrides.css'), 'utf8'));
+const overridesHash = contentHash(emittedOverrides);
+fs.writeFileSync(path.join(dist, 'overrides.css'), emittedOverrides);
+let emittedIndex = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
+  .replace(/>\s+</g, '><')
+  .replace(/\s{2,}/g, ' ')
+  .trim();
 emittedIndex = replaceAssetReference(emittedIndex, 'href="styles.css"', `href="styles.css?v=${cssHash}"`, 'stylesheet');
+emittedIndex = replaceAssetReference(emittedIndex, 'href="overrides.css"', `href="overrides.css?v=${overridesHash}"`, 'override stylesheet');
 emittedIndex = replaceAssetReference(emittedIndex, 'src="app.js"', `src="app.js?v=${appHash}"`, 'script');
 fs.writeFileSync(path.join(dist, 'index.html'), emittedIndex);
-console.log('✓ built clean dist/ (index.html, styles.css, app.js, data/current.json)');
+console.log('✓ built clean dist/ (HTML, CSS, app, and data)');
