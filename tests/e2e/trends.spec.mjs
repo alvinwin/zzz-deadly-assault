@@ -19,7 +19,7 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   await expect(page.locator('.boss-trend-summary').first()).toContainText('Remielle');
   await expect(page.locator('.boss-trend-summary').first()).toContainText('87.4%');
   await expect(page.locator('.boss-trend-summary').first()).toContainText('of observed clears');
-  await expect(page.locator('.boss-trend-summary').first()).toContainText('71.5% last phase');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('71.5% last time this boss appeared');
   await expect(page.locator('#boss-trends')).not.toContainText('pp vs prior');
 
   const disclosure = page.locator('.boss-trend').first().locator('details').first();
@@ -34,7 +34,7 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   const method = page.locator('.trend-method');
   await method.locator('summary').click();
   await expect(method).toContainText('Up to 10 current-phase characters are included here; the first five are shown initially.');
-  await expect(method).toContainText('earlier phase is used for comparison, not shown as a separate ranking');
+  await expect(method).toContainText('last time each boss appeared is used for comparison, not shown as a separate ranking');
   expect(errors).toEqual([]);
 });
 
@@ -48,6 +48,17 @@ test('360px trends remain readable, touchable, and free of horizontal overflow',
   const heights = await summaries.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().height));
   expect(heights.every(height => height >= 44)).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+
+  const comparison = page.locator('.trend-comparison').first();
+  await expect(comparison.locator('span')).toHaveText([
+    '87.4%\u00a0of observed clears',
+    '71.5% last time this boss appeared',
+  ]);
+  const comparisonLayout = await comparison.evaluate(element => ({
+    direction: getComputedStyle(element).flexDirection,
+    childDisplays: [...element.children].map(child => getComputedStyle(child).display),
+  }));
+  expect(comparisonLayout).toEqual({ direction: 'column', childDisplays: ['block', 'block'] });
 
   await summaries.first().click();
   await expect(page.locator('.boss-trend').first().locator('.trend-rows').first()).toBeVisible();
