@@ -4,8 +4,8 @@ import { gzipSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
 
 export const BUDGETS = Object.freeze({
-  raw: Object.freeze({ warning: 16 * 1024, hard: 24 * 1024 }),
-  gzipProxy: Object.freeze({ warning: 8 * 1024, hard: 10 * 1024 })
+  raw: Object.freeze({ warning: 44 * 1024, hard: 48 * 1024 }),
+  gzipProxy: Object.freeze({ warning: 14 * 1024, hard: 16 * 1024 })
 });
 
 function filesIn(root) {

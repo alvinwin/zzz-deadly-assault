@@ -37,7 +37,7 @@ test('evaluates a raw hard-limit fixture', () => {
 });
 
 test('sums per-file gzip proxies and catches a gzip hard-limit fixture', () => {
-  const incompressible = Buffer.alloc(4000);
+  const incompressible = Buffer.alloc(BUDGETS.gzipProxy.hard);
   let state = 0x12345678;
   for (let index = 0; index < incompressible.length; index += 1) {
     state ^= state << 13;
@@ -45,7 +45,7 @@ test('sums per-file gzip proxies and catches a gzip hard-limit fixture', () => {
     state ^= state << 5;
     incompressible[index] = state & 255;
   }
-  const root = fixture({ 'a.bin': incompressible, 'nested/b.bin': incompressible, 'c.bin': incompressible });
+  const root = fixture({ 'a.bin': incompressible, 'nested/b.bin': incompressible });
   const measured = measureDist(root);
   assert.ok(measured.gzipProxyBytes > BUDGETS.gzipProxy.hard);
   assert.equal(evaluateBudget(measured.gzipProxyBytes, BUDGETS.gzipProxy), 'hard');
