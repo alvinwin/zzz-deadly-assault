@@ -88,3 +88,12 @@ current rate minus prior rate (zero when absent previously).
 When either phase's sample is below the suppression threshold, the boss is
 suppressed and both phase character arrays are withheld. The default threshold
 is 10.
+
+## Display policy
+
+The source aggregate retains every character row in both phases. To stay within
+the site's deployment budget, the production build publishes up to the first 10
+current-phase rows, with the first five shown initially and the next five behind
+progressive disclosure. The earlier phase's ranked rows are not published; its
+sample size and the comparison rate already attached to each published current
+character remain available. The UI discloses both limits directly.
