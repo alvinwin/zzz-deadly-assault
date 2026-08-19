@@ -45,6 +45,9 @@ jobs:
         run: npm run update:data
       - if: steps.publication_gate.outputs.publication_due == 'true'
         run: npm test
+      - name: replay immutable boss trends
+        if: steps.publication_gate.outputs.publication_due == 'true'
+        run: npm run check:da-boss-character-trends
       - if: steps.publication_gate.outputs.publication_due == 'true'
         run: npm run validate
       - if: steps.publication_gate.outputs.publication_due == 'true'

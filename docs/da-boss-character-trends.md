@@ -90,8 +90,9 @@ is 10.
 
 ## Display policy
 
-The production aggregate retains every character row in both phases. The UI
-shows the first five current-phase rows initially and makes every remaining
-current-phase row available through progressive disclosure. The earlier phase
-provides its sample size and the comparison rate for each current character; it
-is not displayed as a separate ranked list.
+The source aggregate retains every character row in both phases. To stay within
+the site's deployment budget, the production build publishes up to the first 10
+current-phase rows, with the first five shown initially and the next five behind
+progressive disclosure. The earlier phase's ranked rows are not published; its
+sample size and the comparison rate already attached to each published current
+character remain available. The UI discloses both limits directly.

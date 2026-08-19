@@ -1,4 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
+
+const sourceTrends = JSON.parse(await readFile(new URL('../../data/da-boss-character-trends.json', import.meta.url)));
 
 test('desktop renders all boss summaries and disclosure details with clean console', async ({ page }) => {
   const errors = [];
@@ -30,7 +33,7 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   await expect(disclosure.locator('.trend-source code')).toHaveCount(2);
   const method = page.locator('.trend-method');
   await method.locator('summary').click();
-  await expect(method).toContainText('Every current-phase character is available; the first five are shown initially.');
+  await expect(method).toContainText('Up to 10 current-phase characters are included here; the first five are shown initially.');
   await expect(method).toContainText('earlier phase is used for comparison, not shown as a separate ranking');
   expect(errors).toEqual([]);
 });
@@ -49,6 +52,14 @@ test('360px trends remain readable, touchable, and free of horizontal overflow',
   await summaries.first().click();
   await expect(page.locator('.boss-trend').first().locator('.trend-rows').first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+});
+
+test('built trend data matches the disclosed current top-10 and prior comparison-only limits', async ({ page }) => {
+  await page.goto('/');
+  const builtTrends = await page.evaluate(() => fetch('data/da-boss-character-trends.json').then(response => response.json()));
+  expect(sourceTrends.bosses.every(boss => boss.phases.at(-1).characters.length > 10)).toBe(true);
+  expect(builtTrends.bosses.every(boss => boss.phases.at(-1).characters.length === 10)).toBe(true);
+  expect(builtTrends.bosses.every(boss => boss.phases[0].characters.length === 0)).toBe(true);
 });
 
 test('trend failure is isolated from the current encounter brief', async ({ page }) => {
