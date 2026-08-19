@@ -14,6 +14,10 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   ]);
   await expect(page.locator('.boss-trend-summary').first()).toContainText('n = 16,037');
   await expect(page.locator('.boss-trend-summary').first()).toContainText('Remielle');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('87.4%');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('of observed clears');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('71.5% last phase');
+  await expect(page.locator('#boss-trends')).not.toContainText('pp vs prior');
 
   const disclosure = page.locator('.boss-trend').first().locator('details').first();
   await disclosure.locator(':scope > summary').click();
