@@ -68,6 +68,17 @@ test('counts incomplete teams as exclusions and suppresses all output below thre
   assert.deepEqual(alpha.phases.flatMap(phase => phase.characters), []);
 });
 
+test('counts exact duplicate source records once and records them as exclusions', () => {
+  const duplicate = `${currentCsv}${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin')}\n`;
+  const changedCurrent = descriptor(duplicate, 'current.csv', '3.2', 'Phase 2', 'a'.repeat(40));
+  const data = importDABossCharacterTrends({ ...options, current: changedCurrent });
+  const alpha = data.bosses[0].phases[1];
+  assert.equal(alpha.inputRows, 3);
+  assert.equal(alpha.excludedRows, 1);
+  assert.equal(alpha.sampleSize, 2);
+  assert.equal(alpha.characters.find(character => character.name === 'Anby').clearCount, 2);
+});
+
 test('rejects malformed included rows', () => {
   const malformed = currentCsv.replace(`${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin')}`, `${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin').replace(',100,', ',bad,')}`);
   assert.throws(() => importDABossCharacterTrends({ ...options, current: descriptor(malformed, 'current.csv', '3.2', 'Phase 2', 'a'.repeat(40)) }), /score must be numeric/);

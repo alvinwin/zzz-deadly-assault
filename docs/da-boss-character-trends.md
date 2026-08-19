@@ -78,8 +78,9 @@ current]` order.
 Each phase owns its `provenance` (including an immutable inspectable HTTP(S)
 `sourceUrl`), `inputRows`, `excludedRows`, `sampleSize`, and aggregate
 `characters`. `inputRows` equals `excludedRows + sampleSize`.
-Character rows are sorted by `clearCount` descending then name ascending,
-with each character counted at most once per clear. `appearanceRate` is
+Exact duplicate source records are excluded before aggregation. Character rows
+are sorted by `clearCount` descending then name ascending, with each character
+counted at most once per clear. `appearanceRate` is
 `clearCount / sampleSize`; prior characters have
 `priorAppearanceChange: null`, while current characters contain the exact
 current rate minus prior rate (zero when absent previously).

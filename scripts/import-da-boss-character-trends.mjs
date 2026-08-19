@@ -129,7 +129,14 @@ function aggregate(rows, sourceName, threshold, phase, prior) {
   bossRows.forEach((row, index) => {
     if (!nonEmptyText(row.score)) fail(`matching boss row ${index + 1}: score is required`);
   });
-  const matchingRows = bossRows.filter(row => [row.ch1, row.ch2, row.ch3].every(nonEmptyText));
+  const seenRecords = new Set();
+  const uniqueRows = bossRows.filter(row => {
+    const record = CSV_COLUMNS.map(column => row[column]).join('\u001f');
+    if (seenRecords.has(record)) return false;
+    seenRecords.add(record);
+    return true;
+  });
+  const matchingRows = uniqueRows.filter(row => [row.ch1, row.ch2, row.ch3].every(nonEmptyText));
   const counts = new Map();
   for (const row of matchingRows) {
     for (const name of new Set([row.ch1, row.ch2, row.ch3])) counts.set(name, (counts.get(name) ?? 0) + 1);
@@ -234,7 +241,7 @@ export function importDABossCharacterTrends(options) {
     cohortLabel,
     methodology: {
       inclusion: 'Observed submitted/public-profile clears only; descriptive aggregate, no recommendations.',
-      exclusions: ['Incomplete three-character teams (rows without all three character fields) are excluded.'],
+      exclusions: ['Exact duplicate source records and incomplete three-character teams (rows without all three character fields) are excluded.'],
       suppressionThreshold: threshold,
     },
     bosses,
