@@ -7,12 +7,14 @@
   "scripts": {
     "validate": "node scripts/validate-data.mjs",
     "update:data": "node scripts/update-data.mjs",
+    "import:da-boss-character-trends": "node scripts/import-da-boss-character-trends.mjs",
+    "check:da-boss-character-trends": "node --check scripts/validate-da-boss-character-trends.mjs && node --check scripts/import-da-boss-character-trends.mjs && node --check tests/da-boss-character-trends.test.mjs && node scripts/import-da-boss-character-trends.mjs --config data/da-boss-character-trends.import.json --output data/da-boss-character-trends.json --check && node scripts/validate-da-boss-character-trends.mjs data/da-boss-character-trends.json",
     "test": "node --test tests/*.test.mjs",
     "test:e2e": "playwright test",
     "build": "node scripts/validate-data.mjs && node scripts/build.mjs",
     "build:fixture": "node scripts/validate-data.mjs --allow-fixture && node scripts/build.mjs",
     "check:budget": "node scripts/check-budget.mjs",
-    "check": "npm test && npm run build:fixture && npm run check:budget"
+    "check": "npm test && npm run check:da-boss-character-trends && npm run build:fixture && npm run check:budget"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0"
