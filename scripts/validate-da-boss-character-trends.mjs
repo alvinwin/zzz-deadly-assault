@@ -31,6 +31,15 @@ function httpUrl(value) {
   }
 }
 
+export function isRevisionAndFileBoundUrl(value, revision, sourceFile) {
+  if (!httpUrl(value) || !REVISION_RE.test(revision ?? '') || !nonEmptyText(sourceFile)) return false;
+  try {
+    return decodeURIComponent(new URL(value).pathname).endsWith(`/${revision}/${sourceFile}`);
+  } catch {
+    return false;
+  }
+}
+
 function unknownKeys(value, allowed, path, errors) {
   if (!isObject(value)) return;
   for (const key of Object.keys(value)) {
@@ -54,6 +63,9 @@ function validateProvenance(provenance, path, errors) {
   if (!SHA256_RE.test(provenance.sourceSha256 ?? '')) errors.push(`${path}.sourceSha256 must be a 64-hex SHA256`);
   if (!nonEmptyText(provenance.sourceFile)) errors.push(`${path}.sourceFile must be nonempty`);
   if (!httpUrl(provenance.sourceUrl)) errors.push(`${path}.sourceUrl must be a valid HTTP(S) URL`);
+  else if (!isRevisionAndFileBoundUrl(provenance.sourceUrl, provenance.sourceRevision, provenance.sourceFile)) {
+    errors.push(`${path}.sourceUrl must bind the exact sourceRevision and sourceFile`);
+  }
   if (!isoTime(provenance.retrievedAt)) errors.push(`${path}.retrievedAt must be a valid ISO timestamp`);
 }
 

@@ -31,8 +31,9 @@ one explicit mapping plus pinned `prior` descriptor/mapping for every boss:
 }
 ```
 
-Every source is checked against its exact SHA-256, pinned revision, and
-inspectable HTTP(S) `sourceUrl`. The CSV header must be exactly:
+Every source is checked against its exact SHA-256. Its inspectable HTTP(S)
+`sourceUrl` must contain the exact pinned revision and source file. The CSV
+header must be exactly:
 
 ```text
 uid,floor,star,score,boss,buff,ch1,ch1_rank,ch2,ch2_rank,ch3,ch3_rank,bangboo,rank_percent
@@ -44,15 +45,27 @@ names, or current source names; missing mappings; schema drift; bad pins; and
 malformed included rows are rejected. Rows without all three character fields
 are excluded and counted, not retained.
 
-The CLI reads paths from a JSON config and writes the collection to the path
-given by `--output`:
+The CLI reads a JSON config and writes the collection to the path given by
+`--output`:
 
 ```sh
 npm run import:da-boss-character-trends -- --config config.json --output data/da-boss-character-trends.json
 ```
 
-The config uses the same descriptor fields, replacing each `input` with
-`inputPath`. A prior descriptor is nested under its boss's `prior` key.
+The config uses the same descriptor fields. It can replace each `input` with a
+local `inputPath`; otherwise the CLI fetches the immutable, revision-bound
+`sourceUrl` and verifies its SHA-256. A prior descriptor is nested under its
+boss's `prior` key.
+
+Production replay uses `data/da-boss-character-trends.import.json`. The check
+mode regenerates deterministic JSON and compares it byte-for-byte with the
+committed aggregate:
+
+```sh
+npm run check:da-boss-character-trends
+```
+
+The check fails with a refresh instruction if the committed bytes drift.
 
 ## Output contract
 
@@ -74,3 +87,11 @@ current rate minus prior rate (zero when absent previously).
 When either phase's sample is below the suppression threshold, the boss is
 suppressed and both phase character arrays are withheld. The default threshold
 is 10.
+
+## Display policy
+
+The production aggregate retains every character row in both phases. The UI
+shows the first five current-phase rows initially and makes every remaining
+current-phase row available through progressive disclosure. The earlier phase
+provides its sample size and the comparison rate for each current character; it
+is not displayed as a separate ranked list.

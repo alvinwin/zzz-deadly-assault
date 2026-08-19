@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { assertDABossCharacterTrends } from './validate-da-boss-character-trends.mjs';
+import { assertDABossCharacterTrends, isRevisionAndFileBoundUrl } from './validate-da-boss-character-trends.mjs';
 
 export const CSV_HEADER = 'uid,floor,star,score,boss,buff,ch1,ch1_rank,ch2,ch2_rank,ch3,ch3_rank,bangboo,rank_percent';
 const CSV_COLUMNS = CSV_HEADER.split(',');
@@ -79,6 +79,7 @@ function parseRows(text) {
     const rowNumber = index + 2;
     if (values.length !== CSV_COLUMNS.length) fail(`row ${rowNumber}: expected ${CSV_COLUMNS.length} columns`);
     const row = Object.fromEntries(CSV_COLUMNS.map((column, columnIndex) => [column, values[columnIndex].trim()]));
+    if (!nonEmptyText(row.boss)) fail(`row ${rowNumber}: boss is required`);
     if (nonEmptyText(row.floor)) parsePositiveInteger(row.floor, 'floor', rowNumber);
     if (nonEmptyText(row.star)) parsePositiveInteger(row.star, 'star', rowNumber);
     if (nonEmptyText(row.score)) parseNumber(row.score, 'score', rowNumber);
@@ -116,6 +117,7 @@ function normalizeDescriptor(value, label) {
   if (actualSha !== sourceSha256.toLowerCase()) fail(`${label}.sourceSha256 does not match input bytes (expected ${sourceSha256}, got ${actualSha})`);
   if (!nonEmptyText(descriptor.sourceFile)) fail(`${label}.sourceFile is required`);
   if (!isHttpUrl(descriptor.sourceUrl)) fail(`${label}.sourceUrl must be a valid HTTP(S) URL`);
+  if (!isRevisionAndFileBoundUrl(descriptor.sourceUrl, sourceRevision, descriptor.sourceFile)) fail(`${label}.sourceUrl must bind the exact sourceRevision and sourceFile`);
   if (!ISO_TIME_RE.test(descriptor.retrievedAt ?? '') || Number.isNaN(Date.parse(descriptor.retrievedAt))) fail(`${label}.retrievedAt must be a valid ISO timestamp`);
   if (!nonEmptyText(descriptor.phase) || !nonEmptyText(descriptor.version)) fail(`${label}.phase and version are required`);
   return { ...descriptor, bytes, sourceRevision: sourceRevision.toLowerCase(), sourceSha256: actualSha, sourceFile: descriptor.sourceFile.trim(), sourceUrl: descriptor.sourceUrl.trim() };
@@ -247,20 +249,34 @@ function argValue(args, name) {
 export async function runCli(args = process.argv.slice(2)) {
   const configPath = argValue(args, '--config');
   const outputPath = argValue(args, '--output');
-  if (!configPath || !outputPath) fail('usage: --config <json> --output <json>');
+  const check = args.includes('--check');
+  if (!configPath || !outputPath) fail('usage: --config <json> --output <json> [--check]');
   const config = JSON.parse(await readFile(configPath, 'utf8'));
+  const loadInput = async (descriptor, label) => {
+    if (descriptor?.inputPath) return readFile(resolve(configPath, '..', descriptor.inputPath));
+    if (!isRevisionAndFileBoundUrl(descriptor?.sourceUrl, descriptor?.sourceRevision, descriptor?.sourceFile)) {
+      fail(`${label} requires inputPath or a sourceUrl bound to its exact revision and file`);
+    }
+    const response = await fetch(descriptor.sourceUrl.replace('/blob/', '/resolve/'));
+    if (!response.ok) fail(`${label} source fetch failed: ${response.status} ${response.statusText}`);
+    return Buffer.from(await response.arrayBuffer());
+  };
   const current = config.current ?? config.currentDescriptor;
   const currentDescriptor = current?.descriptor ?? current;
-  if (!currentDescriptor?.inputPath) fail('config.current.inputPath is required');
-  currentDescriptor.input = await readFile(currentDescriptor.inputPath);
+  currentDescriptor.input = await loadInput(currentDescriptor, 'config.current');
   for (const spec of config.bosses ?? []) {
     const prior = spec.prior ?? spec.priorDescriptor;
     const priorDescriptor = prior?.descriptor ?? prior;
-    if (!priorDescriptor?.inputPath) fail('each boss prior.inputPath is required');
-    priorDescriptor.input = await readFile(priorDescriptor.inputPath);
+    priorDescriptor.input = await loadInput(priorDescriptor, 'boss prior');
   }
   const output = importDABossCharacterTrends({ ...config, current });
-  await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
+  const outputBytes = Buffer.from(`${JSON.stringify(output, null, 2)}\n`);
+  if (check) {
+    const committedBytes = await readFile(outputPath);
+    if (!outputBytes.equals(committedBytes)) fail(`generated output differs from ${outputPath}; rerun the importer and commit the refreshed aggregate`);
+  } else {
+    await writeFile(outputPath, outputBytes);
+  }
   return output;
 }
 

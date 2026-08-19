@@ -28,6 +28,10 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   await disclosure.locator('.trend-source summary').click();
   await expect(disclosure.locator('.trend-source a')).toHaveCount(2);
   await expect(disclosure.locator('.trend-source code')).toHaveCount(2);
+  const method = page.locator('.trend-method');
+  await method.locator('summary').click();
+  await expect(method).toContainText('Every current-phase character is available; the first five are shown initially.');
+  await expect(method).toContainText('earlier phase is used for comparison, not shown as a separate ranking');
   expect(errors).toEqual([]);
 });
 

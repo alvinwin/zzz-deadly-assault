@@ -1,0 +1,75 @@
+{
+  "cohortLabel": "Observed submitted/public-profile clears",
+  "suppressionThreshold": 10,
+  "current": {
+    "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+    "sourceSha256": "b609528356d29950c148961ebc6cbed9d09d1d8fdae3ab357fa92ecc66937803",
+    "sourceFile": "3.1.2_da.csv",
+    "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.2_da.csv",
+    "retrievedAt": "2026-08-19T10:59:11Z",
+    "version": "3.1",
+    "phase": "Phase 2"
+  },
+  "bosses": [
+    {
+      "canonicalId": "31300",
+      "displayName": "Girtablullu: Stagnant Aberrant",
+      "currentSourceName": "Girtablullu - Stagnant Aberrant",
+      "prior": {
+        "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+        "sourceSha256": "c1fe5df7489b9f379361dc28f53286eeb9a5f9301db26d0aa94ec4dc9ac2396e",
+        "sourceFile": "3.1.1_da.csv",
+        "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.1.1_da.csv",
+        "retrievedAt": "2026-08-19T10:59:11Z",
+        "version": "3.1",
+        "phase": "Phase 1",
+        "sourceName": "Girtablullu - Stagnant Aberrant"
+      }
+    },
+    {
+      "canonicalId": "24300",
+      "displayName": "Ye Shiyuan the Thrall",
+      "currentSourceName": "Ye Shiyuan the Thrall",
+      "prior": {
+        "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+        "sourceSha256": "f270ad8c4f8a1591bc88a2b6be7b0e4dfcca8d23a693c8ce5233df8759759f15",
+        "sourceFile": "3.0.2_da.csv",
+        "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/3.0.2_da.csv",
+        "retrievedAt": "2026-08-19T10:59:11Z",
+        "version": "3.0",
+        "phase": "Phase 2",
+        "sourceName": "Ye Shiyuan the Thrall"
+      }
+    },
+    {
+      "canonicalId": "20300",
+      "displayName": "Miasma Priest",
+      "currentSourceName": "Miasma Priest",
+      "prior": {
+        "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+        "sourceSha256": "e76bcdf9ccaff68937a4a18576315ff4b41cefb6493bf89a12d9dfac17966d36",
+        "sourceFile": "2.7.1_da.csv",
+        "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/2.7.1_da.csv",
+        "retrievedAt": "2026-08-19T10:59:11Z",
+        "version": "2.7",
+        "phase": "Phase 1",
+        "sourceName": "Miasma Priest"
+      }
+    },
+    {
+      "canonicalId": "28400",
+      "displayName": "Rewritten: Sanguine Sweeper",
+      "currentSourceName": "Rewritten - Sanguine Sweeper",
+      "prior": {
+        "sourceRevision": "7513fe3de0cbbc0fa7d30b09270625d828b1b5c7",
+        "sourceSha256": "e76bcdf9ccaff68937a4a18576315ff4b41cefb6493bf89a12d9dfac17966d36",
+        "sourceFile": "2.7.1_da.csv",
+        "sourceUrl": "https://huggingface.co/datasets/LvlUrArti/ShiyuData/blob/7513fe3de0cbbc0fa7d30b09270625d828b1b5c7/2.7.1_da.csv",
+        "retrievedAt": "2026-08-19T10:59:11Z",
+        "version": "2.7",
+        "phase": "Phase 1",
+        "sourceName": "Sanguine Sweeper"
+      }
+    }
+  ]
+}

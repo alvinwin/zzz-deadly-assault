@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { CSV_HEADER, importDABossCharacterTrends } from '../scripts/import-da-boss-character-trends.mjs';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { CSV_HEADER, importDABossCharacterTrends, runCli } from '../scripts/import-da-boss-character-trends.mjs';
 
 const row = (uid, boss, ch1, ch2, ch3) => `${uid},1,3,100,${boss},none,${ch1},1,${ch2},2,${ch3},3,Butler,10%`;
 const currentCsv = `${CSV_HEADER}\n${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin')}\n${row('c2', 'Current Alpha', 'Anby', 'Billy', 'Corin')}\n${row('c3', 'Current Beta', 'Anby', 'Billy', 'Nekomata')}\n${row('c4', 'Current Beta', 'Anby', 'Billy', 'Nekomata')}\n`;
@@ -47,6 +50,8 @@ test('rejects duplicate mappings, unmapped current bosses, absent prior bosses, 
   assert.throws(() => importDABossCharacterTrends({ ...options, current: { ...current, sourceRevision: 'bad' } }), /40-hex/);
   assert.throws(() => importDABossCharacterTrends({ ...options, current: { ...current, sourceUrl: undefined } }), /sourceUrl.*HTTP\(S\)/);
   assert.throws(() => importDABossCharacterTrends({ ...options, current: { ...current, sourceUrl: 'ftp://example.test/current.csv' } }), /sourceUrl.*HTTP\(S\)/);
+  assert.throws(() => importDABossCharacterTrends({ ...options, current: { ...current, sourceUrl: `https://example.test/blob/${'d'.repeat(40)}/current.csv` } }), /bind the exact sourceRevision and sourceFile/);
+  assert.throws(() => importDABossCharacterTrends({ ...options, current: { ...current, sourceUrl: `https://example.test/blob/${'a'.repeat(40)}/wrong.csv` } }), /bind the exact sourceRevision and sourceFile/);
   const drifted = currentCsv.replace(CSV_HEADER, `${CSV_HEADER},extra`);
   assert.throws(() => importDABossCharacterTrends({ ...options, current: descriptor(drifted, 'current.csv', '3.2', 'Phase 2', 'a'.repeat(40)) }), /header must exactly/);
 });
@@ -67,9 +72,45 @@ test('rejects malformed included rows', () => {
   const malformed = currentCsv.replace(`${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin')}`, `${row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin').replace(',100,', ',bad,')}`);
   assert.throws(() => importDABossCharacterTrends({ ...options, current: descriptor(malformed, 'current.csv', '3.2', 'Phase 2', 'a'.repeat(40)) }), /score must be numeric/);
 });
+
+test('rejects blank boss rows in current and prior inputs before accounting', () => {
+  const blankCurrent = currentCsv.replace(row('c1', 'Current Alpha', 'Anby', 'Billy', 'Corin'), row('c1', '', 'Anby', 'Billy', 'Corin'));
+  assert.throws(() => importDABossCharacterTrends({ ...options, current: descriptor(blankCurrent, 'current.csv', '3.2', 'Phase 2', 'a'.repeat(40)) }), /row 2: boss is required/);
+  const blankPrior = priorAlphaCsv.replace(row('a1', 'Prior Alpha', 'Anby', 'Billy', 'Anby'), row('a1', '', 'Anby', 'Billy', 'Anby'));
+  const changedPrior = descriptor(blankPrior, 'prior-alpha.csv', '3.1', 'Phase 1', 'b'.repeat(40));
+  assert.throws(() => importDABossCharacterTrends({ ...options, bosses: [{ ...options.bosses[0], prior: { ...changedPrior, sourceName: 'Prior Alpha' } }, options.bosses[1]] }), /row 2: boss is required/);
+});
+
+test('CLI check mode reproduces committed bytes and rejects drift', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'da-trends-replay-'));
+  try {
+    await writeFile(join(directory, 'current.csv'), currentCsv);
+    await writeFile(join(directory, 'prior-alpha.csv'), priorAlphaCsv);
+    await writeFile(join(directory, 'prior-beta.csv'), priorBetaCsv);
+    const withoutInput = ({ input, ...descriptorFields }) => descriptorFields;
+    const config = {
+      ...options,
+      current: { ...withoutInput(current), inputPath: 'current.csv' },
+      bosses: [
+        { ...options.bosses[0], prior: { ...withoutInput(priorAlpha), inputPath: 'prior-alpha.csv', sourceName: 'Prior Alpha' } },
+        { ...options.bosses[1], prior: { ...withoutInput(priorBeta), inputPath: 'prior-beta.csv', sourceName: 'Prior Beta' } },
+      ],
+    };
+    const configPath = join(directory, 'config.json');
+    const outputPath = join(directory, 'output.json');
+    await writeFile(configPath, JSON.stringify(config));
+    await runCli(['--config', configPath, '--output', outputPath]);
+    const generated = await readFile(outputPath);
+    await runCli(['--config', configPath, '--output', outputPath, '--check']);
+    await writeFile(outputPath, Buffer.concat([generated, Buffer.from(' ')]));
+    await assert.rejects(runCli(['--config', configPath, '--output', outputPath, '--check']), /generated output differs.*rerun the importer and commit/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 import { validateDABossCharacterTrends } from '../scripts/validate-da-boss-character-trends.mjs';
 
-const provenance = name => ({ sourceRevision: 'a'.repeat(40), sourceSha256: 'b'.repeat(64), sourceFile: name, sourceUrl: `https://example.test/blob/a/${name}`, retrievedAt: '2026-08-19T12:00:00Z' });
+const provenance = name => ({ sourceRevision: 'a'.repeat(40), sourceSha256: 'b'.repeat(64), sourceFile: name, sourceUrl: `https://example.test/blob/${'a'.repeat(40)}/${name}`, retrievedAt: '2026-08-19T12:00:00Z' });
 
 function validData() {
   return {
@@ -109,6 +150,9 @@ test('rejects duplicate bosses, wrong phase order, malformed provenance, and rec
   const invalidSourceUrl = validData();
   invalidSourceUrl.bosses[0].phases[0].provenance.sourceUrl = 'ftp://example.test/prior.csv';
   assert.equal(hasError(invalidSourceUrl, 'sourceUrl must be a valid HTTP(S) URL'), true);
+  const mismatchedSourceUrl = validData();
+  mismatchedSourceUrl.bosses[0].phases[0].provenance.sourceUrl = `https://example.test/blob/${'c'.repeat(40)}/prior.csv`;
+  assert.equal(hasError(mismatchedSourceUrl, 'sourceUrl must bind the exact sourceRevision and sourceFile'), true);
   const recommendation = validData();
   recommendation.methodology.recommendations = ['use Anby'];
   assert.equal(hasError(recommendation, 'unknown key recommendations'), true);
