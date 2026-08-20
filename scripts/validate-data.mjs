@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { createHash } from 'node:crypto';
+import { isCanonicalReviewedBuff } from './reviewed-buff-briefs.mjs';
 
 const isIso = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
 const isPlaceholder = value => value == null || (typeof value === 'string' && /pending|tbd|placeholder|example\.invalid/i.test(value));
@@ -39,8 +39,7 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
     if (invalidSegments) errors.push(String(buff?.id || 'buff') + ' has invalid text annotations');
     const brief = buff?.brief;
     const validBrief = brief && typeof brief === 'object' && !Array.isArray(brief) && Object.keys(brief).sort().join(',') === 'payoff,trigger,who' && Object.values(brief).every(value => typeof value === 'string' && value.trim() && !isPlaceholder(value) && !/<\/?[a-z][^>]*>/i.test(value));
-    const fingerprint = typeof description === 'string' ? createHash('sha256').update(description.replace(/\s+/g, ' ').trim()).digest('hex') : '';
-    if (cycle?.publishable === true && (!validBrief || buff?.briefReview !== 'reviewed' || !/^[0-9a-f]{64}$/.test(buff?.briefSourceSha256 || '') || buff.briefSourceSha256 !== fingerprint)) errors.push(String(buff?.id || 'buff') + ' is missing reviewed buff brief coverage');
+    if (cycle?.publishable === true && (!validBrief || !isCanonicalReviewedBuff(buff))) errors.push(String(buff?.id || 'buff') + ' is missing reviewed buff brief coverage');
   }
   if (!cycle?.provenance || !sourceListValid(cycle.provenance.rotation) || !sourceListValid(cycle.provenance.formula) || !sourceListValid(cycle.provenance.buffs)) errors.push('cycle has invalid field provenance');
   const ids = (encounters || []).map(e => e?.id).filter(Boolean);

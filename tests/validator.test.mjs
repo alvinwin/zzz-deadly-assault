@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
-import { createHash } from 'node:crypto';
 import { validateData } from '../scripts/validate-data.mjs';
 import { buildHistory, calculateHP, normalizeSourceDescription, parseRange, parseSpecialtyFit, segmentDescription, stripHtml, transform } from '../scripts/update-data.mjs';
 const fixture = JSON.parse(fs.readFileSync('data/current.json', 'utf8'));
@@ -81,17 +80,21 @@ test('specialty fit parsing preserves source-backed context and rejects unknown 
   assert.equal(parseSpecialtyFit(''), null);
   assert.throws(() => parseSpecialtyFit('<li>Suitable for Agents with Hybrid specialty.</li>'), /unknown enemy misc specialty/);
 });
-function validPayload() { const source = { id: 's1', label: 'Verified', url: 'https://example.com/cycle', retrievedAt: '2026-08-14T12:00:00Z' }; const encounter = (id, category = 'standard') => ({ id, name: id, category, type: 0, hp: 100, history: [['fixture', 100]], specialtyFit: null, mechanic: 'Description', mechanicReview: 'fallback', mechanicSegments: [], weaknesses: [], resistances: [], sourceRefs: ['s1'], provenance: { rotation: ['s1'], enemy: ['s1'], formula: ['s1'] } }); const buff = id => { const description = `Description ${id}`; return { id, name: 'Buff', description, segments: [], brief: { who: 'Agents', trigger: 'Meet the requirement', payoff: 'Gain the source-backed effect' }, briefReview: 'reviewed', briefSourceSha256: createHash('sha256').update(description).digest('hex') }; }; return { cycle: { startsAt: '2026-08-14T00:00:00Z', endsAt: '2026-08-28T00:00:00Z', checkedAt: '2026-08-14T12:00:00Z', hasAdversity: true, publishable: true, provenance: { rotation: ['s1'], formula: ['s1'], buffs: ['s1'] } }, sources: [source], buffs: [buff('b'), buff('c'), buff('d')], encounters: [encounter('one'), encounter('two'), encounter('three'), encounter('adv', 'adversity')] }; }
+function validPayload() { const source = { id: 's1', label: 'Verified', url: 'https://example.com/cycle', retrievedAt: '2026-08-14T12:00:00Z' }; const encounter = (id, category = 'standard') => ({ id, name: id, category, type: 0, hp: 100, history: [['fixture', 100]], specialtyFit: null, mechanic: 'Description', mechanicReview: 'fallback', mechanicSegments: [], weaknesses: [], resistances: [], sourceRefs: ['s1'], provenance: { rotation: ['s1'], enemy: ['s1'], formula: ['s1'] } }); return { cycle: { startsAt: '2026-08-14T00:00:00Z', endsAt: '2026-08-28T00:00:00Z', checkedAt: '2026-08-14T12:00:00Z', hasAdversity: true, publishable: true, provenance: { rotation: ['s1'], formula: ['s1'], buffs: ['s1'] } }, sources: [source], buffs: structuredClone(fixture.buffs), encounters: [encounter('one'), encounter('two'), encounter('three'), encounter('adv', 'adversity')] }; }
 const errorsFor = mutate => { const payload = validPayload(); mutate(payload); return validateData(payload, { now: Date.parse('2026-08-14T13:00:00Z') }); };
 test('valid publishable payload passes', () => assert.deepEqual(validateData(validPayload(), { now: Date.parse('2026-08-14T13:00:00Z') }), []));
 test('rejects expired cycle', () => assert.ok(errorsFor(payload => { payload.cycle.endsAt = '2026-08-13T00:00:00Z'; }).some(error => error.includes('expired'))));
 test('rejects missing encounter field and HP', () => { const errors = errorsFor(payload => { delete payload.encounters[0].name; payload.encounters[0].hp = 0; }); assert.ok(errors.some(error => error.includes('missing id or name'))); assert.ok(errors.some(error => error.includes('invalid/nonpositive HP'))); });
 test('rejects broken source reference and provenance', () => { const errors = errorsFor(payload => { payload.encounters[0].sourceRefs = ['missing']; payload.encounters[0].provenance.enemy = ['missing']; }); assert.ok(errors.some(error => error.includes('broken source references'))); assert.ok(errors.some(error => error.includes('invalid enemy provenance'))); });
-test('rejects malformed text annotation ranges', () => { const errors = errorsFor(payload => { payload.buffs[0].segments = [[0, 99, 'quantity']]; }); assert.ok(errors.some(error => error.includes('invalid text annotations'))); });
+test('rejects malformed text annotation ranges', () => { const errors = errorsFor(payload => { payload.buffs[0].segments = [[0, payload.buffs[0].description.length + 1, 'quantity']]; }); assert.ok(errors.some(error => error.includes('invalid text annotations'))); });
 test('rejects old opaque text annotation kind codes', () => { const errors = errorsFor(payload => { payload.buffs[0].segments = [[0, 1, 'v']]; }); assert.ok(errors.some(error => error.includes('invalid text annotations'))); });
 test('publishable data rejects missing or stale reviewed buff brief coverage', () => {
   assert.ok(errorsFor(payload => { delete payload.buffs[0].brief; }).some(error => error.includes('missing reviewed buff brief coverage')));
   assert.ok(errorsFor(payload => { payload.buffs[0].briefSourceSha256 = '0'.repeat(64); }).some(error => error.includes('missing reviewed buff brief coverage')));
+});
+test('publishable data rejects unknown buff IDs and altered reviewed brief text', () => {
+  assert.ok(errorsFor(payload => { payload.buffs[0].id = 'unknown-next-phase-buff'; }).some(error => error.includes('missing reviewed buff brief coverage')));
+  assert.ok(errorsFor(payload => { payload.buffs[0].brief.who = 'Arbitrary Agents'; }).some(error => error.includes('missing reviewed buff brief coverage')));
 });
 test('rejects incomplete, unknown, and extra specialty fit fields', () => {
   assert.ok(errorsFor(payload => { payload.encounters[0].specialtyFit = { specialty: 'Anomaly', reason: '' }; }).some(error => error.includes('invalid specialty fit')));
