@@ -1,6 +1,8 @@
 .mobile-disclosure > summary { cursor: pointer; }
 .mobile-disclosure > summary::-webkit-details-marker { display: none; }
 
+.footer-inner { justify-content: flex-end; }
+
 @media (max-width: 1000px) and (min-width: 761px) {
   .trial-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .trial-cards .card:last-child { grid-column: 1 / -1; }

@@ -16,12 +16,12 @@ repository contains the related source and the complete license text in
 
 ## product hierarchy
 
-`Inter-Knot Brief` is the planned parent entrypoint. `Deadly Assault` and
+`sixthstreet.wiki` is the parent entrypoint. `Deadly Assault` and
 `Shiyu Defense` are separate mode surfaces beneath it. This repository currently
 owns only the Deadly Assault surface. Do not merge mode-specific data, schema,
 or update logic merely to create the shared entrypoint. The separate Shiyu
 Defense surface is live at
-https://alvinwin.github.io/zzz-shiyu-defense/ and links back here; the two
+https://sd.sixthstreet.wiki/ and links back here; the two
 surfaces remain independently sourced and updated.
 
 ## update data
@@ -82,6 +82,10 @@ The sources use immutable GitHub URLs and the resolved commit SHA.
 
 The design uses original typography, colors, and layout primitives. It includes
 no copied game artwork.
+
+Shared user-facing copy follows the Sixthstreet voice contract in the planning
+workspace. The contract aligns the family of pages without merging their data
+or update logic.
 
 Zenless Zone Zero and related names belong to their respective owners. This fan
 project is not affiliated with or endorsed by HoYoverse.

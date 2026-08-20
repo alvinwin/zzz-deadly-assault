@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 
 const feedbackUrl = 'https://github.com/alvinwin/zzz-deadly-assault/issues/new?template=feedback.yml';
-const shiyuUrl = 'https://alvinwin.github.io/zzz-shiyu-defense/';
+const shiyuUrl = 'https://sd.sixthstreet.wiki/';
 const contentHash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
 const compactPayload = data => ({ cycle: (({ id, startsAt, endsAt, checkedAt, publishable }) => ({ id, startsAt, endsAt, checkedAt, publishable }))(data.cycle), sources: data.sources.map(({ id, label, url }) => ({ id, label, url })), buffs: data.buffs, encounters: data.encounters.map(encounter => ({ i: encounter.id ?? encounter.i, t: encounter.type ?? encounter.t, n: encounter.name ?? encounter.n, c: encounter.category ?? encounter.c, p: encounter.hp ?? encounter.p, h: encounter.history ?? encounter.h, sf: encounter.specialtyFit ?? encounter.sf, m: encounter.mechanic ?? encounter.m, mr: encounter.mechanicReview ?? encounter.mr, ms: encounter.mechanicSegments ?? encounter.ms, w: encounter.weaknesses ?? encounter.w, x: encounter.resistances ?? encounter.x, q: encounter.sourceRefs ?? encounter.q })) });
 const formatCycleDate = value => { const date = new Date(value); return `${String(date.getUTCMonth() + 1).padStart(2, '0')}/${String(date.getUTCDate()).padStart(2, '0')}`; };
@@ -17,7 +17,7 @@ const expectFreshnessStatus = async page => {
 };
 
 const expectActionLinks = async page => {
-  const shiyu = page.getByRole('link', { name: 'Open Shiyu Defense', exact: true });
+  const shiyu = page.getByRole('link', { name: 'View Shiyu Defense', exact: true });
   await expect(shiyu).toHaveAttribute('href', shiyuUrl);
   await shiyu.focus();
   await expect(shiyu).toBeFocused();
@@ -77,12 +77,14 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.locator('.buff-card')).toHaveCount(3);
   await expect(page.getByRole('link', { name: 'Selectable buffs' })).toHaveAttribute('href', '#selectable-buffs');
   await expect(page.locator('.hero-copy')).toContainText('selectable buffs');
+  await expect(page.getByRole('link', { name: 'sixthstreet.wiki home' })).toHaveAttribute('href', 'https://sixthstreet.wiki/');
   await expect(page.locator('#selectable-buffs .eyebrow')).toHaveText('Selectable buffs');
   await expect(page.locator('#selectable-buffs .section-copy')).toContainText('Choose one of these buff options for each squad or challenge.');
   await expect(page.locator('.buff-card header > span')).toHaveText(['Buff option', 'Buff option', 'Buff option']);
   await expect(page.locator('.buff-brief dt')).toHaveCount(9);
   await expect(page.locator('#buff-list')).not.toContainText('See source wording');
   await expect(page.locator('#buff-list')).not.toContainText('Recommended');
+  await expect(page.getByText('Take the useful note with you.')).toHaveCount(0);
   expect(await page.locator('#buff-list').evaluate(element => element.innerHTML)).not.toMatch(/<script/i);
   await expectFreshnessStatus(page);
   await expectActionLinks(page);

@@ -7,6 +7,8 @@ test('desktop renders four mode-grouped observed-clear summaries and sources', a
   const errors = [];
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Observed character use by boss', exact: true })).toBeVisible();
+  await expect(page.getByText('Characters recorded in submitted and public-profile clears.', { exact: true })).toBeVisible();
 
   await expect(page.locator('.boss-trend')).toHaveCount(4);
   await expect(page.locator('.boss-trend h3')).toHaveText([
