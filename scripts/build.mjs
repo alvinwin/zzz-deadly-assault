@@ -34,28 +34,38 @@ const compactData = {
   cycle: (({ id, startsAt, endsAt, checkedAt, publishable }) => ({ id, startsAt, endsAt, checkedAt, publishable }))(currentData.cycle),
   sources: currentData.sources.map(({ id, label, url }) => ({ id, label, url })),
   buffs: currentData.buffs,
-  encounters: currentData.encounters.map(({ id, type, name, category, hp, history, specialty, mechanic, mechanicReview, mechanicSegments, weaknesses, resistances, sourceRefs }) => ({ i: id, t: type, n: name, c: category, p: hp, h: history, s: specialty, m: mechanic, mr: mechanicReview, ms: mechanicSegments, w: weaknesses, x: resistances, q: sourceRefs }))
+  encounters: currentData.encounters.map(({ id, type, name, category, hp, history, specialtyFit, mechanic, mechanicReview, mechanicSegments, weaknesses, resistances, sourceRefs }) => ({ i: id, t: type, n: name, c: category, p: hp, h: history, sf: specialtyFit, m: mechanic, mr: mechanicReview, ms: mechanicSegments, w: weaknesses, x: resistances, q: sourceRefs }))
 };
 const emittedData = JSON.stringify(compactData);
 const dataHash = contentHash(emittedData);
 fs.writeFileSync(path.join(dist, 'data/current.json'), emittedData);
-const emittedTrends = JSON.stringify({
-  cohortLabel: trendsData.cohortLabel,
-  methodology: trendsData.methodology,
-  bosses: trendsData.bosses.map(({ canonicalId, displayName, currentSourceName, status, phases }) => ({
+const trendPins = [];
+const trendPinIndexes = new Map();
+const trendPinIndex = provenance => {
+  const pin = [provenance.sourceUrl, provenance.sourceFile, provenance.sourceSha256, provenance.retrievedAt];
+  const key = JSON.stringify(pin);
+  if (!trendPinIndexes.has(key)) { trendPinIndexes.set(key, trendPins.length); trendPins.push(pin); }
+  return trendPinIndexes.get(key);
+};
+const compactRate = value => Number(value.toFixed(6));
+const emittedTrendData = {
+  m: [trendsData.methodology.inclusion, trendsData.methodology.exclusions],
+  b: trendsData.bosses.map(({ canonicalId, displayName, currentSourceName, status, phases }) => [
     canonicalId,
     displayName,
     currentSourceName,
     status,
-    phases: phases.map(({ version, phase, provenance, sampleSize, characters }, phaseIndex) => ({
+    phases.map(({ version, phase, provenance, sampleSize, characters }, phaseIndex) => [
       version,
       phase,
-      provenance,
+      trendPinIndex(provenance),
       sampleSize,
-      characters: phaseIndex === phases.length - 1 ? characters.slice(0, 10) : [],
-    })),
-  })),
-});
+      phaseIndex === phases.length - 1 ? characters.slice(0, 10).map(({ name, clearCount, appearanceRate, priorAppearanceChange }) => [name, clearCount, compactRate(appearanceRate), compactRate(priorAppearanceChange)]) : [],
+    ]),
+  ]),
+};
+emittedTrendData.p = trendPins;
+const emittedTrends = JSON.stringify(emittedTrendData);
 const trendsHash = contentHash(emittedTrends);
 fs.writeFileSync(path.join(dist, 'data/da-boss-character-trends.json'), emittedTrends);
 let emittedJs = compactJs(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));
@@ -63,22 +73,16 @@ emittedJs = replaceAssetReference(emittedJs, "fetch('data/current.json')", `fetc
 emittedJs = replaceAssetReference(emittedJs, "fetch('data/da-boss-character-trends.json')", `fetch('data/da-boss-character-trends.json?v=${trendsHash}')`, 'trend data');
 const appHash = contentHash(emittedJs);
 fs.writeFileSync(path.join(dist, 'app.js'), emittedJs);
-const emittedCss = compactCss(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'));
+const emittedCss = compactCss(['styles.css', 'overrides.css', 'trends.css'].map(file => fs.readFileSync(path.join(root, file), 'utf8')).join('\n'));
 const cssHash = contentHash(emittedCss);
 fs.writeFileSync(path.join(dist, 'styles.css'), emittedCss);
-const emittedOverrides = compactCss(fs.readFileSync(path.join(root, 'overrides.css'), 'utf8'));
-const overridesHash = contentHash(emittedOverrides);
-fs.writeFileSync(path.join(dist, 'overrides.css'), emittedOverrides);
-const emittedTrendsCss = compactCss(fs.readFileSync(path.join(root, 'trends.css'), 'utf8'));
-const trendsCssHash = contentHash(emittedTrendsCss);
-fs.writeFileSync(path.join(dist, 'trends.css'), emittedTrendsCss);
 let emittedIndex = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
   .replace(/>\s+</g, '><')
   .replace(/\s{2,}/g, ' ')
   .trim();
 emittedIndex = replaceAssetReference(emittedIndex, 'href="styles.css"', `href="styles.css?v=${cssHash}"`, 'stylesheet');
-emittedIndex = replaceAssetReference(emittedIndex, 'href="overrides.css"', `href="overrides.css?v=${overridesHash}"`, 'override stylesheet');
-emittedIndex = replaceAssetReference(emittedIndex, 'href="trends.css"', `href="trends.css?v=${trendsCssHash}"`, 'trend stylesheet');
+emittedIndex = replaceAssetReference(emittedIndex, '<link rel="stylesheet" href="overrides.css">', '', 'override stylesheet');
+emittedIndex = replaceAssetReference(emittedIndex, '<link rel="stylesheet" href="trends.css">', '', 'trend stylesheet');
 emittedIndex = replaceAssetReference(emittedIndex, 'src="app.js"', `src="app.js?v=${appHash}"`, 'script');
 fs.writeFileSync(path.join(dist, 'index.html'), emittedIndex);
 console.log('✓ built clean dist/ (HTML, CSS, app, and data)');

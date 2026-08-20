@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { isCanonicalReviewedBuff } from './reviewed-buff-briefs.mjs';
 
 const isIso = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
 const isPlaceholder = value => value == null || (typeof value === 'string' && /pending|tbd|placeholder|example\.invalid/i.test(value));
-const segmentKinds = new Set(['v', 'e', 'd', 'm', 'a', 't', 'r', 's', 'u', 'f']);
+const textAnnotationKinds = new Set(['quantity', 'attribute', 'specialty', 'mechanic', 'effect-term']);
 const specialties = new Set(['Attack', 'Stun', 'Anomaly', 'Support', 'Defense', 'Rupture']);
 const elements = new Set(['ice', 'fire', 'electric', 'ether', 'physical', 'wind']);
 
@@ -31,11 +32,14 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
     const invalidSegments = !Array.isArray(segments) || segments.some(segment => {
       if (!Array.isArray(segment) || segment.length !== 3) return true;
       const [start, end, kind] = segment;
-      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= description.length && start >= cursor && segmentKinds.has(kind);
+      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= description.length && start >= cursor && textAnnotationKinds.has(kind);
       cursor = valid ? end : cursor;
       return !valid;
     });
-    if (invalidSegments) errors.push(String(buff?.id || 'buff') + ' has invalid emphasis segments');
+    if (invalidSegments) errors.push(String(buff?.id || 'buff') + ' has invalid text annotations');
+    const brief = buff?.brief;
+    const validBrief = brief && typeof brief === 'object' && !Array.isArray(brief) && Object.keys(brief).sort().join(',') === 'payoff,trigger,who' && Object.values(brief).every(value => typeof value === 'string' && value.trim() && !isPlaceholder(value) && !/<\/?[a-z][^>]*>/i.test(value));
+    if (cycle?.publishable === true && (!validBrief || !isCanonicalReviewedBuff(buff))) errors.push(String(buff?.id || 'buff') + ' is missing reviewed buff brief coverage');
   }
   if (!cycle?.provenance || !sourceListValid(cycle.provenance.rotation) || !sourceListValid(cycle.provenance.formula) || !sourceListValid(cycle.provenance.buffs)) errors.push('cycle has invalid field provenance');
   const ids = (encounters || []).map(e => e?.id).filter(Boolean);
@@ -47,7 +51,9 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
     if (!Number.isFinite(encounter.hp) || encounter.hp <= 0) errors.push(`${id} has invalid/nonpositive HP`);
     if (!Number.isInteger(encounter.type) || encounter.type < 0) errors.push(id + ' has invalid enemy type');
     if (!Array.isArray(encounter.history) || encounter.history.length === 0 || encounter.history.length > 8 || encounter.history.some(point => !Array.isArray(point) || point.length !== 2 || typeof point[0] !== 'string' || !Number.isFinite(point[1]) || point[1] <= 0)) errors.push(id + ' has invalid HP history');
-    if (encounter.specialty !== null && !specialties.has(encounter.specialty)) errors.push(id + ' has invalid specialty');
+    const specialtyFit = encounter.specialtyFit;
+    const invalidSpecialtyFit = specialtyFit !== null && (!specialtyFit || typeof specialtyFit !== 'object' || Array.isArray(specialtyFit) || Object.keys(specialtyFit).sort().join(',') !== 'reason,specialty' || !specialties.has(specialtyFit.specialty) || typeof specialtyFit.reason !== 'string' || !specialtyFit.reason.trim() || isPlaceholder(specialtyFit.reason));
+    if (invalidSpecialtyFit) errors.push(id + ' has invalid specialty fit');
     if (typeof encounter.mechanic !== 'string' || !encounter.mechanic || /<\/?[a-z][^>]*>/i.test(encounter.mechanic)) errors.push(id + ' is missing or unsafe mechanic');
     if (!['reviewed', 'fallback'].includes(encounter.mechanicReview)) errors.push(id + ' has invalid mechanic review flag');
     if (!Array.isArray(encounter.mechanicSegments)) errors.push(id + ' is missing mechanic emphasis segments');
@@ -55,10 +61,10 @@ export function validateData(data, { allowFixture = false, now = Date.now() } = 
     if (Array.isArray(encounter.mechanicSegments) && encounter.mechanicSegments.some(segment => {
       if (!Array.isArray(segment) || segment.length !== 3) return true;
       const [start, end, kind] = segment;
-      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= encounter.mechanic.length && start >= mechanicCursor && segmentKinds.has(kind);
+      const valid = Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= encounter.mechanic.length && start >= mechanicCursor && textAnnotationKinds.has(kind);
       mechanicCursor = valid ? end : mechanicCursor;
       return !valid;
-    })) errors.push(id + ' has invalid mechanic emphasis segments');
+    })) errors.push(id + ' has invalid mechanic text annotations');
     if (!Array.isArray(encounter.weaknesses) || encounter.weaknesses.some(value => isPlaceholder(value) || !elements.has(value))) errors.push(`${id} is missing weaknesses`);
     if (!Array.isArray(encounter.resistances) || encounter.resistances.some(value => isPlaceholder(value) || !elements.has(value))) errors.push(`${id} is missing resistances`);
     if (!Array.isArray(encounter.sourceRefs) || encounter.sourceRefs.length === 0 || encounter.sourceRefs.some(ref => !sourceIds.has(ref))) errors.push(`${id} has broken source references`);

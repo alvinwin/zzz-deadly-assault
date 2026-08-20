@@ -1,0 +1,70 @@
+# Deadly Assault current UI data contract
+
+This contract covers only fields consumed by the current Deadly Assault fixture,
+validator, build, and renderer. It is not a general Zenless Zone Zero mechanics
+model.
+
+## Encounter mode
+
+The existing `encounters[].category` field is authoritative for grouping:
+
+- `standard` renders as the official label `Trial Mode`.
+- `adversity` renders as the official label `Adversity Mode`.
+
+No second mode field is permitted.
+
+## Text annotation kind
+
+`buffs[].segments` and `encounters[].mechanicSegments` annotate reviewed source
+text for presentation. Each annotation is `[start, end, kind]`, where `start`
+and `end` are non-overlapping string offsets and `kind` is exactly one of:
+
+- `quantity`
+- `attribute`
+- `specialty`
+- `mechanic`
+- `effect-term`
+
+These values do not model buff/debuff polarity, effect direction, targets,
+stacking, or game relationships. The reviewed description remains the mechanics
+record. Add another annotation kind only when the current renderer has a named
+distinction it cannot present with this set.
+
+The renderer may derive presentation-only modifier classes from the visible
+annotated term (for example, distinguishing `Ice RES` from `Ether RES`, or
+`Basic Attack` from `EX Special Attack`). Those modifiers are not stored data,
+new annotation kinds, or an official game taxonomy. They exist only to keep
+the terms already shown by this UI visually distinguishable, and the readable
+term remains present when color is unavailable.
+
+## Selectable buff brief
+
+Each publishable `buffs[]` record must include a reviewed `brief` with exactly
+`who`, `trigger`, and `payoff`, plus `briefReview: "reviewed"` and a
+`briefSourceSha256` fingerprint of the normalized source description. The data
+updater owns the reviewed ID-to-brief mapping and fails before replacing the
+current fixture when an ID is unknown or its source wording changes. The
+validator independently recomputes the fingerprint, so build also fails closed
+if reviewed coverage is missing or stale.
+
+The renderer consumes the brief from the validated cycle data. It must not
+invent a generic summary for an unknown buff.
+
+## Specialty fit
+
+`encounters[].specialtyFit` is either `null` or:
+
+```json
+{
+  "specialty": "Anomaly",
+  "reason": "Suitable for Agents with Anomaly specialty."
+}
+```
+
+`specialty` must be a currently supported Specialty and `reason` must be the
+non-empty reviewed wording derived from the encounter source. The encounter's
+existing `sourceRefs` provide scope and provenance; they are not duplicated
+inside `specialtyFit`. A `null` value means the source makes no suitable-
+Specialty claim, so the renderer omits the row.
+
+Observed character-use aggregates must never populate `specialtyFit`.
