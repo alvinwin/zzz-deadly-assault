@@ -1,7 +1,7 @@
 .mobile-disclosure > summary { cursor: pointer; }
 .mobile-disclosure > summary::-webkit-details-marker { display: none; }
 
-.footer-inner { justify-content: flex-end; }
+.footer-inner { justify-content: space-between; }
 
 @media (max-width: 1000px) and (min-width: 761px) {
   .trial-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -14,23 +14,20 @@
 }
 
 @media (max-width: 760px) {
-  :root { --shell: calc(100% - 24px); }
-  .site-header { position: sticky; top: 0; }
-  #encounters, #selectable-buffs, #boss-trends, #sources { scroll-margin-top: 62px; }
-  .masthead { min-height: 58px; gap: 8px; }
-  .brand { font-size: 13px; }
-  .brand-mark { width: 25px; height: 25px; }
-  .primary-nav { gap: 0; }
-  .primary-nav a { min-height: 44px; align-content: center; justify-content: center; padding: 0 7px; font-size: 11px; line-height: 1.05; text-align: center; }
+  :root { --shell: min(100% - 32px, 620px); }
+  .masthead { min-height: 107px; flex-wrap: wrap; align-content: center; gap: 0; padding-block: 7px; }
+  .brand { height: 44px; font-size: 17px; }
+  .brand-mark { width: 34px; height: 34px; }
+  .primary-nav { width: 100%; justify-content: space-between; gap: 0; }
+  .primary-nav a { min-height: 44px; align-content: center; justify-content: center; padding: 0 8px; font-size: 13px; line-height: 1.05; text-align: center; }
   .wide-label { display: none; }
   .compact-label { display: inline; }
-  .hero, .hero-content { min-height: 292px; }
-  .hero-art { background-image: url("https://sixthstreet.wiki/assets/hero-mobile.webp"); background-position: center bottom; }
-  .hero::after { background: linear-gradient(90deg, rgba(255,250,240,.98) 0%, rgba(255,250,240,.88) 55%, rgba(255,250,240,.12) 100%); }
-  .hero-content { padding: 30px 0; }
-  .hero h1 { max-width: 330px; font-size: 39px; }
-  .hero-copy { max-width: 290px; margin-bottom: 14px; font-size: 13px; }
-  .ticker-inner { min-height: 48px; }
+  .hero, .hero-content { min-height: 420px; }
+  .hero-art { background-image: url("https://sixthstreet.wiki/assets/hero-mobile.webp"); background-position: 67% 58%; }
+  .hero::after { background: linear-gradient(90deg, rgba(255,249,235,.97) 0%, rgba(255,249,235,.91) 52%, rgba(255,249,235,.62) 100%); }
+  .hero-content { padding: 37px 0 35px; }
+  .hero h1 { max-width: 348px; font-size: clamp(39px, 11vw, 48px); }
+  .hero-copy { max-width: 340px; margin-bottom: 22px; font-size: 16px; }
   .status { gap: 8px; font-size: 10px; }
   .section { padding-block: 46px; }
   .section-head { margin-bottom: 20px; }
@@ -71,5 +68,5 @@
   .sources-section > summary { min-height: 58px; list-style: none; }
   .source-definitions dl { grid-template-columns: 1fr; gap: 8px; }
   .footer-inner { align-items: flex-start; flex-direction: column; }
-  .footer-inner > div { flex-wrap: wrap; }
+  .footer-actions { flex-wrap: wrap; }
 }

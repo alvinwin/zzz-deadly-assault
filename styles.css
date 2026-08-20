@@ -24,26 +24,26 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .skip-link:focus { transform: translateY(0); }
 
 .site-header { position: relative; z-index: 10; border-bottom: 1px solid var(--line); background: rgba(255, 250, 240, .96); }
-.masthead { display: flex; min-height: 66px; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; font-weight: 800; letter-spacing: -.04em; }
-.brand-mark { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; background: var(--red); color: #fff; font-family: Georgia, serif; font-style: italic; }
+.masthead { display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; font-size: 17px; font-weight: 780; letter-spacing: -.045em; }
+.brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--red); color: #fff; font-family: Georgia, serif; font-size: 21px; font-style: italic; font-weight: 700; line-height: 1; }
 .primary-nav { display: flex; align-items: center; gap: 4px; }
-.primary-nav a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 12px; color: var(--muted); font-size: 13px; font-weight: 750; }
+.primary-nav a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 12px; color: #35404a; font-size: 14px; font-weight: 680; }
 .primary-nav a:hover { color: var(--teal); }
 .compact-label { display: none; }
 
-.hero { position: relative; isolation: isolate; min-height: 360px; background: #decda9; }
+.hero { position: relative; isolation: isolate; min-height: 430px; overflow: hidden; background: #ecd4a8; }
 .hero-art { position: absolute; z-index: -2; inset: 0; background: url("https://sixthstreet.wiki/assets/hero.webp") 62% 61% / cover no-repeat; }
-.hero::after { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(90deg, rgba(255,250,240,.99) 0%, rgba(255,250,240,.96) 34%, rgba(255,250,240,.62) 54%, rgba(255,250,240,.05) 78%); }
-.hero-content { display: flex; min-height: 360px; flex-direction: column; align-items: flex-start; justify-content: center; padding: 42px 0; }
+.hero::after { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(90deg, rgba(255,249,235,.98) 0%, rgba(255,249,235,.94) 34%, rgba(255,248,232,.73) 48%, rgba(255,245,225,.18) 72%, rgba(255,245,225,.02) 100%); }
+.hero-content { display: flex; min-height: 430px; flex-direction: column; align-items: flex-start; justify-content: center; padding: 54px 0 50px; }
 .eyebrow { margin: 0 0 10px; color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: .14em; line-height: 1.2; text-transform: uppercase; }
 .hero h1, h2, h3, p { margin-top: 0; }
-.hero h1 { max-width: 700px; margin-bottom: 15px; font-size: clamp(42px, 5vw, 66px); font-weight: 850; letter-spacing: -.07em; line-height: .95; }
-.hero-copy { max-width: 530px; margin-bottom: 20px; color: #354552; font-size: 17px; line-height: 1.5; }
-.mode-link { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 15px; border-radius: 6px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 800; }
+.hero h1 { max-width: 690px; margin-bottom: 18px; font-size: clamp(42px, 5vw, 70px); font-weight: 800; letter-spacing: -.07em; line-height: .94; }
+.hero-copy { max-width: 565px; margin-bottom: 22px; color: #34404a; font-size: 18px; font-weight: 520; line-height: 1.52; }
+.mode-link { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 16px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 760; }
 
 .resource-ticker { border-bottom: 1px solid #c8d9d1; background: #e2eee8; }
-.ticker-inner { display: flex; min-height: 54px; align-items: center; justify-content: space-between; gap: 20px; }
+.ticker-inner { display: flex; min-height: 55px; align-items: center; justify-content: space-between; gap: 20px; }
 .ticker-inner > strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .status { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 12px; }
 .status .verified { color: var(--status); font-weight: 850; }

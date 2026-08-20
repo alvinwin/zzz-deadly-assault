@@ -50,6 +50,9 @@ test('built deployment has deterministic cache-coherent asset references', async
 test('desktop presents player-first matchup, mechanics, selectable buffs, and provenance', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1, name: 'Threat intelligence' })).toBeVisible();
+  await expect(page.locator('.masthead')).toHaveCSS('min-height', '70px');
+  await expect(page.locator('.hero')).toHaveCSS('min-height', '430px');
   await expect(page.locator('.card')).toHaveCount(4);
   await expect(page.locator('.matchup')).toHaveCount(4);
   await expect(page.locator('.fit strong')).toHaveText(['Anomaly', 'Stun', 'Rupture']);
@@ -109,6 +112,13 @@ test('adversity mechanic keeps compound combat terms intact', async ({ page }) =
 test('mobile uses a full vertical card flow with no page overflow', async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/');
+  const mastheadHeight = await page.locator('.masthead').evaluate(element => element.getBoundingClientRect().height);
+  expect(mastheadHeight).toBeGreaterThanOrEqual(106);
+  expect(mastheadHeight).toBeLessThanOrEqual(108);
+  await expect(page.locator('.hero')).toHaveCSS('min-height', '420px');
+  const tickerHeight = await page.locator('.ticker-inner').evaluate(element => element.getBoundingClientRect().height);
+  expect(tickerHeight).toBeGreaterThanOrEqual(54);
+  expect(tickerHeight).toBeLessThanOrEqual(56);
   await expect(page.locator('.card')).toHaveCount(4);
   const geometry = await page.locator('.trial-cards').evaluate(grid => ({ scrollWidth: grid.scrollWidth, clientWidth: grid.clientWidth, widths: [...grid.children].map(card => card.getBoundingClientRect().width), tops: [...grid.children].map(card => card.getBoundingClientRect().top) }));
   expect(geometry.scrollWidth).toBe(geometry.clientWidth);

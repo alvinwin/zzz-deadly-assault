@@ -40,7 +40,7 @@ test('mobile keeps all core content in a readable vertical flow', async ({ page 
     return { boxCenter: box.top + box.height / 2, textCenter: text.top + text.height / 2 };
   }));
   expect(navCenters.every(({ boxCenter, textCenter }) => Math.abs(boxCenter - textCenter) < 1.5)).toBe(true);
-  expect(await page.locator('.site-header').evaluate(element => getComputedStyle(element).position)).toBe('sticky');
+  expect(await page.locator('.site-header').evaluate(element => getComputedStyle(element).position)).toBe('relative');
 
   for (const selector of ['.trial-cards', '.trial-trends .boss-trend-grid']) {
     const dimensions = await page.locator(selector).evaluate(element => ({
