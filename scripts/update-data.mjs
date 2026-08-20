@@ -32,7 +32,40 @@ const reviewedMechanics = {
   '20300:0': { text: 'Each phase change increases Anomaly Buildup RES by 10% and CRIT DMG taken by 30%. Break Miasmic Shield to remove the stacks.', fingerprint: 'fb74aee5a014df48fbbcaf67ee862f0d4b7179a7c5cec4675ed8148c4838bf51' },
   '28400:0': { text: 'Trigger SHUTDOWN to decrease enemy All-Attribute RES by 10%. Agents with the Attack specialty then get 20% ATK, 25% PEN Ratio, and 60% Ice and Ether CRIT DMG.', fingerprint: 'c37e573f67e93fecee98506f37d7ddb918001bce4bc5b0c60ff263f0401ba95c' }
 };
+const reviewedBuffBriefs = {
+  '69000066': {
+    brief: {
+      who: 'Squads with 2–3 Anomaly Agents',
+      trigger: 'Build the squad; inflict an Attribute Anomaly',
+      payoff: 'More Anomaly Proficiency and Attribute Anomaly DMG; the trigger lowers All-Attribute RES',
+    },
+    fingerprint: 'e45ad38b206496d662681245e64f498087f99997ff384582f82d64ed169024e9',
+  },
+  '69000068': {
+    brief: {
+      who: 'Attack Agents',
+      trigger: 'Hit with Basic, EX Special, or Chain Attacks; hit a Stunned enemy',
+      payoff: 'More ATK, Ice/Ether RES ignore, and Stun DMG Multiplier',
+    },
+    fingerprint: 'e4dd528a00ae2b96d3c88956802d1f86a3fc980e24f3cb91174410e16eeb6144',
+  },
+  '69000055': {
+    brief: {
+      who: 'Rupture Agents',
+      trigger: 'Enter Ether Veil; keep hitting the enemy',
+      payoff: 'More Sheer and Ether DMG, faster Miasma Shield removal, and more Stun DMG Multiplier',
+    },
+    fingerprint: '43477834c83536a3e86021944e557162edf10612b2274d535a852442ebfa00fb',
+  },
+};
 export const normalizeSourceDescription = value => stripHtml(value).replace(/\s+/g, ' ').trim();
+const reviewedBuffBrief = (id, description) => {
+  const review = reviewedBuffBriefs[id];
+  if (!review) throw new Error(`missing reviewed buff brief coverage for ${id}`);
+  const fingerprint = crypto.createHash('sha256').update(normalizeSourceDescription(description)).digest('hex');
+  if (fingerprint !== review.fingerprint) throw new Error(`reviewed buff brief source fingerprint changed for ${id}`);
+  return { brief: review.brief, briefReview: 'reviewed', briefSourceSha256: fingerprint };
+};
 const reviewedMechanic = (id, type, enemy) => {
   const review = reviewedMechanics[id + ':' + type];
   const sourceDescription = normalizeSourceDescription(enemy?.desc?.[type]);
@@ -87,7 +120,7 @@ export function transform({ versions, enemies, buffs, now = new Date(), commit =
     const specialtyFit = parseSpecialtyFit(enemy.misc);
     return { id: ref.id, type: ref.type, name: enemy.name, category, hp, history: buildHistory({ versions, enemies, now, id: ref.id, type: ref.type, category }), specialtyFit, mechanic, mechanicReview: mechanicReview?.review || null, mechanicSegments: segmentDescription(mechanic), weaknesses: elements.filter((_, i) => multipliers[i] < 1), resistances: elements.filter((_, i) => multipliers[i] > 1), sourceRefs: ['rotation', 'enemy', 'formula'], provenance: { rotation: ['rotation'], enemy: ['enemy'], formula: ['formula'] } };
   });
-  const cycleBuffs = version.versionBuffIDs.map(id => { const buff = buffs[id]; if (!buff) throw new Error(`missing buff ID ${id}`); const description = stripHtml(buff[2] || buff[1]); return { id, name: buff[0], description, segments: segmentDescription(description) }; });
+  const cycleBuffs = version.versionBuffIDs.map(id => { const buff = buffs[id]; if (!buff) throw new Error(`missing buff ID ${id}`); const description = stripHtml(buff[2] || buff[1]); return { id, name: buff[0], description, segments: segmentDescription(description), ...reviewedBuffBrief(id, description) }; });
   return { cycle: { id: entry.id, label: version.versionName, startsAt: entry.startsAt.toISOString(), endsAt: entry.endsAt.toISOString(), checkedAt: now.toISOString(), hasAdversity: true, publishable: true, formula: 'floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)', provenance: { rotation: ['rotation'], formula: ['formula'], buffs: ['buff'] } }, sources: sourceDefs.map(source => ({ ...source, retrievedAt: now.toISOString(), commit })), buffs: cycleBuffs, encounters };
 }
 async function fetchJson(url, headers = {}) { const response = await fetch(url, { headers: { 'User-Agent': 'zzz-deadly-assault-updater', 'Accept': 'application/vnd.github+json', ...headers } }); if (!response.ok) throw new Error(`${response.status} ${url}`); return response.json(); }

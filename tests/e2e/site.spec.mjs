@@ -47,12 +47,14 @@ test('built deployment has deterministic cache-coherent asset references', async
   await expectFreshnessStatus(page);
 });
 
-test('desktop presents player-first matchup, mechanics, effects, and provenance', async ({ page }) => {
+test('desktop presents player-first matchup, mechanics, selectable buffs, and provenance', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
   await expect(page.locator('.card')).toHaveCount(4);
   await expect(page.locator('.matchup')).toHaveCount(4);
-  await expect(page.locator('.fit strong')).toHaveText(['Anomaly', 'Stun', 'Rupture', 'Not specified']);
+  await expect(page.locator('.fit strong')).toHaveText(['Anomaly', 'Stun', 'Rupture']);
+  await expect(page.locator('.card.adversity .fit')).toHaveCount(0);
+  await expect(page.locator('.card.adversity')).not.toContainText('Not specified');
   await expect(page.locator('#cards')).not.toContainText('Recommended');
   await expect(page.locator('.mechanic-callout p')).toHaveCount(4);
   await expect(page.locator('.mechanic-callout').first()).toContainText('Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds.');
@@ -63,7 +65,13 @@ test('desktop presents player-first matchup, mechanics, effects, and provenance'
   await expect(page.locator('.provenance').first().locator('a')).toHaveCount(3);
   await expect(page.locator('.provenance a').first()).toHaveAttribute('href', /620a7546b4d2934c58d55cdf7a435056576bb1fc/);
   await expect(page.locator('.buff-card')).toHaveCount(3);
+  await expect(page.getByRole('link', { name: 'Selectable buffs' })).toHaveAttribute('href', '#selectable-buffs');
+  await expect(page.locator('.hero-copy')).toContainText('selectable buffs');
+  await expect(page.locator('#selectable-buffs .eyebrow')).toHaveText('Selectable buffs');
+  await expect(page.locator('#selectable-buffs .section-copy')).toContainText('Choose one of these buff options for each squad or challenge.');
+  await expect(page.locator('.buff-card header > span')).toHaveText(['Buff option', 'Buff option', 'Buff option']);
   await expect(page.locator('.buff-brief dt')).toHaveCount(9);
+  await expect(page.locator('#buff-list')).not.toContainText('See source wording');
   await expect(page.locator('#buff-list')).not.toContainText('Recommended');
   expect(await page.locator('#buff-list').evaluate(element => element.innerHTML)).not.toMatch(/<script/i);
   await expectFreshnessStatus(page);
@@ -102,9 +110,10 @@ test('mobile uses a full vertical card flow with no page overflow', async ({ pag
 
 test('specialty language remains neutral and source-faithful', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.fit > span')).toHaveText(['Suitable specialty', 'Suitable specialty', 'Suitable specialty', 'Suitable specialty']);
+  await expect(page.locator('.fit > span')).toHaveText(['Suitable specialty', 'Suitable specialty', 'Suitable specialty']);
   await expect(page.locator('.specialty-chip')).toHaveCount(0);
   await expect(page.locator('body')).not.toContainText('Recommended:');
+  await expect(page.locator('body')).not.toContainText('Not specified');
 });
 
 test('lower fixture HP renders a plain-language comparison', async ({ page }) => {

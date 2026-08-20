@@ -22,24 +22,6 @@ const renderSegments = (description, segments) => {
   return html + esc(description.slice(cursor));
 };
 
-const buffBriefs = {
-  '69000066': {
-    who: 'Squads with 2–3 Anomaly Agents',
-    trigger: 'Build the squad; inflict an Attribute Anomaly',
-    payoff: 'More Anomaly Proficiency and Attribute Anomaly DMG; the trigger lowers All-Attribute RES',
-  },
-  '69000068': {
-    who: 'Attack Agents',
-    trigger: 'Hit with Basic, EX Special, or Chain Attacks; hit a Stunned enemy',
-    payoff: 'More ATK, Ice/Ether RES ignore, and Stun DMG Multiplier',
-  },
-  '69000055': {
-    who: 'Rupture Agents',
-    trigger: 'Enter Ether Veil; keep hitting the enemy',
-    payoff: 'More Sheer and Ether DMG, faster Miasma Shield removal, and more Stun DMG Multiplier',
-  },
-};
-
 const data = await fetch('data/current.json').then(response => response.json());
 const { cycle } = data;
 const encounters = data.encounters.map(encounter => ({ ...encounter, id: encounter.id ?? encounter.i, type: encounter.type ?? encounter.t, name: encounter.name ?? encounter.n, category: encounter.category ?? encounter.c, hp: encounter.hp ?? encounter.p, history: encounter.history || encounter.h, specialtyFit: encounter.specialtyFit ?? encounter.sf, mechanic: encounter.mechanic || encounter.m, mechanicReview: encounter.mechanicReview || encounter.mr, mechanicSegments: encounter.mechanicSegments || encounter.ms, weaknesses: encounter.weaknesses || encounter.w, resistances: encounter.resistances || encounter.x, sourceRefs: encounter.sourceRefs || encounter.q }));
@@ -66,7 +48,7 @@ const renderHistory = history => {
   if (Math.abs(change) < .05) return `<span>HP unchanged since ${esc(previous[0])}</span>`;
   return `<span>HP ${change > 0 ? 'up' : 'down'} ${Math.abs(change).toFixed(1)}% since ${esc(previous[0])}</span>`;
 };
-const renderSpecialtyFit = specialtyFit => specialtyFit ? `<div class="fit"><span>Suitable specialty</span><strong>${esc(specialtyFit.specialty)}</strong></div>` : '<div class="fit"><span>Suitable specialty</span><strong>Not specified</strong></div>';
+const renderSpecialtyFit = specialtyFit => specialtyFit ? `<div class="fit"><span>Suitable specialty</span><strong>${esc(specialtyFit.specialty)}</strong></div>` : '';
 const renderEncounterCard = (encounter, index) => `<article class="card ${encounter.category === 'adversity' ? 'adversity' : ''}">
   <header class="card-top"><span class="index">${String(index + 1).padStart(2, '0')}</span><span class="tag">${encounter.category === 'adversity' ? 'Adversity Mode' : 'Trial Mode'}</span></header>
   <h3>${esc(encounter.name)}</h3>
@@ -79,8 +61,8 @@ const adversityEncounters = encounters.filter(encounter => encounter.category ==
 document.querySelector('#cards').innerHTML = `<section class="trial-group" aria-labelledby="trial-group-title"><div class="encounter-group-heading"><strong id="trial-group-title">Trial Mode</strong><span>3 encounters</span></div><div class="trial-cards">${trialEncounters.map((encounter, index) => renderEncounterCard(encounter, index)).join('')}</div></section>${adversityEncounters.length ? `<section class="adversity-group" aria-labelledby="adversity-group-title"><div class="encounter-group-heading"><strong id="adversity-group-title">Adversity Mode</strong><span>1 encounter</span></div>${adversityEncounters.map((encounter, index) => renderEncounterCard(encounter, trialEncounters.length + index)).join('')}</section>` : ''}`;
 
 document.querySelector('#buff-list').innerHTML = data.buffs.map(buff => {
-  const brief = buffBriefs[buff.id];
-  return `<article class="buff-card"><header><span>Global effect</span><h3>${esc(buff.name)}</h3></header><dl class="buff-brief"><div><dt>Who benefits</dt><dd>${esc(brief?.who || 'See source wording')}</dd></div><div><dt>Trigger or requirement</dt><dd>${esc(brief?.trigger || 'See source wording')}</dd></div><div><dt>Payoff</dt><dd>${esc(brief?.payoff || 'See source wording')}</dd></div></dl><details class="buff-disclosure mobile-disclosure" open><summary>Exact source wording</summary><div><p>${renderSegments(buff.description, buff.segments)}</p><small>${sourceLinks(buffSourceRefs)}</small></div></details></article>`;
+  const brief = buff.brief;
+  return `<article class="buff-card"><header><span>Buff option</span><h3>${esc(buff.name)}</h3></header><dl class="buff-brief"><div><dt>Who benefits</dt><dd>${esc(brief.who)}</dd></div><div><dt>Trigger or requirement</dt><dd>${esc(brief.trigger)}</dd></div><div><dt>Payoff</dt><dd>${esc(brief.payoff)}</dd></div></dl><details class="buff-disclosure mobile-disclosure" open><summary>Exact source wording</summary><div><p>${renderSegments(buff.description, buff.segments)}</p><small>${sourceLinks(buffSourceRefs)}</small></div></details></article>`;
 }).join('');
 
 const formatTrendRate = value => Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : 'Unavailable';

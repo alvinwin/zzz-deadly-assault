@@ -14,7 +14,7 @@
 @media (max-width: 760px) {
   :root { --shell: calc(100% - 24px); }
   .site-header { position: sticky; top: 0; }
-  #encounters, #global-buffs, #boss-trends, #sources { scroll-margin-top: 62px; }
+  #encounters, #selectable-buffs, #boss-trends, #sources { scroll-margin-top: 62px; }
   .masthead { min-height: 58px; gap: 8px; }
   .brand { font-size: 13px; }
   .brand-mark { width: 25px; height: 25px; }

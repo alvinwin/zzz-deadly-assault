@@ -116,7 +116,14 @@
           324,
           "mechanic"
         ]
-      ]
+      ],
+      "brief": {
+        "who": "Squads with 2–3 Anomaly Agents",
+        "trigger": "Build the squad; inflict an Attribute Anomaly",
+        "payoff": "More Anomaly Proficiency and Attribute Anomaly DMG; the trigger lowers All-Attribute RES"
+      },
+      "briefReview": "reviewed",
+      "briefSourceSha256": "e45ad38b206496d662681245e64f498087f99997ff384582f82d64ed169024e9"
     },
     {
       "id": "69000068",
@@ -198,7 +205,14 @@
           302,
           "mechanic"
         ]
-      ]
+      ],
+      "brief": {
+        "who": "Attack Agents",
+        "trigger": "Hit with Basic, EX Special, or Chain Attacks; hit a Stunned enemy",
+        "payoff": "More ATK, Ice/Ether RES ignore, and Stun DMG Multiplier"
+      },
+      "briefReview": "reviewed",
+      "briefSourceSha256": "e4dd528a00ae2b96d3c88956802d1f86a3fc980e24f3cb91174410e16eeb6144"
     },
     {
       "id": "69000055",
@@ -265,7 +279,14 @@
           238,
           "mechanic"
         ]
-      ]
+      ],
+      "brief": {
+        "who": "Rupture Agents",
+        "trigger": "Enter Ether Veil; keep hitting the enemy",
+        "payoff": "More Sheer and Ether DMG, faster Miasma Shield removal, and more Stun DMG Multiplier"
+      },
+      "briefReview": "reviewed",
+      "briefSourceSha256": "43477834c83536a3e86021944e557162edf10612b2274d535a852442ebfa00fb"
     }
   ],
   "encounters": [
