@@ -58,6 +58,8 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.locator('#cards')).not.toContainText('Recommended');
   await expect(page.locator('.mechanic-callout p')).toHaveCount(4);
   await expect(page.locator('.mechanic-callout').first()).toContainText('Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds.');
+  await expect(page.locator('.mechanic-callout').first().getByRole('link', { name: 'Attribute Anomaly', exact: true })).toHaveAttribute('href', 'https://sixthstreet.wiki/terms/attribute-anomaly/');
+  await expect(page.locator('#buff-list').getByRole('link', { name: 'Attribute Anomaly', exact: true }).first()).toHaveAttribute('href', 'https://sixthstreet.wiki/terms/attribute-anomaly/');
   await expect(page.locator('.encounter-record')).toHaveCount(4);
   await expect(page.locator('.card').first()).toContainText('HP unchanged since 3.1.1');
   await expect(page.locator('.card').nth(3)).toContainText('No earlier HP value in this record');

@@ -81,6 +81,7 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .mechanic-callout > span { display: block; margin-bottom: 6px; font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
 .mechanic-callout p { margin: 0; color: #33424e; font-size: 13px; line-height: 1.48; }
 .text-annotation { color: inherit; font-weight: 780; }
+.term-link { border-bottom: 1px solid currentColor; }
 .text-annotation-quantity { font-variant-numeric: tabular-nums; }
 .text-annotation.attribute-ice { color: #00647d; }
 .text-annotation.attribute-fire { color: #9b3b22; }
@@ -96,7 +97,7 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .hp-sparkline { width: 72px; height: 22px; flex: none; color: var(--teal); overflow: visible; }
 .hp-sparkline polyline { stroke: currentColor; stroke-width: 2; }
 .provenance { margin: 2px 0 14px; color: var(--muted); font-size: 10px; line-height: 1.4; }
-.provenance a, #buff-list a, .trend-source a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+.provenance a, .buff-disclosure small a, .trend-source a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
 
 .adversity-group { margin-top: 38px; padding: 18px; border: 1px solid var(--ink); border-top-width: 8px; background: var(--paper-deep); }
 .adversity-group .encounter-group-heading { margin-bottom: 16px; }

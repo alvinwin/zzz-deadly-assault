@@ -6,6 +6,9 @@ const list = values => values?.length ? `<span class="element-list">${values.map
   return `<span class="element-chip element-${esc(value)}">${icon}<span>${esc(elementNames[value] || value)}</span></span>`;
 }).join('')}</span>` : '<span class="none">None</span>';
 const annotationTags = { quantity: 'strong', attribute: 'span', specialty: 'span', mechanic: 'span', 'effect-term': 'span' };
+const termLinks = [
+  { match: value => value === 'Attribute Anomaly' || value.startsWith('Attribute Anomaly '), url: 'https://sixthstreet.wiki/terms/attribute-anomaly/' },
+];
 const annotationClass = (kind, value) => {
   if (kind === 'attribute') {
     const attribute = Object.keys(elementNames).find(name => value.toLowerCase() === name || value.toLowerCase().startsWith(`${name} `));
@@ -20,7 +23,11 @@ const renderSegments = (description, segments) => {
     const tag = annotationTags[kind];
     if (!tag || !Number.isInteger(start) || !Number.isInteger(end) || start < cursor || end <= start || end > description.length) continue;
     const value = description.slice(start, end);
-    html += esc(description.slice(cursor, start)) + `<${tag} class="${annotationClass(kind, value)}">${esc(value)}</${tag}>`;
+    const termLink = termLinks.find(term => term.match(value));
+    const annotation = termLink
+      ? `<a class="${annotationClass(kind, value)} term-link" href="${esc(termLink.url)}">${esc(value)}</a>`
+      : `<${tag} class="${annotationClass(kind, value)}">${esc(value)}</${tag}>`;
+    html += esc(description.slice(cursor, start)) + annotation;
     cursor = end;
   }
   return html + esc(description.slice(cursor));
