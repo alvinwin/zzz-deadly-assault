@@ -3,7 +3,11 @@
 .trends-heading h2 { margin: 0; font-size: clamp(34px, 4vw, 48px); font-weight: 800; letter-spacing: -.065em; line-height: 1; }
 .trends-heading > p { margin: 0; color: #52616b; font-size: 13px; line-height: 1.5; text-align: right; }
 .trends-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #52616b; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.boss-trend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.trend-mode-group + .trend-mode-group { margin-top: 26px; }
+.trend-mode-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+.trend-mode-heading strong { font-size: 18px; letter-spacing: -.025em; }
+.trend-mode-heading span { color: #52616b; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.boss-trend-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .boss-trend { min-width: 0; border: 1px solid var(--line); border-radius: 10px; background: #fffaf0; box-shadow: 0 10px 22px rgba(76, 50, 32, .08); overflow: hidden; }
 .boss-trend > header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 18px 20px 15px; background: #c9e4de; border-bottom: 1px solid var(--line); }
 .boss-trend-index { display: block; color: var(--coral-dark); font-size: 10px; font-weight: 900; letter-spacing: .12em; }
@@ -21,10 +25,18 @@
 .trend-samples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .trend-samples p { margin: 0; padding: 9px 10px; border: 1px solid var(--line); background: rgba(242, 233, 216, .4); }
 .trend-rows { display: flex; flex-direction: column; gap: 0; margin: 0; padding: 0; list-style: none; }
-.trend-rows li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto auto auto; align-items: baseline; gap: 7px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 11px; font-variant-numeric: tabular-nums; }
+.trend-row-heading { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto 58px 88px; gap: 7px; color: #52616b; font-size: 8px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.trend-row-heading span:nth-last-child(-n + 3) { text-align: right; }
+.trend-rows li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto 58px 88px; align-items: baseline; gap: 7px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 11px; font-variant-numeric: tabular-nums; }
 .trend-rank, .trend-clears { color: #52616b; }
+.trend-clears, .trend-rate, .trend-delta { text-align: right; }
+.trend-clears::after { content: " clears"; }
 .trend-rate { color: #115353; font-weight: 850; }
 .trend-delta { font-weight: 800; white-space: nowrap; }
+.adversity-trends { padding: 18px; border: 2px solid rgba(158, 55, 44, .42); border-radius: 12px; background: #f2dfd4; }
+.adversity-trends .trend-mode-heading strong { color: var(--coral-dark); }
+.adversity-trends .boss-trend-grid { grid-template-columns: 1fr; }
+.adversity-trends .boss-trend > header { background: #e8b8a7; }
 .trend-more, .trend-source { border-top: 1px solid var(--line); }
 .trend-more summary, .trend-source summary { padding-right: 0; padding-left: 0; }
 .trend-source > div, .trend-method > div { padding: 0 20px 14px; color: #52616b; font-size: 11px; line-height: 1.45; }
@@ -40,11 +52,18 @@
   .trends-heading { grid-template-columns: 1fr; gap: 10px; }
   .trends-heading > p { text-align: left; }
   .trends-meta { align-items: flex-start; flex-direction: column; }
-  .boss-trend-grid, .boss-trend-summary { grid-template-columns: 1fr; }
+  .trend-mode-group + .trend-mode-group { margin-top: 20px; }
+  .adversity-trends { margin-inline: -4px; padding: 12px; }
+  .adversity-trends .boss-trend-grid { grid-template-columns: 1fr; }
+  .boss-trend-summary { grid-template-columns: 1fr; }
+  .trial-trends .boss-trend-grid { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+  .trial-trends .boss-trend { flex: 0 0 calc(100% - 24px); scroll-snap-align: start; }
+  .trend-row-heading { display: none; }
   .trend-rows li { grid-template-columns: 20px minmax(0, 1fr) auto; row-gap: 2px; }
   .trend-rank { grid-row: 1 / span 2; }
   .trend-rows strong { grid-column: 2; grid-row: 1; }
   .trend-clears { grid-column: 2; grid-row: 2; }
   .trend-rate { grid-column: 3; grid-row: 1; }
   .trend-delta { grid-column: 3; grid-row: 2; }
+  .trend-rate::before, .trend-delta::before { display: block; color: #52616b; content: attr(data-label); font-size: 7px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
 }

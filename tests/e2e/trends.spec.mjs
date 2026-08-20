@@ -18,9 +18,12 @@ test('desktop renders all boss summaries and disclosure details with clean conso
   await expect(page.locator('.boss-trend-summary').first()).toContainText('n = 16,037');
   await expect(page.locator('.boss-trend-summary').first()).toContainText('Remielle');
   await expect(page.locator('.boss-trend-summary').first()).toContainText('87.4%');
-  await expect(page.locator('.boss-trend-summary').first()).toContainText('of observed clears');
-  await expect(page.locator('.boss-trend-summary').first()).toContainText('71.5% last time this boss appeared');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('This phase');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('Last appearance');
+  await expect(page.locator('.boss-trend-summary').first()).toContainText('71.5%');
   await expect(page.locator('#boss-trends')).not.toContainText('pp vs prior');
+  await expect(page.locator('.trial-trends .boss-trend')).toHaveCount(3);
+  await expect(page.locator('.adversity-trends .boss-trend')).toHaveCount(1);
 
   const disclosure = page.locator('.boss-trend').first().locator('details').first();
   await disclosure.locator(':scope > summary').click();
@@ -42,6 +45,8 @@ test('360px trends remain readable, touchable, and free of horizontal overflow',
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/');
   await expect(page.locator('.boss-trend')).toHaveCount(4);
+  const trialCarousel = page.locator('.trial-trends .boss-trend-grid');
+  expect(await trialCarousel.evaluate(element => element.scrollWidth > element.clientWidth)).toBe(true);
 
   const summaries = page.locator('.boss-trend > details > summary');
   await expect(summaries).toHaveCount(4);
@@ -51,14 +56,14 @@ test('360px trends remain readable, touchable, and free of horizontal overflow',
 
   const comparison = page.locator('.trend-comparison').first();
   await expect(comparison.locator('span')).toHaveText([
-    '87.4%\u00a0of observed clears',
-    '71.5% last time this boss appeared',
+    'This phase87.4%',
+    'Last appearance71.5%',
   ]);
   const comparisonLayout = await comparison.evaluate(element => ({
-    direction: getComputedStyle(element).flexDirection,
+    columns: getComputedStyle(element).gridTemplateColumns.split(' ').length,
     childDisplays: [...element.children].map(child => getComputedStyle(child).display),
   }));
-  expect(comparisonLayout).toEqual({ direction: 'column', childDisplays: ['block', 'block'] });
+  expect(comparisonLayout).toEqual({ columns: 1, childDisplays: ['block', 'block'] });
 
   await summaries.first().click();
   await expect(page.locator('.boss-trend').first().locator('.trend-rows').first()).toBeVisible();
@@ -69,8 +74,8 @@ test('built trend data matches the disclosed current top-10 and prior comparison
   await page.goto('/');
   const builtTrends = await page.evaluate(() => fetch('data/da-boss-character-trends.json').then(response => response.json()));
   expect(sourceTrends.bosses.every(boss => boss.phases.at(-1).characters.length > 10)).toBe(true);
-  expect(builtTrends.bosses.every(boss => boss.phases.at(-1).characters.length === 10)).toBe(true);
-  expect(builtTrends.bosses.every(boss => boss.phases[0].characters.length === 0)).toBe(true);
+  expect(builtTrends.b.every(boss => boss[4].at(-1)[4].length === 10)).toBe(true);
+  expect(builtTrends.b.every(boss => boss[4][0][4].length === 0)).toBe(true);
 });
 
 test('trend failure is isolated from the current encounter brief', async ({ page }) => {

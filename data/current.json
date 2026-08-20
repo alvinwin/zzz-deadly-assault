@@ -59,62 +59,62 @@
         [
           13,
           16,
-          "v"
+          "quantity"
         ],
         [
           42,
           59,
-          "a"
+          "specialty"
         ],
         [
           79,
           98,
-          "d"
+          "effect-term"
         ],
         [
           112,
           117,
-          "v"
+          "quantity"
         ],
         [
           136,
           157,
-          "d"
+          "effect-term"
         ],
         [
           177,
           180,
-          "v"
+          "quantity"
         ],
         [
           181,
           184,
-          "v"
+          "quantity"
         ],
         [
           219,
           236,
-          "m"
+          "mechanic"
         ],
         [
           262,
           279,
-          "d"
+          "effect-term"
         ],
         [
           294,
           297,
-          "v"
+          "quantity"
         ],
         [
           302,
           305,
-          "v"
+          "quantity"
         ],
         [
           307,
           324,
-          "m"
+          "mechanic"
         ]
       ]
     },
@@ -126,77 +126,77 @@
         [
           16,
           32,
-          "t"
+          "specialty"
         ],
         [
           40,
           43,
-          "d"
+          "effect-term"
         ],
         [
           57,
           60,
-          "v"
+          "quantity"
         ],
         [
           73,
           85,
-          "m"
+          "mechanic"
         ],
         [
           87,
           104,
-          "m"
+          "mechanic"
         ],
         [
           109,
           121,
-          "m"
+          "mechanic"
         ],
         [
           122,
           135,
-          "m"
+          "mechanic"
         ],
         [
           148,
           151,
-          "v"
+          "quantity"
         ],
         [
           168,
           175,
-          "d"
+          "effect-term"
         ],
         [
           180,
           189,
-          "d"
+          "effect-term"
         ],
         [
           212,
           219,
-          "m"
+          "mechanic"
         ],
         [
           240,
           259,
-          "d"
+          "effect-term"
         ],
         [
           273,
           276,
-          "v"
+          "quantity"
         ],
         [
           281,
           283,
-          "v"
+          "quantity"
         ],
         [
           285,
           302,
-          "m"
+          "mechanic"
         ]
       ]
     },
@@ -208,62 +208,62 @@
         [
           0,
           17,
-          "r"
+          "specialty"
         ],
         [
           24,
           33,
-          "d"
+          "effect-term"
         ],
         [
           47,
           50,
-          "v"
+          "quantity"
         ],
         [
           64,
           77,
-          "d"
+          "effect-term"
         ],
         [
           78,
           81,
-          "v"
+          "quantity"
         ],
         [
           99,
           109,
-          "m"
+          "mechanic"
         ],
         [
           117,
           126,
-          "d"
+          "effect-term"
         ],
         [
           140,
           143,
-          "v"
+          "quantity"
         ],
         [
           176,
           195,
-          "d"
+          "effect-term"
         ],
         [
           208,
           211,
-          "v"
+          "quantity"
         ],
         [
           216,
           219,
-          "v"
+          "quantity"
         ],
         [
           221,
           238,
-          "m"
+          "mechanic"
         ]
       ]
     }
@@ -285,34 +285,37 @@
           197200218
         ]
       ],
-      "specialty": "Anomaly",
+      "specialtyFit": {
+        "specialty": "Anomaly",
+        "reason": "Suitable for Agents with Anomaly specialty."
+      },
       "mechanic": "Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds. Each mark increases Attribute Anomaly DMG taken by 8%.",
       "mechanicReview": "reviewed",
       "mechanicSegments": [
         [
           9,
           26,
-          "m"
+          "mechanic"
         ],
         [
           34,
           35,
-          "v"
+          "quantity"
         ],
         [
           52,
           54,
-          "v"
+          "quantity"
         ],
         [
           84,
           105,
-          "d"
+          "effect-term"
         ],
         [
           115,
           117,
-          "v"
+          "quantity"
         ]
       ],
       "weaknesses": [],
@@ -354,19 +357,22 @@
           210855875
         ]
       ],
-      "specialty": "Stun",
+      "specialtyFit": {
+        "specialty": "Stun",
+        "reason": "Suitable for Agents with Stun specialty."
+      },
       "mechanic": "The Thrall gets Contract and Self-Sacrifice when it changes turns with Sobek. Stun the Thrall to increase CRIT DMG taken by 50%.",
       "mechanicReview": "reviewed",
       "mechanicSegments": [
         [
           106,
           114,
-          "d"
+          "effect-term"
         ],
         [
           124,
           127,
-          "v"
+          "quantity"
         ]
       ],
       "weaknesses": [
@@ -434,24 +440,27 @@
           182741441
         ]
       ],
-      "specialty": "Rupture",
+      "specialtyFit": {
+        "specialty": "Rupture",
+        "reason": "Suitable for Agents with Rupture specialty."
+      },
       "mechanic": "Each phase change increases Anomaly Buildup RES by 10% and CRIT DMG taken by 30%. Break Miasmic Shield to remove the stacks.",
       "mechanicReview": "reviewed",
       "mechanicSegments": [
         [
           51,
           54,
-          "v"
+          "quantity"
         ],
         [
           59,
           67,
-          "d"
+          "effect-term"
         ],
         [
           77,
           80,
-          "v"
+          "quantity"
         ]
       ],
       "weaknesses": [
@@ -489,64 +498,64 @@
           729925961
         ]
       ],
-      "specialty": null,
+      "specialtyFit": null,
       "mechanic": "Trigger SHUTDOWN to decrease enemy All-Attribute RES by 10%. Agents with the Attack specialty then get 20% ATK, 25% PEN Ratio, and 60% Ice and Ether CRIT DMG.",
       "mechanicReview": "reviewed",
       "mechanicSegments": [
         [
           35,
           52,
-          "d"
+          "effect-term"
         ],
         [
           56,
           59,
-          "v"
+          "quantity"
         ],
         [
           77,
           93,
-          "t"
+          "specialty"
         ],
         [
           103,
           106,
-          "v"
+          "quantity"
         ],
         [
           107,
           110,
-          "d"
+          "effect-term"
         ],
         [
           112,
           115,
-          "v"
+          "quantity"
         ],
         [
           116,
           125,
-          "d"
+          "effect-term"
         ],
         [
           131,
           134,
-          "v"
+          "quantity"
         ],
         [
           135,
           138,
-          "e"
+          "attribute"
         ],
         [
           143,
           148,
-          "e"
+          "attribute"
         ],
         [
           149,
           157,
-          "d"
+          "effect-term"
         ]
       ],
       "weaknesses": [

@@ -27,6 +27,15 @@ test('mobile keeps essential encounter facts visible and layers long explanation
     elements.map(element => element.getBoundingClientRect().height),
   );
   expect(smallTargets.every(height => height >= 44)).toBe(true);
+  expect(await page.locator('.site-header').evaluate(element => getComputedStyle(element).position)).toBe('sticky');
+
+  for (const selector of ['.trial-cards', '.trial-trends .boss-trend-grid']) {
+    const carousel = page.locator(selector);
+    const dimensions = await carousel.evaluate(element => ({ clientWidth: element.clientWidth, scrollWidth: element.scrollWidth }));
+    expect(dimensions.scrollWidth).toBeGreaterThan(dimensions.clientWidth);
+    await carousel.evaluate(element => element.scrollTo({ left: element.scrollWidth, behavior: 'instant' }));
+    expect(await carousel.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
+  }
 
   const buffLinkColor = await page.locator('#buff-list a').first().evaluate(element => getComputedStyle(element).color);
   expect(buffLinkColor).toBe('rgb(17, 83, 83)');
@@ -35,6 +44,8 @@ test('mobile keeps essential encounter facts visible and layers long explanation
   expect(await firstBuffSummary.evaluate(element => getComputedStyle(element).outlineColor)).toBe('rgb(17, 83, 83)');
 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  const pageLengths = await page.evaluate(() => document.documentElement.scrollHeight / window.innerHeight);
+  expect(pageLengths).toBeLessThan(5.5);
 });
 
 test('desktop keeps mechanic and buff explanations open', async ({ page }) => {
@@ -50,7 +61,7 @@ test('disclosures follow the breakpoint on a loaded page', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.mobile-disclosure[open]')).toHaveCount(0);
   await page.setViewportSize({ width: 761, height: 800 });
-  await expect(page.locator('.mobile-disclosure[open]')).toHaveCount(7);
+  await expect(page.locator('.mobile-disclosure[open]')).toHaveCount(8);
   await page.setViewportSize({ width: 760, height: 800 });
   await expect(page.locator('.mobile-disclosure[open]')).toHaveCount(0);
 });

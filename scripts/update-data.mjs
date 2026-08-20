@@ -5,26 +5,26 @@ const owner = 'spiritfxxxx'; const repo = 'buhflipexplode'; const pinned = '620a
 const base = `https://raw.githubusercontent.com/${owner}/${repo}`;
 export const parseRange = value => { const matches = [...String(value).matchAll(/(\d{2})\/(\d{2})\/(\d{4})/g)]; if (matches.length !== 2) return null; const toDate = match => { const day = +match[1]; const month = +match[2]; const year = +match[3]; const date = new Date(Date.UTC(year, month - 1, day)); return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day ? date : null; }; const startsAt = toDate(matches[0]); const endsAt = toDate(matches[1]); return startsAt && endsAt && endsAt > startsAt ? { startsAt, endsAt } : null; };
 export const stripHtml = html => String(html ?? '').replace(/<li>/gi, '').replace(/<\/li>/gi, '\n').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/\s+\n/g, '\n').trim();
-const emphasisTerms = [
-  ['damage', 'Stun DMG Multiplier'], ['damage', 'Attribute Anomaly DMG'], ['damage', 'All-Attribute RES'], ['damage', 'CRIT DMG'], ['damage', 'PEN Ratio'],
-  ['damage', 'Anomaly Proficiency'], ['damage', 'Miasma Shield'], ['damage', 'Ether DMG'], ['damage', 'Ice DMG'], ['damage', 'Ice RES'],
-  ['damage', 'Ether RES'], ['damage', 'Sheer DMG'], ['damage', 'DMG'], ['damage', 'ATK'],
-  ['specialty-anomaly', 'Anomaly specialty'], ['specialty-attack', 'Attack specialty'], ['specialty-stun', 'Stun specialty'],
-  ['specialty-support', 'Support specialty'], ['specialty-defense', 'Defense specialty'], ['specialty-rupture', 'Rupture specialty'],
+const annotationTerms = [
+  ['effect-term', 'Stun DMG Multiplier'], ['effect-term', 'Attribute Anomaly DMG'], ['effect-term', 'All-Attribute RES'], ['effect-term', 'CRIT DMG'], ['effect-term', 'PEN Ratio'],
+  ['effect-term', 'Anomaly Proficiency'], ['effect-term', 'Miasma Shield'], ['effect-term', 'Ether DMG'], ['effect-term', 'Ice DMG'], ['effect-term', 'Ice RES'],
+  ['effect-term', 'Ether RES'], ['effect-term', 'Sheer DMG'], ['effect-term', 'DMG'], ['effect-term', 'ATK'],
+  ['specialty', 'Anomaly specialty'], ['specialty', 'Attack specialty'], ['specialty', 'Stun specialty'],
+  ['specialty', 'Support specialty'], ['specialty', 'Defense specialty'], ['specialty', 'Rupture specialty'],
   ['mechanic', 'Basic Attack'], ['mechanic', 'EX Special Attack'], ['mechanic', 'Chain Attack'],
   ['mechanic', 'Attribute Anomaly'], ['mechanic', 'Repeated triggers'], ['mechanic', 'Stunned'],
   ['mechanic', 'Ether Veil'], ['mechanic', 'hits an enemy'],
-  ['element', 'physical'], ['element', 'electric'], ['element', 'ether'], ['element', 'ice'], ['element', 'fire'], ['element', 'wind']
+  ['attribute', 'physical'], ['attribute', 'electric'], ['attribute', 'ether'], ['attribute', 'ice'], ['attribute', 'fire'], ['attribute', 'wind']
 ];
 const escapeRegExp = value => value.replace(/[.*+?^()|[\]\\]/g, '\\$&');
-const emphasisPattern = new RegExp('(\\b\\d+(?:\\/\\d+)?(?:\\.\\d+)?(?:%|s)?(?![%s\\w])|' + emphasisTerms.map(([, term]) => '\\b' + escapeRegExp(term) + '\\b').join('|') + ')', 'gi');
-const emphasisKind = value => {
-  if (/^\d/.test(value)) return 'v';
-  return ({ damage: 'd', element: 'e', mechanic: 'm', 'specialty-anomaly': 'a', 'specialty-attack': 't', 'specialty-stun': 's', 'specialty-support': 'u', 'specialty-defense': 'f', 'specialty-rupture': 'r' })[emphasisTerms.find(([, term]) => term.toLowerCase() === value.toLowerCase())?.[0] || 'mechanic'];
+const annotationPattern = new RegExp('(\\b\\d+(?:\\/\\d+)?(?:\\.\\d+)?(?:%|s)?(?![%s\\w])|' + annotationTerms.map(([, term]) => '\\b' + escapeRegExp(term) + '\\b').join('|') + ')', 'gi');
+const textAnnotationKind = value => {
+  if (/^\d/.test(value)) return 'quantity';
+  return annotationTerms.find(([, term]) => term.toLowerCase() === value.toLowerCase())?.[0] || 'mechanic';
 };
 export const segmentDescription = description => {
   const text = String(description ?? '');
-  return [...text.matchAll(emphasisPattern)].map(match => [match.index, match.index + match[0].length, emphasisKind(match[0])]);
+  return [...text.matchAll(annotationPattern)].map(match => [match.index, match.index + match[0].length, textAnnotationKind(match[0])]);
 };
 const reviewedMechanics = {
   '31300:0': { text: 'Apply an Attribute Anomaly to add 1 Blight Mark for 30 seconds. Each mark increases Attribute Anomaly DMG taken by 8%.', fingerprint: '3abe437609800d335cb4882c40356ae5131964af42867dde43fcd0271e501df8' },
@@ -45,14 +45,13 @@ const reviewedMechanic = (id, type, enemy) => {
   if (process.env.GITHUB_ACTIONS) console.log('::warning title=Mechanic review needed::' + warning);
   return { text: fallback, review: 'fallback' };
 };
-export const parseSpecialty = misc => {
+export const parseSpecialtyFit = misc => {
   const text = stripHtml(misc);
   if (!text) return null;
   const match = text.match(/\b(Attack|Stun|Anomaly|Support|Defense|Rupture)\b/i);
   if (!match || !/\bspecialty\b/i.test(text)) throw new Error('unknown enemy misc specialty: ' + text);
-  return match[1][0].toUpperCase() + match[1].slice(1).toLowerCase();
+  return { specialty: match[1][0].toUpperCase() + match[1].slice(1).toLowerCase(), reason: text };
 };
-const specialtyCode = { Anomaly: 'a', Attack: 't', Stun: 's', Support: 'u', Defense: 'f', Rupture: 'r' };
 export const calculateHP = (stage, multiplier, baseHP, type) => Math.floor((stage === 4 ? 15.8 : 8.74) * multiplier * baseHP[type] * 24795 / 10000);
 export const buildHistory = ({ versions, enemies, now, id, type, category }) => {
   const categoryFor = (refs, index) => refs.length === 4 && index === 3 ? 'adversity' : 'standard';
@@ -85,8 +84,8 @@ export function transform({ versions, enemies, buffs, now = new Date(), commit =
     const mechanic = mechanicReview?.text || null;
     const hp = calculateHP(index + 1, version.versionHPMult[index], enemy.baseHP, ref.type);
     const multipliers = enemy.elementMult;
-    const specialty = parseSpecialty(enemy.misc);
-    return { id: ref.id, type: ref.type, name: enemy.name, category, hp, history: buildHistory({ versions, enemies, now, id: ref.id, type: ref.type, category }), specialty, mechanic, mechanicReview: mechanicReview?.review || null, mechanicSegments: segmentDescription(mechanic), weaknesses: elements.filter((_, i) => multipliers[i] < 1), resistances: elements.filter((_, i) => multipliers[i] > 1), sourceRefs: ['rotation', 'enemy', 'formula'], provenance: { rotation: ['rotation'], enemy: ['enemy'], formula: ['formula'] } };
+    const specialtyFit = parseSpecialtyFit(enemy.misc);
+    return { id: ref.id, type: ref.type, name: enemy.name, category, hp, history: buildHistory({ versions, enemies, now, id: ref.id, type: ref.type, category }), specialtyFit, mechanic, mechanicReview: mechanicReview?.review || null, mechanicSegments: segmentDescription(mechanic), weaknesses: elements.filter((_, i) => multipliers[i] < 1), resistances: elements.filter((_, i) => multipliers[i] > 1), sourceRefs: ['rotation', 'enemy', 'formula'], provenance: { rotation: ['rotation'], enemy: ['enemy'], formula: ['formula'] } };
   });
   const cycleBuffs = version.versionBuffIDs.map(id => { const buff = buffs[id]; if (!buff) throw new Error(`missing buff ID ${id}`); const description = stripHtml(buff[2] || buff[1]); return { id, name: buff[0], description, segments: segmentDescription(description) }; });
   return { cycle: { id: entry.id, label: version.versionName, startsAt: entry.startsAt.toISOString(), endsAt: entry.endsAt.toISOString(), checkedAt: now.toISOString(), hasAdversity: true, publishable: true, formula: 'floor((stage===4?15.8:8.74)*versionHPMult[i]*enemy.baseHP[type]*24795/10000)', provenance: { rotation: ['rotation'], formula: ['formula'], buffs: ['buff'] } }, sources: sourceDefs.map(source => ({ ...source, retrievedAt: now.toISOString(), commit })), buffs: cycleBuffs, encounters };
