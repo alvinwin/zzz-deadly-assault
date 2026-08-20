@@ -30,6 +30,13 @@ stacking, or game relationships. The reviewed description remains the mechanics
 record. Add another annotation kind only when the current renderer has a named
 distinction it cannot present with this set.
 
+The renderer may derive presentation-only modifier classes from the visible
+annotated term (for example, distinguishing `Ice RES` from `Ether RES`, or
+`Basic Attack` from `EX Special Attack`). Those modifiers are not stored data,
+new annotation kinds, or an official game taxonomy. They exist only to keep
+the terms already shown by this UI visually distinguishable, and the readable
+term remains present when color is unavailable.
+
 ## Specialty fit
 
 `encounters[].specialtyFit` is either `null` or:

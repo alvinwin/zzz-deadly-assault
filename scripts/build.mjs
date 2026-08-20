@@ -39,7 +39,16 @@ const compactData = {
 const emittedData = JSON.stringify(compactData);
 const dataHash = contentHash(emittedData);
 fs.writeFileSync(path.join(dist, 'data/current.json'), emittedData);
-const emittedTrends = JSON.stringify({
+const trendPins = [];
+const trendPinIndexes = new Map();
+const trendPinIndex = provenance => {
+  const pin = [provenance.sourceUrl, provenance.sourceFile, provenance.sourceSha256, provenance.retrievedAt];
+  const key = JSON.stringify(pin);
+  if (!trendPinIndexes.has(key)) { trendPinIndexes.set(key, trendPins.length); trendPins.push(pin); }
+  return trendPinIndexes.get(key);
+};
+const compactRate = value => Number(value.toFixed(6));
+const emittedTrendData = {
   m: [trendsData.methodology.inclusion, trendsData.methodology.exclusions],
   b: trendsData.bosses.map(({ canonicalId, displayName, currentSourceName, status, phases }) => [
     canonicalId,
@@ -49,12 +58,14 @@ const emittedTrends = JSON.stringify({
     phases.map(({ version, phase, provenance, sampleSize, characters }, phaseIndex) => [
       version,
       phase,
-      [provenance.sourceUrl, provenance.sourceFile, provenance.sourceSha256, provenance.retrievedAt],
+      trendPinIndex(provenance),
       sampleSize,
-      phaseIndex === phases.length - 1 ? characters.slice(0, 10).map(({ name, clearCount, appearanceRate, priorAppearanceChange }) => [name, clearCount, appearanceRate, priorAppearanceChange]) : [],
+      phaseIndex === phases.length - 1 ? characters.slice(0, 10).map(({ name, clearCount, appearanceRate, priorAppearanceChange }) => [name, clearCount, compactRate(appearanceRate), compactRate(priorAppearanceChange)]) : [],
     ]),
   ]),
-});
+};
+emittedTrendData.p = trendPins;
+const emittedTrends = JSON.stringify(emittedTrendData);
 const trendsHash = contentHash(emittedTrends);
 fs.writeFileSync(path.join(dist, 'data/da-boss-character-trends.json'), emittedTrends);
 let emittedJs = compactJs(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));

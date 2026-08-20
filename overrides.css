@@ -60,10 +60,29 @@
 .adversity-group-heading strong { color: var(--coral-dark); }
 
 .adversity-group .card {
+  display: grid;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.6fr);
+  grid-template-areas:
+    "top top"
+    "title hp"
+    "facts mechanic"
+    "source source";
+  column-gap: 32px;
+  align-items: start;
   max-width: none;
   margin-left: 0;
+  padding: 28px 30px 22px;
   background: linear-gradient(145deg, #8a5a39, #3b2734);
 }
+
+.adversity-group .card-top { grid-area: top; }
+.adversity-group .card h3 { grid-area: title; min-height: 0; margin: 34px 0 10px; font-size: 34px; }
+.adversity-group .card .hp { grid-area: hp; margin-top: 26px; padding: 14px 0; }
+.adversity-group .card .hp strong { font-size: 38px; }
+.adversity-group .card .card-facts { grid-area: facts; align-self: stretch; }
+.adversity-group .card dl { margin: 8px 0 0; }
+.adversity-group .card .mechanic-callout { grid-area: mechanic; margin-top: 8px; min-height: calc(100% - 8px); }
+.adversity-group .card .provenance { grid-area: source; margin: 18px 0 0; }
 
 .mechanic-callout > summary {
   color: #ffe08b;
@@ -116,12 +135,21 @@
 #global-buffs .text-annotation-effect-term { color: #115353; }
 #global-buffs .text-annotation-mechanic { color: #6d3f73; }
 #global-buffs .text-annotation-attribute { color: #1f5f67; }
-#global-buffs .specialty-anomaly { color: #175f83; }
-#global-buffs .specialty-attack { color: #8a4c00; }
-#global-buffs .specialty-stun { color: #11664f; }
-#global-buffs .specialty-support { color: #795b00; }
-#global-buffs .specialty-defense { color: #8b2f4c; }
-#global-buffs .specialty-rupture { color: #6b4087; }
+#global-buffs .annotation-specialty-anomaly { color: #175f83; }
+#global-buffs .annotation-specialty-attack { color: #8a4c00; }
+#global-buffs .annotation-specialty-stun { color: #11664f; }
+#global-buffs .annotation-specialty-support { color: #795b00; }
+#global-buffs .annotation-specialty-defense { color: #8b2f4c; }
+#global-buffs .annotation-specialty-rupture { color: #6b4087; }
+#global-buffs .term-ice { color: #00657a; }
+#global-buffs .term-ether { color: #6b3fa0; }
+#global-buffs .term-basic-attack { color: #725200; }
+#global-buffs .term-ex-special { color: #a9362a; }
+#global-buffs .term-chain { color: #64408f; }
+#global-buffs .term-anomaly { color: #175f83; }
+#global-buffs .term-stun { color: #11664f; }
+#global-buffs .term-sheer { color: #9a3f26; }
+#global-buffs .term-offense { color: #7a4b00; }
 
 .trend-comparison {
   display: grid !important;
@@ -149,7 +177,14 @@
   .trial-cards { display: flex; gap: 12px; overflow-x: auto; padding: 0 0 10px; scroll-padding-inline: 0; scroll-snap-type: x mandatory; }
   .trial-cards .card { flex: 0 0 calc(100% - 24px); scroll-snap-align: start; }
   .adversity-group { margin-top: 20px; padding: 12px; }
-  .adversity-group .card { max-width: none; margin-left: 0; }
+  .adversity-group .card { display: block; max-width: none; margin-left: 0; padding: 18px; }
+  .adversity-group .card h3 { min-height: 3rem; margin: 34px 0 16px; font-size: 31px; }
+  .adversity-group .card .hp { margin-top: 0; padding: 12px 0; }
+  .adversity-group .card .hp strong { font-size: 30px; }
+  .adversity-group .card dl { margin: 16px 0; }
+  .adversity-group .card .card-facts { display: block; }
+  .adversity-group .card .mechanic-callout { min-height: 0; margin-top: 16px; }
+  .adversity-group .card .provenance { margin-top: 20px; }
   .mechanic-callout { padding: 0; }
   .mobile-disclosure > summary { list-style: none; }
   .mobile-disclosure > summary::-webkit-details-marker { display: none; }

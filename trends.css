@@ -58,6 +58,7 @@
   .boss-trend-summary { grid-template-columns: 1fr; }
   .trial-trends .boss-trend-grid { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
   .trial-trends .boss-trend { flex: 0 0 calc(100% - 24px); scroll-snap-align: start; }
+  .trend-mode-heading .mobile-swipe-hint { margin-left: 8px; }
   .trend-row-heading { display: none; }
   .trend-rows li { grid-template-columns: 20px minmax(0, 1fr) auto; row-gap: 2px; }
   .trend-rank { grid-row: 1 / span 2; }
