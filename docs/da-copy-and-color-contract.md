@@ -16,8 +16,10 @@ Historical character appearance is descriptive. The UI must say which observed c
 - **Red:** sixthstreet brand and section eyebrows only.
 - **Teal:** links, disclosure actions, and current-rate emphasis only.
 - **Green:** verified/current data status only.
-- **Element colors:** element chips and literal element names only. Ice, Fire, Electric, Ether, Physical, and Wind each keep one stable color.
+- **Element colors and icons:** element chips and literal element names only. Ice, Fire, Electric, Ether, Physical, and Wind each keep one stable color; the small official attribute mark may accompany a chip as recognition vocabulary, not decoration.
 - **Specialties:** neutral text. Do not assign separate Specialty colors on this page.
 - **Trial versus Adversity:** official labels, grouping, border weight, and composition—not an unrelated card color.
 
 No encounter identity may depend on list position, and prose must not become rainbow-highlighted. A retained color must have exactly one of the meanings above.
+
+The page remains an unofficial, noncommercial fan reference. Attribute marks are credited to HoYoverse in the footer and must stay isolated behind the `elementIcons` mapping so they can be replaced without changing content or layout.

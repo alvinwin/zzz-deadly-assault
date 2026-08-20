@@ -19,7 +19,7 @@
   .brand { font-size: 13px; }
   .brand-mark { width: 25px; height: 25px; }
   .primary-nav { gap: 0; }
-  .primary-nav a { min-height: 44px; padding: 0 7px; font-size: 11px; }
+  .primary-nav a { min-height: 44px; align-content: center; justify-content: center; padding: 0 7px; font-size: 11px; line-height: 1.05; text-align: center; }
   .wide-label { display: none; }
   .compact-label { display: inline; }
   .hero, .hero-content { min-height: 292px; }
@@ -46,6 +46,8 @@
   .element-chip { font-size: 11px; }
   .encounter-record { margin-inline: 16px; font-size: 12px; }
   .encounter-record > summary { position: relative; min-height: 44px; align-items: flex-start; flex-direction: column; justify-content: center; gap: 2px; padding-right: 28px; }
+  .hp-history { width: 100%; justify-content: space-between; margin-left: 0; padding-right: 8px; }
+  .hp-sparkline { width: 84px; }
   .encounter-record > summary::after { position: absolute; right: 20px; content: "+"; font-size: 20px; }
   .encounter-record[open] > summary::after { content: "−"; }
   .provenance { margin: 0 0 12px; padding-right: 24px; font-size: 11px; }

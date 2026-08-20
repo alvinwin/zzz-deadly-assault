@@ -1,6 +1,10 @@
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const elementNames = { ice: 'Ice', fire: 'Fire', electric: 'Electric', ether: 'Ether', physical: 'Physical', wind: 'Wind' };
-const list = values => values?.length ? `<span class="element-list">${values.map(value => `<span class="element-chip element-${esc(value)}">${esc(elementNames[value] || value)}</span>`).join('')}</span>` : '<span class="none">None</span>';
+const elementIcons = Object.fromEntries(Object.keys(elementNames).map(name => [name, `https://cdn.prydwen.gg/images/zenless-zone-zero/icons/ele_${name}.webp`]));
+const list = values => values?.length ? `<span class="element-list">${values.map(value => {
+  const icon = elementIcons[value] ? `<img class="element-icon" src="${elementIcons[value]}" alt="" aria-hidden="true" width="17" height="17">` : '';
+  return `<span class="element-chip element-${esc(value)}">${icon}<span>${esc(elementNames[value] || value)}</span></span>`;
+}).join('')}</span>` : '<span class="none">None</span>';
 const annotationTags = { quantity: 'strong', attribute: 'span', specialty: 'span', mechanic: 'span', 'effect-term': 'span' };
 const annotationClass = (kind, value) => {
   if (kind === 'attribute') {
@@ -40,13 +44,27 @@ document.querySelector('#status').innerHTML = cycle.publishable
   ? `<span>${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}</span><span class="verified">Verified ${formatCheckedDate(cycle.checkedAt)}</span>`
   : '<strong>Fixture — do not publish</strong><span>Current values still need verification</span>';
 
-const renderHistory = history => {
-  if (!history?.length || history.length === 1) return '<span>No earlier HP value in this record</span>';
+const renderSparkline = (history, name) => {
+  const values = history.map(point => point[1]);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const points = values.map((value, index) => {
+    const x = values.length === 1 ? 60 : index / (values.length - 1) * 120;
+    const y = max === min ? 14 : 26 - (value - min) / (max - min) * 22;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const historyLabel = history.map(([cycleId, hp]) => `${cycleId} HP ${hp.toLocaleString('en-US')}`).join('; ');
+  return `<svg class="hp-sparkline" role="img" aria-label="HP history for ${esc(name)}: ${esc(historyLabel)}" viewBox="0 0 120 28" preserveAspectRatio="none"><title>HP history for ${esc(name)}: ${esc(historyLabel)}</title><polyline points="${points}" fill="none" vector-effect="non-scaling-stroke"></polyline></svg>`;
+};
+const renderHistory = (history, name) => {
+  if (!history?.length || history.length === 1) return '<span class="hp-history-copy">No earlier HP value in this record</span>';
   const previous = history.at(-2);
   const latest = history.at(-1);
   const change = (latest[1] - previous[1]) / previous[1] * 100;
-  if (Math.abs(change) < .05) return `<span>HP unchanged since ${esc(previous[0])}</span>`;
-  return `<span>HP ${change > 0 ? 'up' : 'down'} ${Math.abs(change).toFixed(1)}% since ${esc(previous[0])}</span>`;
+  const copy = Math.abs(change) < .05
+    ? `HP unchanged since ${esc(previous[0])}`
+    : `HP ${change > 0 ? 'up' : 'down'} ${Math.abs(change).toFixed(1)}% since ${esc(previous[0])}`;
+  return `<span class="hp-history"><span class="hp-history-copy">${copy}</span>${renderSparkline(history, name)}</span>`;
 };
 const renderSpecialtyFit = specialtyFit => specialtyFit ? `<div class="fit"><span>Suitable specialty</span><strong>${esc(specialtyFit.specialty)}</strong></div>` : '';
 const renderEncounterCard = (encounter, index) => `<article class="card ${encounter.category === 'adversity' ? 'adversity' : ''}">
@@ -54,7 +72,7 @@ const renderEncounterCard = (encounter, index) => `<article class="card ${encoun
   <h3>${esc(encounter.name)}</h3>
   <div class="matchup" aria-label="Matchup summary"><div><span>Weak to</span>${list(encounter.weaknesses)}</div><div><span>Resists</span>${list(encounter.resistances)}</div>${renderSpecialtyFit(encounter.specialtyFit)}</div>
   <div class="mechanic-callout"><span>Fight mechanic${encounter.mechanicReview === 'fallback' ? ' <small class="mechanic-source">· source wording</small>' : ''}</span><p>${renderSegments(encounter.mechanic, encounter.mechanicSegments)}</p></div>
-  <details class="encounter-record mobile-disclosure" open><summary><span>${encounter.hp == null ? 'HP unavailable' : `${encounter.hp.toLocaleString('en-US')}&nbsp;HP`}</span>${renderHistory(encounter.history)}</summary><p class="provenance">Sources: ${sourceLinks(encounter.sourceRefs)} · ${esc(cycle.id)}</p></details>
+  <details class="encounter-record mobile-disclosure" open><summary><span>${encounter.hp == null ? 'HP unavailable' : `${encounter.hp.toLocaleString('en-US')}&nbsp;HP`}</span>${renderHistory(encounter.history, encounter.name)}</summary><p class="provenance">Sources: ${sourceLinks(encounter.sourceRefs)} · ${esc(cycle.id)}</p></details>
 </article>`;
 const trialEncounters = encounters.filter(encounter => encounter.category !== 'adversity');
 const adversityEncounters = encounters.filter(encounter => encounter.category === 'adversity');

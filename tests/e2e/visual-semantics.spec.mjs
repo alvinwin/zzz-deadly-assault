@@ -40,3 +40,17 @@ test('source panel gives compact methodology and exact source disclosures', asyn
   await expect(page.locator('.buff-disclosure summary')).toHaveText(['Exact source wording', 'Exact source wording', 'Exact source wording']);
   await expect(page.locator('.buff-disclosure small a')).toHaveCount(3);
 });
+
+test('desktop card facts and buff brief rows stay aligned across wrapping copy', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.locator('.trial-cards .card h3').first().evaluate(element => { element.textContent = 'Girtablullu: Stagnant Aberrant With A Deliberately Long Third Line'; });
+  await page.locator('.trial-trends .boss-trend h3').first().evaluate(element => { element.textContent = 'Girtablullu: Stagnant Aberrant With A Deliberately Long Third Line'; });
+  const matchupTops = await page.locator('.trial-cards .matchup').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().top));
+  expect(new Set(matchupTops.map(value => value.toFixed(2))).size).toBe(1);
+  const buffRowTops = await page.locator('.buff-card').evaluateAll(cards => cards.map(card => [...card.querySelectorAll('.buff-brief > div')].map(row => row.getBoundingClientRect().top.toFixed(2))));
+  for (let row = 0; row < 3; row += 1) expect(new Set(buffRowTops.map(card => card[row])).size).toBe(1);
+  const trendLeadTops = await page.locator('.trial-trends .boss-trend-lead').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().top.toFixed(2)));
+  expect(new Set(trendLeadTops).size).toBe(1);
+  expect(await page.locator('.trial-cards .card, .buff-card, .buff-brief, .trial-trends .boss-trend').evaluateAll(elements => elements.every(element => getComputedStyle(element).rowGap === '0px'))).toBe(true);
+});

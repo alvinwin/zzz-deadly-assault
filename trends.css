@@ -39,6 +39,10 @@
 .trends-loading, .trends-error { padding: 18px; border-left: 4px solid var(--teal); background: #e2eee8; }
 .trends-error strong, .trends-error span { display: block; }
 
+@media (min-width: 1001px) {
+  .trial-trends .boss-trend { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+}
+
 @media (max-width: 1000px) and (min-width: 761px) {
   .boss-trend-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .trial-trends .boss-trend:last-child { grid-column: 1 / -1; }

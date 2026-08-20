@@ -69,7 +69,8 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .fit strong { font-size: 14px; }
 .none { color: var(--muted); font-size: 12px; }
 .element-list { display: flex; flex-wrap: wrap; gap: 5px; }
-.element-chip { display: inline-flex; min-height: 24px; align-items: center; padding: 0 7px; border: 1px solid currentColor; border-radius: 999px; font-size: 10px; font-weight: 850; }
+.element-chip { display: inline-flex; min-height: 26px; align-items: center; gap: 4px; padding: 0 8px 0 5px; border: 1px solid currentColor; border-radius: 999px; background: color-mix(in srgb, currentColor 9%, transparent); font-size: 10px; font-weight: 850; }
+.element-icon { width: 17px; height: 17px; flex: none; object-fit: contain; }
 .element-ice, .attribute-ice { color: #00647d; }
 .element-fire, .attribute-fire { color: #9b3b22; }
 .element-electric, .attribute-electric { color: #68449c; }
@@ -91,6 +92,9 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .encounter-record > summary { display: flex; min-height: 38px; align-items: center; justify-content: space-between; gap: 14px; list-style: none; cursor: pointer; }
 .encounter-record > summary::-webkit-details-marker { display: none; }
 .encounter-record > summary span:first-child { color: var(--ink); font-weight: 800; }
+.hp-history { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+.hp-sparkline { width: 72px; height: 22px; flex: none; color: var(--teal); overflow: visible; }
+.hp-sparkline polyline { stroke: currentColor; stroke-width: 2; }
 .provenance { margin: 2px 0 14px; color: var(--muted); font-size: 10px; line-height: 1.4; }
 .provenance a, #buff-list a, .trend-source a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
 
@@ -120,6 +124,12 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .buff-disclosure > div { padding: 0 20px 18px; }
 .buff-disclosure p { margin: 0 0 10px; color: var(--muted); font-size: 11px; line-height: 1.5; white-space: pre-line; }
 .buff-disclosure small { font-size: 10px; }
+
+@media (min-width: 1001px) {
+  .trial-cards .card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
+  .buff-card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
+  .buff-brief { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+}
 
 .sources-section { margin-bottom: 58px; border: 1px solid var(--line); background: var(--surface); }
 .sources-section > summary { display: flex; min-height: 62px; align-items: center; padding: 0 20px; cursor: pointer; }

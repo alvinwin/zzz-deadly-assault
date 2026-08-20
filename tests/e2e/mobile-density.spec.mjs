@@ -8,6 +8,7 @@ test('mobile keeps all core content in a readable vertical flow', async ({ page 
   expect(await page.locator('.card').evaluateAll(cards => cards.every(card => card.getClientRects().length > 0))).toBe(true);
   await expect(page.locator('.mechanic-callout')).toHaveCount(4);
   await expect(page.locator('.mechanic-callout p')).toHaveCount(4);
+  await expect(page.locator('.hp-sparkline')).toHaveCount(3);
   await expect(page.locator('.buff-card')).toHaveCount(3);
   await expect(page.locator('.buff-brief dt')).toHaveText([
     'Who benefits', 'Trigger or requirement', 'Payoff',
@@ -15,6 +16,8 @@ test('mobile keeps all core content in a readable vertical flow', async ({ page 
     'Who benefits', 'Trigger or requirement', 'Payoff',
   ]);
   await expect(page.locator('.buff-disclosure:not([open])')).toHaveCount(3);
+  await expect(page.locator('.primary-nav a').first()).toHaveText('Encounters');
+  await expect(page.locator('.primary-nav .compact-label')).toHaveText(['Buffs', 'Observed']);
   await expect(page.locator('.boss-trend')).toHaveCount(4);
   expect(await page.locator('.boss-trend > header').evaluateAll(headers => headers.every(header => header.getClientRects().length > 0))).toBe(true);
 
@@ -29,6 +32,14 @@ test('mobile keeps all core content in a readable vertical flow', async ({ page 
   expect(await page.locator('.primary-nav a, .footer-inner a').evaluateAll(elements =>
     elements.every(element => element.getBoundingClientRect().height >= 44),
   )).toBe(true);
+  const navCenters = await page.locator('.primary-nav a').evaluateAll(elements => elements.map(element => {
+    const box = element.getBoundingClientRect();
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const text = range.getBoundingClientRect();
+    return { boxCenter: box.top + box.height / 2, textCenter: text.top + text.height / 2 };
+  }));
+  expect(navCenters.every(({ boxCenter, textCenter }) => Math.abs(boxCenter - textCenter) < 1.5)).toBe(true);
   expect(await page.locator('.site-header').evaluate(element => getComputedStyle(element).position)).toBe('sticky');
 
   for (const selector of ['.trial-cards', '.trial-trends .boss-trend-grid']) {

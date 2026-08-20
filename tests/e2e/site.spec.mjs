@@ -61,7 +61,15 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.locator('.encounter-record')).toHaveCount(4);
   await expect(page.locator('.card').first()).toContainText('HP unchanged since 3.1.1');
   await expect(page.locator('.card').nth(3)).toContainText('No earlier HP value in this record');
+  await expect(page.locator('.hp-sparkline')).toHaveCount(3);
+  await expect(page.locator('.hp-sparkline').first()).toHaveAttribute('aria-label', /HP history for Girtablullu.*3\.1\.1 HP.*3\.1\.2 HP/);
+  expect(await page.locator('.hp-sparkline polyline').evaluateAll(lines => lines.every(line => line.getAttribute('points')?.split(' ').length >= 2))).toBe(true);
   await expect(page.locator('.card').nth(1).locator('.element-chip')).toHaveText(['Ice', 'Physical', 'Wind', 'Electric']);
+  await expect(page.locator('.element-chip .element-icon')).toHaveCount(8);
+  expect(await page.locator('.element-chip').evaluateAll(chips => chips.every(chip => {
+    const icon = chip.querySelector('.element-icon');
+    return icon?.getAttribute('aria-hidden') === 'true' && icon.getAttribute('alt') === '';
+  }))).toBe(true);
   await expect(page.locator('.provenance').first().locator('a')).toHaveCount(3);
   await expect(page.locator('.provenance a').first()).toHaveAttribute('href', /620a7546b4d2934c58d55cdf7a435056576bb1fc/);
   await expect(page.locator('.buff-card')).toHaveCount(3);
