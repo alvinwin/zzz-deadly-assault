@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { isCanonicalReviewedBuff } from './reviewed-buff-briefs.mjs';
+import { strictIsoTimestamp } from '../cycle-status.mjs';
 
-const isIso = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
+const isIso = value => strictIsoTimestamp(value) !== null;
 const isPlaceholder = value => value == null || (typeof value === 'string' && /pending|tbd|placeholder|example\.invalid/i.test(value));
 const textAnnotationKinds = new Set(['quantity', 'attribute', 'specialty', 'mechanic', 'effect-term']);
 const specialties = new Set(['Attack', 'Stun', 'Anomaly', 'Support', 'Defense', 'Rupture']);

@@ -1,3 +1,5 @@
+import { formatCycleRemaining } from './cycle-status.mjs';
+
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const elementNames = { ice: 'Ice', fire: 'Fire', electric: 'Electric', ether: 'Ether', physical: 'Physical', wind: 'Wind' };
 const elementIcons = Object.fromEntries(Object.keys(elementNames).map(name => [name, `https://cdn.prydwen.gg/images/zenless-zone-zero/icons/ele_${name}.webp`]));
@@ -48,8 +50,14 @@ const formatCycleDate = value => { const date = new Date(value); return `${Strin
 const formatCheckedDate = value => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'short', day: 'numeric' }).format(new Date(value));
 
 document.querySelector('#status').innerHTML = cycle.publishable
-  ? `<span>${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}</span><span class="verified">Verified ${formatCheckedDate(cycle.checkedAt)}</span>`
+  ? `<span>${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}</span><span class="verified">Verified ${formatCheckedDate(cycle.checkedAt)}</span><span class="remaining" aria-label="Time remaining in current phase" aria-live="off"></span>`
   : '<strong>Fixture — do not publish</strong><span>Current values still need verification</span>';
+const remainingStatus = document.querySelector('#status .remaining');
+const updateRemainingStatus = () => {
+  if (remainingStatus) remainingStatus.textContent = formatCycleRemaining(cycle.endsAt);
+};
+updateRemainingStatus();
+if (remainingStatus) setInterval(updateRemainingStatus, 60000);
 
 const renderSparkline = (history, name) => {
   const values = history.map(point => point[1]);

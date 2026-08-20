@@ -11,7 +11,8 @@ const formatCheckedDate = value => new Intl.DateTimeFormat('en-US', { timeZone: 
 
 const expectFreshnessStatus = async page => {
   const { cycle } = await (await page.request.get('/data/current.json')).json();
-  await expect(page.locator('#status')).toHaveText(`${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}Verified ${formatCheckedDate(cycle.checkedAt)}`);
+  await expect(page.locator('#status')).toContainText(`${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}Verified ${formatCheckedDate(cycle.checkedAt)}`);
+  await expect(page.locator('#status .remaining')).toHaveText(/(?:\d+d \d+h|\d+h(?: \d+m)?|\d+m) remaining|Refresh pending/);
   await expect(page.locator('.status-note')).toHaveText('This page checks for a new phase when the current one ends.');
   await expect(page.locator('#status .verified')).toBeVisible();
 };
@@ -37,12 +38,18 @@ test('built deployment has deterministic cache-coherent asset references', async
   const css = fs.readFileSync('dist/styles.css', 'utf8');
   const app = fs.readFileSync('dist/app.js', 'utf8');
   const data = fs.readFileSync('dist/data/current.json', 'utf8');
+  const cycleStatus = JSON.parse(fs.readFileSync('dist/data/cycle-status.json', 'utf8'));
   expect(stylesMatch[0]).toContain(contentHash(css));
   expect(appMatch[0]).toContain(contentHash(app));
   const dataMatch = app.match(/fetch\('data\/current\.json\?v=([0-9a-f]{12})'\)/g);
   expect(dataMatch).toHaveLength(1);
   expect(dataMatch[0]).toContain(contentHash(data));
+  const cycleModuleMatch = app.match(/\.\/cycle-status\.([0-9a-f]{12})\.mjs/);
+  expect(cycleModuleMatch).not.toBeNull();
+  expect(cycleModuleMatch[1]).toBe(contentHash(fs.readFileSync(`dist/cycle-status.${cycleModuleMatch[1]}.mjs`, 'utf8')));
   expect(JSON.parse(data).cycle.checkedAt).toBe(JSON.parse(fs.readFileSync('data/current.json', 'utf8')).cycle.checkedAt);
+  const { startsAt, endsAt, checkedAt } = JSON.parse(data).cycle;
+  expect(cycleStatus).toEqual({ schemaVersion: 1, mode: 'deadly-assault', status: 'current', startsAt, endsAt, checkedAt });
   await page.goto('/');
   await expectFreshnessStatus(page);
 });

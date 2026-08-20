@@ -38,6 +38,12 @@ replaces `data/current.json`.
 The command fails on a network error, an upstream schema error, a missing ID, or
 an unavailable current cycle.
 
+The build derives `dist/data/cycle-status.json` from the validated current cycle.
+It is a schema-versioned status record containing the UTC phase boundaries and
+verification timestamp; do not hand-edit it. The page keeps the static phase
+dates and verification date visible, with a minute-refreshed remaining-time
+status that changes to `Refresh pending` at the cycle boundary.
+
 ## local checks
 
 Run these commands in this order:

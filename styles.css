@@ -47,6 +47,7 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .ticker-inner > strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .status { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 12px; }
 .status .verified { color: var(--status); font-weight: 850; }
+.status .remaining { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
 
 .section { padding-block: 68px; }
 .section-head { max-width: 720px; margin-bottom: 25px; }
@@ -130,6 +131,11 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
   .trial-cards .card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
   .buff-card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
   .buff-brief { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+}
+
+@media (max-width: 760px) {
+  .ticker-inner { flex-direction: column; align-items: flex-start; gap: 5px; padding: 9px 0; }
+  .status { width: 100%; justify-content: space-between; gap: 8px 12px; }
 }
 
 .sources-section { margin-bottom: 58px; border: 1px solid var(--line); background: var(--surface); }
