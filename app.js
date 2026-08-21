@@ -56,7 +56,7 @@ q('#status').innerHTML = cycle.publishable
 const t = q('.remaining');
 const updateRemainingStatus = () => {
   const n = Date.now(), live = iso(cycle.endsAt) > n;
-  q('.ticker-heading strong').hidden = !live;
+  q('.ticker-heading strong').hidden = q('.status-note').hidden = !live;
   if (t) t.textContent = formatCycleRemaining(cycle.endsAt, n);
 };
 updateRemainingStatus();

@@ -54,7 +54,7 @@ test('built deployment has deterministic cache-coherent asset references', async
   await expectFreshnessStatus(page);
 });
 
-test('shows the current-phase label only while the phase is active', async ({ page }) => {
+test('shows existing active-state copy only while the phase is active', async ({ page }) => {
   const fixture = compactPayload(await (await page.request.get('/data/current.json')).json());
   const now = Date.now();
   fixture.cycle.startsAt = new Date(now - 3_600_000).toISOString();
@@ -64,6 +64,7 @@ test('shows the current-phase label only while the phase is active', async ({ pa
   await page.goto('/');
   await expect(page.locator('.ticker-heading strong')).toBeVisible();
   await expect(page.locator('.ticker-heading strong')).toHaveText('Current phase');
+  await expect(page.locator('.status-note')).toBeVisible();
   await expect(page.locator('#status .remaining')).toHaveText(/remaining/);
 
   fixture.cycle.startsAt = new Date(now - 7_200_000).toISOString();
@@ -74,6 +75,8 @@ test('shows the current-phase label only while the phase is active', async ({ pa
   await expect(expiredPage.locator('#status .remaining')).toHaveText('Refresh pending');
   await expect(expiredPage.locator('.ticker-heading strong')).toBeHidden();
   await expect(expiredPage.locator('.ticker-heading strong')).toHaveText('Current phase');
+  await expect(expiredPage.locator('.status-note')).toBeHidden();
+  await expect(expiredPage.locator('.status-note')).toHaveText('This page checks for a new phase when the current one ends.');
   await expect(expiredPage.locator('#status .verified')).toBeVisible();
   await expect(expiredPage.locator('#status > span')).toHaveCount(3);
 });
