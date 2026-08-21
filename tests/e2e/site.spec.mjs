@@ -54,6 +54,30 @@ test('built deployment has deterministic cache-coherent asset references', async
   await expectFreshnessStatus(page);
 });
 
+test('shows the current-phase label only while the phase is active', async ({ page }) => {
+  const fixture = compactPayload(await (await page.request.get('/data/current.json')).json());
+  const now = Date.now();
+  fixture.cycle.startsAt = new Date(now - 3_600_000).toISOString();
+  fixture.cycle.endsAt = new Date(now + 3_600_000).toISOString();
+  await page.route('**/data/current.json*', route => route.fulfill({ contentType: 'application/json', body: JSON.stringify(fixture) }));
+
+  await page.goto('/');
+  await expect(page.locator('.ticker-heading strong')).toBeVisible();
+  await expect(page.locator('.ticker-heading strong')).toHaveText('Current phase');
+  await expect(page.locator('#status .remaining')).toHaveText(/remaining/);
+
+  fixture.cycle.startsAt = new Date(now - 7_200_000).toISOString();
+  fixture.cycle.endsAt = new Date(now - 3_600_000).toISOString();
+  const expiredPage = await page.context().newPage();
+  await expiredPage.route('**/data/current.json*', route => route.fulfill({ contentType: 'application/json', body: JSON.stringify(fixture) }));
+  await expiredPage.goto('/');
+  await expect(expiredPage.locator('#status .remaining')).toHaveText('Refresh pending');
+  await expect(expiredPage.locator('.ticker-heading strong')).toBeHidden();
+  await expect(expiredPage.locator('.ticker-heading strong')).toHaveText('Current phase');
+  await expect(expiredPage.locator('#status .verified')).toBeVisible();
+  await expect(expiredPage.locator('#status > span')).toHaveCount(3);
+});
+
 test('desktop presents player-first matchup, mechanics, selectable buffs, and provenance', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');

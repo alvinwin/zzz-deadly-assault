@@ -1,5 +1,6 @@
-import { formatCycleRemaining } from './cycle-status.mjs';
+import { formatCycleRemaining, strictIsoTimestamp as iso } from './cycle-status.mjs';
 
+const q = s => document.querySelector(s);
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const elementNames = { ice: 'Ice', fire: 'Fire', electric: 'Electric', ether: 'Ether', physical: 'Physical', wind: 'Wind' };
 const elementIcons = Object.fromEntries(Object.keys(elementNames).map(name => [name, `https://cdn.prydwen.gg/images/zenless-zone-zero/icons/ele_${name}.webp`]));
@@ -49,15 +50,17 @@ const buffSourceRefs = cycle.provenance?.buffs || ['buff'];
 const formatCycleDate = value => { const date = new Date(value); return `${String(date.getUTCMonth() + 1).padStart(2, '0')}/${String(date.getUTCDate()).padStart(2, '0')}`; };
 const formatCheckedDate = value => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'short', day: 'numeric' }).format(new Date(value));
 
-document.querySelector('#status').innerHTML = cycle.publishable
+q('#status').innerHTML = cycle.publishable
   ? `<span>${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}</span><span class="verified">Verified ${formatCheckedDate(cycle.checkedAt)}</span><span class="remaining" aria-label="Time remaining in current phase" aria-live="off"></span>`
   : '<strong>Fixture — do not publish</strong><span>Current values still need verification</span>';
-const remainingStatus = document.querySelector('#status .remaining');
+const t = q('.remaining');
 const updateRemainingStatus = () => {
-  if (remainingStatus) remainingStatus.textContent = formatCycleRemaining(cycle.endsAt);
+  const n = Date.now(), live = iso(cycle.endsAt) > n;
+  q('.ticker-heading strong').hidden = !live;
+  if (t) t.textContent = formatCycleRemaining(cycle.endsAt, n);
 };
 updateRemainingStatus();
-if (remainingStatus) setInterval(updateRemainingStatus, 60000);
+if (t) setInterval(updateRemainingStatus, 6e4);
 
 const renderSparkline = (history, name) => {
   const values = history.map(point => point[1]);
@@ -91,9 +94,9 @@ const renderEncounterCard = (encounter, index) => `<article class="card ${encoun
 </article>`;
 const trialEncounters = encounters.filter(encounter => encounter.category !== 'adversity');
 const adversityEncounters = encounters.filter(encounter => encounter.category === 'adversity');
-document.querySelector('#cards').innerHTML = `<section class="trial-group" aria-labelledby="trial-group-title"><div class="encounter-group-heading"><strong id="trial-group-title">Trial Mode</strong><span>3 encounters</span></div><div class="trial-cards">${trialEncounters.map((encounter, index) => renderEncounterCard(encounter, index)).join('')}</div></section>${adversityEncounters.length ? `<section class="adversity-group" aria-labelledby="adversity-group-title"><div class="encounter-group-heading"><strong id="adversity-group-title">Adversity Mode</strong><span>1 encounter</span></div>${adversityEncounters.map((encounter, index) => renderEncounterCard(encounter, trialEncounters.length + index)).join('')}</section>` : ''}`;
+q('#cards').innerHTML = `<section class="trial-group" aria-labelledby="trial-group-title"><div class="encounter-group-heading"><strong id="trial-group-title">Trial Mode</strong><span>3 encounters</span></div><div class="trial-cards">${trialEncounters.map((encounter, index) => renderEncounterCard(encounter, index)).join('')}</div></section>${adversityEncounters.length ? `<section class="adversity-group" aria-labelledby="adversity-group-title"><div class="encounter-group-heading"><strong id="adversity-group-title">Adversity Mode</strong><span>1 encounter</span></div>${adversityEncounters.map((encounter, index) => renderEncounterCard(encounter, trialEncounters.length + index)).join('')}</section>` : ''}`;
 
-document.querySelector('#buff-list').innerHTML = data.buffs.map(buff => {
+q('#buff-list').innerHTML = data.buffs.map(buff => {
   const brief = buff.brief;
   return `<article class="buff-card"><header><span>Buff option</span><h3>${esc(buff.name)}</h3></header><dl class="buff-brief"><div><dt>Who benefits</dt><dd>${esc(brief.who)}</dd></div><div><dt>Trigger or requirement</dt><dd>${esc(brief.trigger)}</dd></div><div><dt>Payoff</dt><dd>${esc(brief.payoff)}</dd></div></dl><details class="buff-disclosure mobile-disclosure" open><summary>Exact source wording</summary><div><p>${renderSegments(buff.description, buff.segments)}</p><small>${sourceLinks(buffSourceRefs)}</small></div></details></article>`;
 }).join('');
@@ -114,7 +117,7 @@ const renderBossTrend = (boss, index) => {
 };
 const encounterCategoryByName = new Map(encounters.map(encounter => [encounter.name, encounter.category]));
 const renderTrendGroup = (title, bosses, className, startIndex = 0) => `<section class="trend-mode-group ${className}" aria-labelledby="${className}-title"><div class="trend-mode-heading"><strong id="${className}-title">${title}</strong><span>${bosses.length} ${bosses.length === 1 ? 'encounter' : 'encounters'}</span></div><div class="boss-trend-grid">${bosses.map((boss, index) => renderBossTrend(boss, startIndex + index)).join('')}</div></section>`;
-const trendsContainer = document.querySelector('#boss-trends-content');
+const trendsContainer = q('#boss-trends-content');
 fetch('data/da-boss-character-trends.json').then(response => { if (!response.ok) throw new Error(`trend request failed: ${response.status}`); return response.json(); }).then(expandTrends).then(trends => {
   const bosses = trends.bosses || [];
   if (!bosses.length) throw new Error('no verified boss records');
