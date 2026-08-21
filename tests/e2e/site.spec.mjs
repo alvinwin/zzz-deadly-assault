@@ -60,6 +60,13 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.getByRole('heading', { level: 1, name: 'Threat intelligence' })).toBeVisible();
   await expect(page.locator('.masthead')).toHaveCSS('min-height', '70px');
   await expect(page.locator('.hero')).toHaveCSS('min-height', '430px');
+  await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-size', '12px');
+  await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-weight', '800');
+  await expect(page.locator('.ticker-inner')).toHaveCSS('min-height', '55px');
+  await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-size', '11px');
+  await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-weight', '800');
+  await expect(page.locator('#status')).toHaveCSS('font-size', '11px');
+  await expect(page.locator('#status')).toHaveCSS('justify-content', 'flex-end');
   await expect(page.locator('.card')).toHaveCount(4);
   await expect(page.locator('.matchup')).toHaveCount(4);
   await expect(page.locator('.fit strong')).toHaveText(['Anomaly', 'Stun', 'Rupture']);
@@ -126,6 +133,12 @@ test('mobile uses a full vertical card flow with no page overflow', async ({ pag
   const tickerHeight = await page.locator('.ticker-inner').evaluate(element => element.getBoundingClientRect().height);
   expect(tickerHeight).toBeGreaterThanOrEqual(54);
   expect(tickerHeight).toBeLessThanOrEqual(56);
+  const tickerAlignment = await page.locator('.ticker-inner').evaluate(element => {
+    const heading = element.querySelector('.ticker-heading').getBoundingClientRect();
+    const status = element.querySelector('.status').getBoundingClientRect();
+    return { headingTop: heading.top, statusTop: status.top };
+  });
+  expect(Math.abs(tickerAlignment.headingTop - tickerAlignment.statusTop)).toBeLessThan(16);
   await expect(page.locator('.card')).toHaveCount(4);
   const geometry = await page.locator('.trial-cards').evaluate(grid => ({ scrollWidth: grid.scrollWidth, clientWidth: grid.clientWidth, widths: [...grid.children].map(card => card.getBoundingClientRect().width), tops: [...grid.children].map(card => card.getBoundingClientRect().top) }));
   expect(geometry.scrollWidth).toBe(geometry.clientWidth);

@@ -11,7 +11,7 @@
   --shell: min(1180px, calc(100% - 48px));
   color: var(--ink);
   background: var(--paper);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -36,17 +36,18 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .hero-art { position: absolute; z-index: -2; inset: 0; background: url("https://sixthstreet.wiki/assets/hero.webp") 62% 61% / cover no-repeat; }
 .hero::after { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(90deg, rgba(255,249,235,.98) 0%, rgba(255,249,235,.94) 34%, rgba(255,248,232,.73) 48%, rgba(255,245,225,.18) 72%, rgba(255,245,225,.02) 100%); }
 .hero-content { display: flex; min-height: 430px; flex-direction: column; align-items: flex-start; justify-content: center; padding: 54px 0 50px; }
-.eyebrow { margin: 0 0 10px; color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: .14em; line-height: 1.2; text-transform: uppercase; }
+.eyebrow { margin: 0 0 12px; color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }
 .hero h1, h2, h3, p { margin-top: 0; }
 .hero h1 { max-width: 690px; margin-bottom: 18px; font-size: clamp(42px, 5vw, 70px); font-weight: 800; letter-spacing: -.07em; line-height: .94; }
 .hero-copy { max-width: 565px; margin-bottom: 22px; color: #34404a; font-size: 18px; font-weight: 520; line-height: 1.52; }
 .mode-link { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 16px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 760; }
 
-.resource-ticker { border-bottom: 1px solid #c8d9d1; background: #e2eee8; }
-.ticker-inner { display: flex; min-height: 55px; align-items: center; justify-content: space-between; gap: 20px; }
-.ticker-inner > strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
-.status { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 12px; }
-.status .verified { color: var(--status); font-weight: 850; }
+.resource-ticker { background: #e2eee8; color: #25252a; }
+.ticker-inner { display: flex; min-height: 55px; align-items: center; gap: 24px; }
+.ticker-heading { display: inline-flex; flex: 0 0 auto; align-items: center; }
+.ticker-heading strong { font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.status { display: flex; min-height: 44px; flex: 1; align-items: center; justify-content: flex-end; gap: 14px; margin: 0; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; font-weight: 700; }
+.status .verified { color: var(--status); font-weight: 800; }
 .status .remaining { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
 
 .section { padding-block: 68px; }
@@ -134,8 +135,8 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 }
 
 @media (max-width: 760px) {
-  .ticker-inner { flex-direction: column; align-items: flex-start; gap: 5px; padding: 9px 0; }
-  .status { width: 100%; justify-content: space-between; gap: 8px 12px; }
+  .ticker-inner { gap: 8px; }
+  .status { gap: 8px; }
 }
 
 .sources-section { margin-bottom: 58px; border: 1px solid var(--line); background: var(--surface); }
