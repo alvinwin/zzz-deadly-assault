@@ -13,7 +13,7 @@ const expectFreshnessStatus = async page => {
   const { cycle } = await (await page.request.get('/data/current.json')).json();
   await expect(page.locator('#status')).toContainText(`${formatCycleDate(cycle.startsAt)}–${formatCycleDate(cycle.endsAt)}Verified ${formatCheckedDate(cycle.checkedAt)}`);
   await expect(page.locator('#status .remaining')).toHaveText(/(?:\d+d \d+h|\d+h(?: \d+m)?|\d+m) remaining|Refresh pending/);
-  await expect(page.locator('.status-note')).toHaveText('This page checks for a new phase when the current one ends.');
+  await expect(page.locator('.status-note')).toHaveText('When this phase ends, the page checks for the next verified phase.');
   await expect(page.locator('#status .verified')).toBeVisible();
 };
 
@@ -76,7 +76,7 @@ test('shows existing active-state copy only while the phase is active', async ({
   await expect(expiredPage.locator('.ticker-heading strong')).toBeHidden();
   await expect(expiredPage.locator('.ticker-heading strong')).toHaveText('Current phase');
   await expect(expiredPage.locator('.status-note')).toBeHidden();
-  await expect(expiredPage.locator('.status-note')).toHaveText('This page checks for a new phase when the current one ends.');
+  await expect(expiredPage.locator('.status-note')).toHaveText('When this phase ends, the page checks for the next verified phase.');
   await expect(expiredPage.locator('#status .verified')).toBeVisible();
   await expect(expiredPage.locator('#status > span')).toHaveCount(3);
 });
@@ -85,6 +85,8 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Threat intelligence' })).toBeVisible();
+  await expect(page.locator('.hero-copy')).toHaveText('Weaknesses, resistances, selectable buffs, and fight mechanics for this phase.');
+  await expect(page.getByRole('heading', { level: 2, name: 'Boss dossiers' })).toBeVisible();
   await expect(page.locator('.masthead')).toHaveCSS('min-height', '70px');
   await expect(page.locator('.hero')).toHaveCSS('min-height', '430px');
   await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-size', '12px');
