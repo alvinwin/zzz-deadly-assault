@@ -16,7 +16,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-size: 16px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.5; }
 a { color: inherit; text-decoration: none; }
 a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
 .shell { width: var(--shell); margin-inline: auto; }
@@ -48,13 +48,13 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .ticker-heading strong { font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .status { display: flex; min-height: 44px; flex: 1; align-items: center; justify-content: flex-end; gap: 14px; margin: 0; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; font-weight: 700; }
 .status .verified { color: var(--status); font-weight: 800; }
-.status .remaining { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
+.status .remaining { color: var(--muted); font-weight: 700; }
 
 .section { padding-block: 68px; }
 .section-head { max-width: 720px; margin-bottom: 25px; }
-.section-head h2, .trends-heading h2 { margin: 0 0 10px; font-size: clamp(34px, 4vw, 48px); font-weight: 850; letter-spacing: -.06em; line-height: 1; }
-.section-copy { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
-.status-note { margin: -12px 0 26px; color: var(--muted); font-size: 12px; }
+.section-head h2, .trends-heading h2 { margin: 0 0 10px; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -.065em; line-height: .98; }
+.section-copy { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+.status-note { margin: -12px 0 26px; color: var(--muted); font-size: 13px; }
 
 .cards { display: block; }
 .encounter-group-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 12px; padding-bottom: 9px; border-bottom: 1px solid var(--ink); }

@@ -31,8 +31,8 @@
   .status { gap: 8px; font-size: 10px; }
   .section { padding-block: 46px; }
   .section-head { margin-bottom: 20px; }
-  .section-head h2, .trends-heading h2 { font-size: 34px; }
-  .section-copy { font-size: 13px; }
+  .section-head h2, .trends-heading h2 { font-size: 32px; }
+  .section-copy { font-size: .9rem; }
   .status-note { margin-bottom: 20px; }
   .trial-cards { grid-template-columns: 1fr; gap: 12px; }
   .encounter-group-heading { margin-bottom: 10px; }

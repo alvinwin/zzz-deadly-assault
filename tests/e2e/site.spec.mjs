@@ -89,8 +89,14 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.getByRole('heading', { level: 2, name: 'Boss dossiers' })).toBeVisible();
   await expect(page.locator('.masthead')).toHaveCSS('min-height', '70px');
   await expect(page.locator('.hero')).toHaveCSS('min-height', '430px');
+  await expect(page.locator('body')).toHaveCSS('line-height', '24px');
   await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-size', '12px');
   await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-weight', '800');
+  await expect(page.locator('.hero h1')).toHaveCSS('font-size', '70px');
+  await expect(page.locator('#encounters-title')).toHaveCSS('font-size', '48px');
+  await expect(page.locator('#encounters-title')).toHaveCSS('font-weight', '800');
+  await expect(page.locator('.brief-section .section-copy')).toHaveCSS('font-size', '14.4px');
+  await expect(page.locator('.brief-section .status-note')).toHaveCSS('font-size', '13px');
   await expect(page.locator('.ticker-inner')).toHaveCSS('min-height', '55px');
   await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-size', '11px');
   await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-weight', '800');
@@ -159,6 +165,8 @@ test('mobile uses a full vertical card flow with no page overflow', async ({ pag
   expect(mastheadHeight).toBeGreaterThanOrEqual(106);
   expect(mastheadHeight).toBeLessThanOrEqual(108);
   await expect(page.locator('.hero')).toHaveCSS('min-height', '420px');
+  await expect(page.locator('#encounters-title')).toHaveCSS('font-size', '32px');
+  await expect(page.locator('.brief-section .section-copy')).toHaveCSS('font-size', '14.4px');
   const tickerHeight = await page.locator('.ticker-inner').evaluate(element => element.getBoundingClientRect().height);
   expect(tickerHeight).toBeGreaterThanOrEqual(54);
   expect(tickerHeight).toBeLessThanOrEqual(56);
