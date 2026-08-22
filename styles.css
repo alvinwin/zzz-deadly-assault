@@ -39,7 +39,7 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .eyebrow { margin: 0 0 12px; color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }
 .hero h1, h2, h3, p { margin-top: 0; }
 .hero h1 { max-width: 690px; margin-bottom: 18px; font-size: clamp(42px, 5vw, 70px); font-weight: 800; letter-spacing: -.07em; line-height: .94; }
-.hero-copy { max-width: 565px; margin-bottom: 22px; color: #34404a; font-size: 18px; font-weight: 520; line-height: 1.52; }
+.hero-copy { max-width: 565px; min-height: 3.04em; margin-bottom: 22px; color: #34404a; font-size: 18px; font-weight: 520; line-height: 1.52; }
 .mode-link { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 16px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 760; }
 
 .resource-ticker { background: #e2eee8; color: #25252a; }
@@ -48,9 +48,8 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--teal); outline
 .ticker-heading strong { font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .status { display: flex; min-height: 44px; flex: 1; align-items: center; justify-content: flex-end; gap: 14px; margin: 0; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; font-weight: 700; }
 .status .verified { color: var(--status); font-weight: 800; }
-.status .remaining { color: var(--muted); font-weight: 700; }
 
-.section { padding-block: 68px; }
+.section { padding-block: 58px 68px; }
 .section-head { max-width: 720px; margin-bottom: 25px; }
 .section-head h2, .trends-heading h2 { margin: 0 0 10px; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -.065em; line-height: .98; }
 .section-copy { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }

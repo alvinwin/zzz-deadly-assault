@@ -88,6 +88,7 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.locator('.hero-copy')).toHaveText('Weaknesses, resistances, selectable buffs, and fight mechanics for this phase.');
   await expect(page.getByRole('heading', { level: 2, name: 'Boss dossiers' })).toBeVisible();
   await expect(page.locator('.masthead')).toHaveCSS('min-height', '70px');
+  await expect(page.locator('.site-header > .hero')).toBeVisible();
   await expect(page.locator('.hero')).toHaveCSS('min-height', '430px');
   await expect(page.locator('body')).toHaveCSS('line-height', '24px');
   await expect(page.locator('.hero .eyebrow')).toHaveCSS('font-size', '12px');
@@ -97,6 +98,14 @@ test('desktop presents player-first matchup, mechanics, selectable buffs, and pr
   await expect(page.locator('#encounters-title')).toHaveCSS('font-weight', '800');
   await expect(page.locator('.brief-section .section-copy')).toHaveCSS('font-size', '14.4px');
   await expect(page.locator('.brief-section .status-note')).toHaveCSS('font-size', '13px');
+  const sharedShellGeometry = await page.evaluate(() => ({
+    heroY: document.querySelector('.hero').getBoundingClientRect().y,
+    heroCopyHeight: document.querySelector('.hero-copy').getBoundingClientRect().height,
+    firstEyebrowY: document.querySelector('.brief-section .eyebrow').getBoundingClientRect().y,
+  }));
+  expect(sharedShellGeometry.heroY).toBe(70);
+  expect(sharedShellGeometry.heroCopyHeight).toBeCloseTo(54.72, 1);
+  expect(sharedShellGeometry.firstEyebrowY).toBe(614);
   await expect(page.locator('.ticker-inner')).toHaveCSS('min-height', '55px');
   await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-size', '11px');
   await expect(page.locator('.ticker-heading strong')).toHaveCSS('font-weight', '800');
